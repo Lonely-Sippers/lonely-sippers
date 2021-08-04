@@ -6,7 +6,10 @@ import Home from './home/Home';
 
 const Navbar = ({ handleClick, isLoggedIn }) => (
   <div className="nav border">
-    <h1>Lonely Sippers</h1>
+    <h1>
+      <img src="https://i.imgur.com/j4OjNS1.png" alt="" width="40rem"></img>
+      Lonely Sippers
+    </h1>
     <nav>
       {isLoggedIn ? (
         <div>
