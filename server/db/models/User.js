@@ -2,13 +2,17 @@ const Sequelize = require('sequelize');
 const db = require('../db');
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt');
-const axios = require('axios');
-const { STRING, INTEGER, DATE } = Sequelize; //double check UUID formatting. wasn't working and was throwing errors
+// const axios = require('axios');
+const { STRING, INTEGER, UUID, UUIDV4 } = Sequelize;
 
 const SALT_ROUNDS = 5;
 
 const User = db.define('user', {
-  //ID
+  id: {
+    type: UUID,
+    primaryKey: true, 
+    defaultValue: UUIDV4
+  },
   username: {
     type: STRING,
     unique: true,
@@ -16,6 +20,7 @@ const User = db.define('user', {
   },
   password: {
     type: STRING,
+    allowNull: false
   },
   cartId: {
     type: INTEGER,
@@ -25,6 +30,7 @@ const User = db.define('user', {
   email: {
     type: STRING,
     unique: true,
+    allowNull: false,
     validate: {
       isEmail: true,
     },
@@ -39,7 +45,6 @@ const User = db.define('user', {
     //needs Order model
     type: INTEGER,
   },
-  //I don't think we need a createdAt field. Sequelize does that for us automatically
 });
 
 module.exports = User;
@@ -72,20 +77,20 @@ User.authenticate = async function ({ username, password }) {
   return user.generateToken();
 };
 
-User.findByToken = async function (token) {
-  try {
-    const { id } = await jwt.verify(token, process.env.JWT);
-    const user = User.findByPk(id);
-    if (!user) {
-      throw 'nooo';
-    }
-    return user;
-  } catch (ex) {
-    const error = Error('bad token');
-    error.status = 401;
-    throw error;
-  }
-};
+// User.findByToken = async function (token) {
+//   try {
+//     const { id } = await jwt.verify(token, process.env.JWT);
+//     const user = User.findByPk(id);
+//     if (!user) {
+//       throw 'nooo';
+//     }
+//     return user;
+//   } catch (ex) {
+//     const error = Error('bad token');
+//     error.status = 401;
+//     throw error;
+//   }
+// };
 
 /**
  * hooks
