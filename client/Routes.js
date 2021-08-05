@@ -7,6 +7,7 @@ import Advertisement from './components/home/Advertisement';
 import { me } from './store';
 import Cart from './components/home/Cart';
 import ShoppingWindow from './components/home/ShoppingWindow';
+import { getProducts } from '../client/store/products';
 
 /**
  * COMPONENT
@@ -14,6 +15,7 @@ import ShoppingWindow from './components/home/ShoppingWindow';
 class Routes extends Component {
   componentDidMount() {
     this.props.loadInitialData();
+    this.props.getProducts();
   }
 
   render() {
@@ -61,6 +63,7 @@ const mapDispatch = (dispatch) => {
     loadInitialData() {
       dispatch(me());
     },
+    getProducts: () => dispatch(getProducts()),
   };
 };
 
