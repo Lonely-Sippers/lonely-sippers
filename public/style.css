@@ -9,6 +9,7 @@
   display: flex;
   justify-content: space-around;
   align-items: center;
+  background-color: rgba(108, 169, 233, 0.2);
 }
 
 .margin {
@@ -36,6 +37,11 @@
   height: auto;
   padding: 1rem;
   justify-content: space-around;
+  background-color: rgba(108, 169, 233, 0.2);
+}
+
+.backgroundWhite {
+  background-color: white;
 }
 
 .maxHeight {
@@ -51,14 +57,14 @@
 }
 
 .detail {
-  width: 40%;
+  width: 45%;
   height: 40vh;
 }
 
-/* .list {
-  width: 40%;
-} */
-
+.card {
+  box-shadow: 2px 2px 2px 1px rgba(0, 0, 0, 0.3);
+  background-color: rgba(108, 169, 233, 0.2);
+}
 #advert {
   text-align: center;
   height: 150px;

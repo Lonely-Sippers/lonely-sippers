@@ -6,13 +6,13 @@ import { Scrollbars } from 'react-custom-scrollbars';
 const ShoppingWindow = ({ products }) => {
   console.log(products);
   return (
-    <div className="border padding twoThird maxHeight">
+    <div className="border padding twoThird maxHeight backgroundWhite">
       <h1>shop</h1>
       <hr></hr>
       <div className="flex">
-        <Scrollbars style={{ height: '40vh', width: '50%', marginTop: '1rem' }}>
+        <Scrollbars style={{ height: '40vh', width: '50%', margin: '1rem' }}>
           {products.map((product) => (
-            <div className="border margin padding" key={product.id}>
+            <div className="card border margin padding" key={product.id}>
               <h3>{product.category}</h3>
               <h4>
                 {product.type} from {product.region}: ${product.price}
