@@ -64,11 +64,20 @@ body {
 .detail {
   width: 45%;
   height: 40vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.bottle {
+  width: 60%;
+  align-items: center;
 }
 
 .card {
   box-shadow: 2px 2px 2px 1px rgba(0, 0, 0, 0.3);
   background: linear-gradient(to bottom, white 0%, rgba(108, 169, 233, 0.2));
+  text-decoration: none;
+  color: black;
 }
 #advert {
   text-align: center;

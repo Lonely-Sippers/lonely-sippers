@@ -27,6 +27,11 @@ const Product = db.define('product', {
   year: {
     type: INTEGER,
   },
+  image_URL: {
+    type: STRING,
+    defaultValue:
+      'https://glassbottlesmanufacturer.com/wp-content/uploads/2017/10/clear-liquor-bottles.jpg',
+  },
 });
 
 module.exports = Product;

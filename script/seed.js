@@ -30,11 +30,21 @@ async function seed() {
     }),
   ]);
 
-  const liquorTypes = ['brandy', 'gin', 'rum', 'tequila', 'vodka', 'whiskey'];
+  const liquorTypes = ['Brandy', 'Gin', 'Rum', 'Tequila', 'Vodka', 'Whiskey'];
+  const bottleImages = [
+    'https://glassbottlesmanufacturer.com/wp-content/uploads/2017/10/clear-liquor-bottles.jpg',
+    'https://glassbottlesmanufacturer.com/wp-content/uploads/2017/09/round-shape-glass-bottles-for-alcohol.jpg',
+    'https://glassbottlesmanufacturer.com/wp-content/uploads/2017/08/custom-glass-bottles-500ml-unique-spirit-bottle.jpg',
+  ];
 
+  let liquorImageCounter = -1;
   // Creating Products
   const products = await Promise.all(
     new Array(200).fill('_').map((_) => {
+      if (liquorImageCounter === 3) {
+        liquorImageCounter = -1;
+      }
+      liquorImageCounter++;
       return Product.create({
         category: faker.commerce.productName(),
         alcohol_type: liquorTypes[Math.floor(Math.random() * 6)],
@@ -43,6 +53,7 @@ async function seed() {
         //random price between 10 and 210 dollars, rounded to two decimals for the cents
         price: Math.random() * 200 + 10,
         year: Math.round(Math.random() * 31) + 1990,
+        image_URL: bottleImages[liquorImageCounter],
       });
     })
   );
