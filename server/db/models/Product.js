@@ -1,14 +1,18 @@
-const Sequelize = require("sequelize");
+const Sequelize = require('sequelize');
 const { STRING, DECIMAL, ENUM, INTEGER } = Sequelize;
-const db = require("../db");
+const db = require('../db');
 
-const Product = db.define("product", {
+const Product = db.define('product', {
   category: {
     type: STRING,
     allowNull: false,
   },
-  alcohol_content: {
-    type: DECIMAL(10, 2),
+  alcohol_type: {
+    type: STRING,
+    allowNull: false,
+  },
+  alcohol_percentage: {
+    type: INTEGER,
     allowNull: false,
   },
   region: {
@@ -17,7 +21,7 @@ const Product = db.define("product", {
   },
 
   price: {
-    type: INTEGER,
+    type: DECIMAL(10, 2),
   },
 
   year: {

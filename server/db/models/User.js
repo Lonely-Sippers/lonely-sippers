@@ -15,7 +15,7 @@ const User = db.define('user', {
   },
   password: {
     type: STRING,
-    allowNull: false
+    allowNull: false,
   },
   email: {
     type: STRING,

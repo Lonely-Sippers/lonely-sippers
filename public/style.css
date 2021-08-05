@@ -38,6 +38,10 @@
   justify-content: space-around;
 }
 
+.maxHeight {
+  height: 55vh;
+}
+
 .twoThird {
   width: 65%;
 }
@@ -47,12 +51,13 @@
 }
 
 .detail {
-  width: 35%;
+  width: 40%;
+  height: 40vh;
 }
 
-.list {
+/* .list {
   width: 40%;
-}
+} */
 
 #advert {
   text-align: center;

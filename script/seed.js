@@ -1,11 +1,11 @@
-"use strict";
+'use strict';
 
-const faker = require("faker");
+const faker = require('faker');
 
 const {
   db,
   models: { User, Product, Cart },
-} = require("../server/db");
+} = require('../server/db');
 
 /**
  * seed - this function clears the database, updates tables to
@@ -13,67 +13,39 @@ const {
  */
 async function seed() {
   await db.sync({ force: true }); // clears db and matches models to tables
-  console.log("db synced!");
+  console.log('db synced!');
 
   // Creating Users
   const users = await Promise.all([
-    User.create({ username: "cody", password: "one", email: "cody@email.com" }),
-    User.create({ username: "murphy", password: "two", email: "murphy@email.com" }),
-    User.create({ username: "sara", password: "three", email: "sara@email.com" }),
+    User.create({ username: 'cody', password: 'one', email: 'cody@email.com' }),
+    User.create({
+      username: 'murphy',
+      password: 'two',
+      email: 'murphy@email.com',
+    }),
+    User.create({
+      username: 'sara',
+      password: 'three',
+      email: 'sara@email.com',
+    }),
   ]);
 
+  const liquorTypes = ['brandy', 'gin', 'rum', 'tequila', 'vodka', 'whiskey'];
+
   // Creating Products
-  const products = await Promise.all([
-    Product.create({
-      category: faker.commerce.productName(),
-      alcohol_content: 7,
-      region: "321 fake",
-      price: 27,
-      year: 1995,
-    }),
-    Product.create({
-      category: faker.commerce.productName(),
-      alcohol_content: 7,
-      region: "321 fake",
-      price: 27,
-      year: 1995,
-    }),
-    Product.create({
-      category: faker.commerce.productName(),
-      alcohol_content: 7,
-      region: "321 fake",
-      price: 27,
-      year: 1995,
-    }),
-    Product.create({
-      category: faker.commerce.productName(),
-      alcohol_content: 7,
-      region: "321 fake",
-      price: 27,
-      year: 1995,
-    }),
-    Product.create({
-      category: faker.commerce.productName(),
-      alcohol_content: 7,
-      region: "321 fake",
-      price: 27,
-      year: 1995,
-    }),
-    Product.create({
-      category: faker.commerce.productName(),
-      alcohol_content: 7,
-      region: "321 fake",
-      price: 27,
-      year: 1995,
-    }),
-    Product.create({
-      category: faker.commerce.productName(),
-      alcohol_content: 7,
-      region: "321 fake",
-      price: 27,
-      year: 1995,
-    }),
-  ]);
+  const products = await Promise.all(
+    new Array(200).fill('_').map((_) => {
+      return Product.create({
+        category: faker.commerce.productName(),
+        alcohol_type: liquorTypes[Math.floor(Math.random() * 6)],
+        alcohol_percentage: Math.round(Math.random() * 60 + 36),
+        region: faker.address.country(),
+        //random price between 10 and 210 dollars, rounded to two decimals for the cents
+        price: Math.random() * 200 + 10,
+        year: Math.round(Math.random() * 31) + 1990,
+      });
+    })
+  );
 
   const carts = await Promise.all([
     Cart.create({ userId: 1, productId: 2 }),
@@ -87,7 +59,7 @@ async function seed() {
     users: {
       cody: users[0],
       murphy: users[1],
-      sara: users[2]
+      sara: users[2],
     },
   };
 }
@@ -98,16 +70,16 @@ async function seed() {
  The `seed` function is concerned only with modifying the database.
 */
 async function runSeed() {
-  console.log("seeding...");
+  console.log('seeding...');
   try {
     await seed();
   } catch (err) {
     console.error(err);
     process.exitCode = 1;
   } finally {
-    console.log("closing db connection");
+    console.log('closing db connection');
     await db.close();
-    console.log("db connection closed");
+    console.log('db connection closed');
   }
 }
 
