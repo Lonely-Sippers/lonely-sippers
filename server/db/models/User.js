@@ -3,16 +3,11 @@ const db = require('../db');
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt');
 // const axios = require('axios');
-const { STRING, INTEGER, UUID, UUIDV4 } = Sequelize;
+const { STRING, INTEGER } = Sequelize;
 
 const SALT_ROUNDS = 5;
 
 const User = db.define('user', {
-  id: {
-    type: UUID,
-    primaryKey: true, 
-    defaultValue: UUIDV4
-  },
   username: {
     type: STRING,
     unique: true,
@@ -22,11 +17,6 @@ const User = db.define('user', {
     type: STRING,
     allowNull: false
   },
-  cartId: {
-    type: INTEGER,
-  },
-  //some of the fields below probably should have an allowNull:false
-  //   but I'm leaving it off for the time being so everything builds without modifying the seed file
   email: {
     type: STRING,
     unique: true,
@@ -35,6 +25,8 @@ const User = db.define('user', {
       isEmail: true,
     },
   },
+  //some of the fields below probably should have an allowNull:false
+  //   but I'm leaving it off for the time being so everything builds without modifying the seed file
   firstName: {
     type: STRING,
   },
@@ -45,11 +37,13 @@ const User = db.define('user', {
     //needs Order model
     type: INTEGER,
   },
+  cartId: {
+    type: INTEGER,
+  },
 });
 
 module.exports = User;
 
-// //allowNull on just id vs other attributes too, another way to determine users with account vs without?
 // //Role or Access model -- diff. between user vs admin
 
 /**
@@ -77,20 +71,20 @@ User.authenticate = async function ({ username, password }) {
   return user.generateToken();
 };
 
-// User.findByToken = async function (token) {
-//   try {
-//     const { id } = await jwt.verify(token, process.env.JWT);
-//     const user = User.findByPk(id);
-//     if (!user) {
-//       throw 'nooo';
-//     }
-//     return user;
-//   } catch (ex) {
-//     const error = Error('bad token');
-//     error.status = 401;
-//     throw error;
-//   }
-// };
+User.findByToken = async function (token) {
+  try {
+    const { id } = await jwt.verify(token, process.env.JWT);
+    const user = User.findByPk(id);
+    if (!user) {
+      throw 'nooo';
+    }
+    return user;
+  } catch (ex) {
+    const error = Error('bad token');
+    error.status = 401;
+    throw error;
+  }
+};
 
 /**
  * hooks

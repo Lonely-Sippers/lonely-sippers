@@ -6,7 +6,7 @@ import { Login } from '../AuthForm';
 const Cart = ({ isLoggedIn }) => {
   return (
     <div className="border padding oneThird">
-      {isLoggedIn ? <h1>You're cart is empty!</h1> : <Login />}
+      {isLoggedIn ? <h1>Your cart is empty!</h1> : <Login />}
     </div>
   );
 };

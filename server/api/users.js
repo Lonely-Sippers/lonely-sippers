@@ -13,6 +13,7 @@ router.get('/', async (req, res, next) => {
       attributes: ['id', 'username'],
     });
     res.json(users);
+    console.log(users);
   } catch (err) {
     next(err);
   }

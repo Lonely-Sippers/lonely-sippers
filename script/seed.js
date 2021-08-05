@@ -4,7 +4,7 @@ const faker = require("faker");
 
 const {
   db,
-  models: { User, Product },
+  models: { User, Product, Cart },
 } = require("../server/db");
 
 /**
@@ -75,12 +75,19 @@ async function seed() {
     }),
   ]);
 
+  const carts = await Promise.all([
+    Cart.create({ userId: 1, productId: 2 }),
+    Cart.create({ userId: 3, productId: 1 }),
+    Cart.create({ userId: 3, productId: 4 }),
+  ]);
+
   console.log(`seeded ${users.length} users`);
   console.log(`seeded successfully`);
   return {
     users: {
       cody: users[0],
       murphy: users[1],
+      sara: users[2]
     },
   };
 }
