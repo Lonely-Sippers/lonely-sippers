@@ -8,6 +8,7 @@ import { me } from './store';
 import Cart from './components/home/Cart';
 import ShoppingWindow from './components/home/ShoppingWindow';
 import { getProducts } from '../client/store/products';
+// import { addToCart, delFromCart, updateCart } from '../client/store/products';
 
 /**
  * COMPONENT
