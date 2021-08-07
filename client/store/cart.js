@@ -37,7 +37,7 @@ const updateQuantity = (productId, itemsTotal) => {
 //   };
 // };
 
-addToCart = (product) => {
+export const addToCart = (product) => {
   const cartItems = this.state.cartItems.slice();
   let alreadyInCart = false;
   cartItems.forEach((item) => {
