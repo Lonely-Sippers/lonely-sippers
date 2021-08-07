@@ -1,13 +1,13 @@
-import React, { Component, Fragment } from 'react';
-import { connect } from 'react-redux';
-import { withRouter, Route, Switch, Redirect } from 'react-router-dom';
-import { Login, Signup } from './components/AuthForm';
-import Advertisement from './components/home/Advertisement';
+import React, { Component, Fragment } from "react";
+import { connect } from "react-redux";
+import { withRouter, Route, Switch, Redirect } from "react-router-dom";
+import { Login, Signup } from "./components/AuthForm";
+import Advertisement from "./components/home/Advertisement";
 //import Home from './components/Home';
-import { me } from './store';
-import Cart from './components/home/Cart';
-import ShoppingWindow from './components/home/ShoppingWindow';
-import { getProducts } from '../client/store/products';
+import { me } from "./store";
+import Cart from "./components/home/Cart";
+import ShoppingWindow from "./components/home/ShoppingWindow";
+import { getProducts } from "../client/store/products";
 // import { addToCart, delFromCart, updateCart } from '../client/store/products';
 
 /**
@@ -23,7 +23,7 @@ class Routes extends Component {
     const { isLoggedIn } = this.props;
 
     return (
-      <div>
+      <div className="grid-container">
         <Advertisement />
         {/* <div>
           {isLoggedIn ? (
