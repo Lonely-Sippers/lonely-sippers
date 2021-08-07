@@ -29,12 +29,27 @@ const updateQuantity = (productId, itemsTotal) => {
 };
 
 //ACTION THUNKS
-export const addToCart = () => {
-  return async (dispatch) => {
-    const res = await axios.get("/api/cart");
-    const products = res.data;
-    dispatch(addProductsToCart(products));
-  };
+// export const addToCart = () => {
+//   return async (dispatch) => {
+//     const res = await axios.get("/api/cart");
+//     const products = res.data;
+//     dispatch(addProductsToCart(products));
+//   };
+// };
+
+addToCart = (product) => {
+  const cartItems = this.state.cartItems.slice();
+  let alreadyInCart = false;
+  cartItems.forEach((item) => {
+    if (item._id === product._id) {
+      item.count++;
+      alreadyInCart = true;
+    }
+  });
+  if (!alreadyInCart) {
+    cartItems.push({ ...product, count: 1 });
+  }
+  this.setState({ cartItems });
 };
 
 export const delFromCart = () => {
