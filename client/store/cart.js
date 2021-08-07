@@ -24,7 +24,7 @@ const updateQuantity = (productId, itemsTotal) => {
   return {
     type: UPDATE_QUANTITY,
     productId: productId,
-    itemsTotal: itemsTotal
+    itemsTotal: itemsTotal,
   };
 };
 
@@ -55,29 +55,31 @@ export const updateCart = () => {
 
 //REDUCER
 const initialState = {
-    cart: []
+  cart: [],
 };
 
 //will dry out later
-export const cartReducer = (state = initialState, action) => {
+export const cartReducer = (state = [], action) => {
   switch (action.type) {
     case ADD_TO_CART:
-      state.cart.push(action.product);  
+      state.cart.push(action.product);
       return {
         ...state,
-        cart: state.cart
+        cart: state.cart,
       };
     case DELETE_FROM_CART:
       return {
         ...state,
-        cart: state.cart.filter(product => product.id != action.productId)
+        cart: state.cart.filter((product) => product.id != action.productId),
       };
     case UPDATE_QUANTITY:
-      let newCart = state.cart.filter(product => product.id != action.productId);
-      newCart.push(product);  
+      let newCart = state.cart.filter(
+        (product) => product.id != action.productId
+      );
+      newCart.push(product);
       return {
         ...state,
-        cart: newCart
+        cart: newCart,
       };
     default:
       return state;
