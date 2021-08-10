@@ -1,12 +1,12 @@
-import axios from "axios";
-import history from "../history";
+import axios from 'axios';
+import history from '../history';
 
-const TOKEN = "token";
+const TOKEN = 'token';
 
 /**
  * ACTION TYPES
  */
-const SET_AUTH = "SET_AUTH";
+const SET_AUTH = 'SET_AUTH';
 
 /**
  * ACTION CREATORS
@@ -28,19 +28,27 @@ export const me = () => async (dispatch) => {
   }
 };
 
-export const authenticate = (username, password, email, firstName, lastName, method) => async dispatch => {
-  try {
-    const res = await axios.post(`/auth/${method}`, {username, password, email, firstName, lastName})
-    window.localStorage.setItem(TOKEN, res.data.token)
-    dispatch(me())
-  } catch (authError) {
-    return dispatch(setAuth({error: authError}))
-  }
-}
+export const authenticate =
+  (username, password, method, email, firstName, lastName) =>
+  async (dispatch) => {
+    try {
+      const res = await axios.post(`/auth/${method}`, {
+        username,
+        password,
+        email,
+        firstName,
+        lastName,
+      });
+      window.localStorage.setItem(TOKEN, res.data.token);
+      dispatch(me());
+    } catch (authError) {
+      return dispatch(setAuth({ error: authError }));
+    }
+  };
 
 export const logout = () => {
   window.localStorage.removeItem(TOKEN);
-  history.push("/login");
+  history.push('/login');
   return {
     type: SET_AUTH,
     auth: {},
