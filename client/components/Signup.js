@@ -5,7 +5,7 @@ import {authenticate} from '../store'
 /**
  * COMPONENT
  */
-const AuthForm = props => {
+const SignupForm = props => {
   const {name, displayName, handleSubmit, error} = props
 
   return (
@@ -24,6 +24,24 @@ const AuthForm = props => {
           <input name="password" type="password" />
         </div>
         <div>
+          <label htmlFor="email">
+            <small>Email</small>
+          </label>
+          <input name="email" type="e-mail" />
+        </div>
+        <div>
+          <label htmlFor="firstName">
+            <small>First Name</small>
+          </label>
+          <input name="firstName" type="text" />
+        </div>
+        <div>
+          <label htmlFor="lastName">
+            <small>Last Name</small>
+          </label>
+          <input name="lastName" type="text" />
+        </div>
+        <div>
           <button type="submit">{displayName}</button>
         </div>
         {error && error.response && <div> {error.response.data} </div>}
@@ -32,28 +50,13 @@ const AuthForm = props => {
   )
 }
 
-/**
- * CONTAINER
- *   Note that we have two different sets of 'mapStateToProps' functions -
- *   one for Login, and one for Signup. However, they share the same 'mapDispatchToProps'
- *   function, and share the same Component. This is a good example of how we
- *   can stay DRY with interfaces that are very similar to each other!
- */
-const mapLogin = state => {
+const mapSignup = state => {
   return {
-    name: 'login',
-    displayName: 'Login',
+    name: 'signup',
+    displayName: 'Sign Up',
     error: state.auth.error
   }
 }
-
-// const mapSignup = state => {
-//   return {
-//     name: 'signup',
-//     displayName: 'Sign Up',
-//     error: state.auth.error
-//   }
-// }
 
 const mapDispatch = dispatch => {
   return {
@@ -62,10 +65,12 @@ const mapDispatch = dispatch => {
       const formName = evt.target.name
       const username = evt.target.username.value
       const password = evt.target.password.value
-      dispatch(authenticate(username, password, formName))
+      const email = evt.target.email.value
+      const firstName = evt.target.firstName.value
+      const lastName = evt.target.lastName.value
+      dispatch(authenticate(username, password, email, firstName, lastName, formName))
     }
   }
 }
 
-export const Login = connect(mapLogin, mapDispatch)(AuthForm)
-// export const Signup = connect(mapSignup, mapDispatch)(AuthForm)
+export const Signup = connect(mapSignup, mapDispatch)(SignupForm)

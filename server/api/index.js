@@ -7,6 +7,8 @@ router.use('/products', require('./products'));
 
 router.use('/carts', require('./carts'));
 
+router.use('/signup', require('../auth/index'));
+
 
 router.use((req, res, next) => {
   const error = new Error('Not Found');
