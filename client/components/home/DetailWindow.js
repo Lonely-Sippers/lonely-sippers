@@ -14,16 +14,17 @@ const DetailWindow = ({ itemId, products, count }) => {
   let stars = [];
 
   let fullStars = Math.floor(rating / 2);
+  let starCount = 1;
   for (let i = 0; i < fullStars; i++) {
-    stars.push(<i className="fas fa-star" />);
+    stars.push(<i className="fas fa-star" key={starCount++} />);
   }
 
   if (rating % 2) {
-    stars.push(<i className="fas fa-star-half-alt" />);
+    stars.push(<i className="fas fa-star-half-alt" key={starCount++} />);
   }
 
   while (stars.length < 5) {
-    stars.push(<i className="far fa-star" />);
+    stars.push(<i className="far fa-star" key={starCount++} />);
   }
 
   return (
@@ -53,7 +54,9 @@ const DetailWindow = ({ itemId, products, count }) => {
         </div>
         <div className="md:flex md:justify-between py-8">
           <h4>Price: ${product.price}</h4>
-          <button>Add to Cart</button>
+          <button className="btn transition-colors duration-300  mt-4 lg:mt-0 lg:ml-3 rounded-full text-xs font-semibold text-white uppercase py-3 px-8">
+            Add to Cart
+          </button>
         </div>
       </div>
     </div>
