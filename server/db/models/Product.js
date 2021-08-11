@@ -1,8 +1,8 @@
-const Sequelize = require("sequelize");
-const { STRING, DECIMAL, ENUM, INTEGER } = Sequelize;
-const db = require("../db");
+const Sequelize = require('sequelize');
+const { STRING, DECIMAL, ENUM, INTEGER, TEXT } = Sequelize;
+const db = require('../db');
 
-const Product = db.define("product", {
+const Product = db.define('product', {
   category: {
     type: STRING,
     allowNull: false,
@@ -19,6 +19,13 @@ const Product = db.define("product", {
     type: STRING,
     allowNull: false,
   },
+  description: {
+    type: TEXT,
+  },
+
+  rating: {
+    type: INTEGER,
+  },
 
   price: {
     type: DECIMAL(10, 2),
@@ -30,7 +37,7 @@ const Product = db.define("product", {
   image_URL: {
     type: STRING,
     defaultValue:
-      "https://glassbottlesmanufacturer.com/wp-content/uploads/2017/10/clear-liquor-bottles.jpg",
+      'https://glassbottlesmanufacturer.com/wp-content/uploads/2017/10/clear-liquor-bottles.jpg',
   },
   count: {
     type: INTEGER,

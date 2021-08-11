@@ -2,8 +2,8 @@ import React from 'react';
 
 const Advertisement = () => {
   return (
-    <div id="advert" className="border marginTop padding">
-      <h1>Advertisement!</h1>
+    <div id="advert" className="">
+      <img src="/liquor-banner.jpeg" width="100%" />
     </div>
   );
 };

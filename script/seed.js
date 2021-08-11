@@ -1,11 +1,11 @@
-"use strict";
+'use strict';
 
-const faker = require("faker");
+const faker = require('faker');
 
 const {
   db,
   models: { User, Product, Order, OrderItem },
-} = require("../server/db");
+} = require('../server/db');
 
 /**
  * seed - this function clears the database, updates tables to
@@ -13,50 +13,50 @@ const {
  */
 async function seed() {
   await db.sync({ force: true }); // clears db and matches models to tables
-  console.log("db synced!");
+  console.log('db synced!');
 
   // Creating Users
   const users = await Promise.all([
-    User.create({ username: "cody", password: "one", email: "cody@email.com" }),
+    User.create({ username: 'cody', password: 'one', email: 'cody@email.com' }),
     User.create({
-      username: "murphy",
-      password: "two",
-      email: "murphy@email.com",
+      username: 'murphy',
+      password: 'two',
+      email: 'murphy@email.com',
     }),
     User.create({
-      username: "sara",
-      password: "three",
-      email: "sara@email.com",
+      username: 'sara',
+      password: 'three',
+      email: 'sara@email.com',
     }),
   ]);
   const [sebastien, exp] = await Promise.all([
     User.create({
-      username: "sebastien",
-      password: "one",
-      email: "seb@email.com",
+      username: 'sebastien',
+      password: 'one',
+      email: 'seb@email.com',
     }),
     User.create({
-      username: "exp",
-      password: "onex",
-      email: "xp@email.com",
+      username: 'exp',
+      password: 'onex',
+      email: 'xp@email.com',
     }),
   ]);
 
-  console.log(sebastien.__proto__);
-  console.log(sebastien.createOrder());
-  sebastien.cartItem();
+  // console.log(sebastien.__proto__);
+  // console.log(sebastien.createOrder());
+  // sebastien.cartItem();
 
-  const liquorTypes = ["Brandy", "Gin", "Rum", "Tequila", "Vodka", "Whiskey"];
+  const liquorTypes = ['Brandy', 'Gin', 'Rum', 'Tequila', 'Vodka', 'Whiskey'];
   const bottleImages = [
-    "https://glassbottlesmanufacturer.com/wp-content/uploads/2017/10/clear-liquor-bottles.jpg",
-    "https://glassbottlesmanufacturer.com/wp-content/uploads/2017/09/round-shape-glass-bottles-for-alcohol.jpg",
-    "https://glassbottlesmanufacturer.com/wp-content/uploads/2017/08/custom-glass-bottles-500ml-unique-spirit-bottle.jpg",
+    'https://glassbottlesmanufacturer.com/wp-content/uploads/2017/10/clear-liquor-bottles.jpg',
+    'https://glassbottlesmanufacturer.com/wp-content/uploads/2017/09/round-shape-glass-bottles-for-alcohol.jpg',
+    'https://glassbottlesmanufacturer.com/wp-content/uploads/2017/08/custom-glass-bottles-500ml-unique-spirit-bottle.jpg',
   ];
 
   let liquorImageCounter = -1;
   // Creating Products
   const products = await Promise.all(
-    new Array(200).fill("_").map((_) => {
+    new Array(200).fill('_').map((_) => {
       if (liquorImageCounter === 3) {
         liquorImageCounter = -1;
       }
@@ -65,6 +65,8 @@ async function seed() {
         category: faker.commerce.productName(),
         alcohol_type: liquorTypes[Math.floor(Math.random() * 6)],
         alcohol_percentage: Math.round(Math.random() * 60 + 36),
+        description: faker.lorem.paragraph(),
+        rating: Math.round(Math.random() * 10),
         region: faker.address.country(),
         //random price between 10 and 210 dollars, rounded to two decimals for the cents
         price: Math.random() * 200 + 10,
@@ -91,16 +93,16 @@ async function seed() {
  The `seed` function is concerned only with modifying the database.
 */
 async function runSeed() {
-  console.log("seeding...");
+  console.log('seeding...');
   try {
     await seed();
   } catch (err) {
     console.error(err);
     process.exitCode = 1;
   } finally {
-    console.log("closing db connection");
+    console.log('closing db connection');
     await db.close();
-    console.log("db connection closed");
+    console.log('db connection closed');
   }
 }
 
