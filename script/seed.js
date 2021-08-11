@@ -29,6 +29,20 @@ async function seed() {
       email: "sara@email.com",
     }),
   ]);
+  const [sebastien, exp] = await Promise.all([
+    User.create({
+      username: "sebastien",
+      password: "one",
+      email: "seb@email.com",
+    }),
+    User.create({
+      username: "exp",
+      password: "onex",
+      email: "xp@email.com",
+    }),
+  ]);
+
+  console.log(sebastien.__proto__);
 
   const liquorTypes = ["Brandy", "Gin", "Rum", "Tequila", "Vodka", "Whiskey"];
   const bottleImages = [
