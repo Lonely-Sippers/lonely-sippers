@@ -24,23 +24,10 @@ class Routes extends Component {
     const { isLoggedIn } = this.props;
 
     return (
-      <div className="grid-container">
+      <div className="">
         <Advertisement />
-        <div>
-          {isLoggedIn ? (
-            <Switch>
-              {/* <Route path="/home" component={Home} />
-              <Redirect to="/home" /> */}
-            </Switch>
-          ) : (
-            <Switch>
-              <Route path="/" exact component={Login} />
-              <Route path="/login" component={Login} />
-              <Route path="/signup" component={Signup} />
-            </Switch>
-          )}
-        </div>
-        <div className="window border marginTop padding flex">
+
+        <div className="container mx-auto ">
           <ShoppingWindow />
           <Cart />
         </div>

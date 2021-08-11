@@ -41,6 +41,7 @@ export const authenticate =
       });
       window.localStorage.setItem(TOKEN, res.data.token);
       dispatch(me());
+      history.push('/');
     } catch (authError) {
       return dispatch(setAuth({ error: authError }));
     }
@@ -48,7 +49,7 @@ export const authenticate =
 
 export const logout = () => {
   window.localStorage.removeItem(TOKEN);
-  history.push('/login');
+  history.push('/');
   return {
     type: SET_AUTH,
     auth: {},

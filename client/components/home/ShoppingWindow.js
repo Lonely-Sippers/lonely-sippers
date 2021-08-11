@@ -6,13 +6,19 @@ import { Link } from 'react-router-dom';
 import { withRouter, Route, Switch, Redirect } from 'react-router-dom';
 
 const ShoppingWindow = ({ products }) => {
-  console.log(products);
+  let count = 0;
   return (
-    <div className="border padding twoThird maxHeight backgroundWhite">
+    <div className="">
       <h1>shop</h1>
       <hr></hr>
-      <div className="flex">
-        <Scrollbars style={{ height: '40vh', width: '50%', margin: '1rem' }}>
+      <div className="lg:grid lg:grid-cols-6 ">
+        {products.map((product) => {
+          count++;
+          return (
+            <DetailWindow key={product.id} itemId={product.id} count={count} />
+          );
+        })}
+        {/* <Scrollbars style={{ height: '40vh', width: '50%', margin: '1rem' }}>
           {products.map((product) => (
             <Link to={`/products/${product.id}`} key={product.id}>
               <div className="card border margin padding">
@@ -24,12 +30,12 @@ const ShoppingWindow = ({ products }) => {
             </Link>
           ))}
         </Scrollbars>
-        <Route path="/products/:id" component={DetailWindow} />
+        <Route path="/products/:id" component={DetailWindow} /> */}
       </div>
     </div>
   );
 };
 
-const mapState = (state) => ({ products: state.products });
+const mapState = ({ products }) => ({ products });
 
 export default connect(mapState)(ShoppingWindow);
