@@ -7,6 +7,30 @@ const Product = require("./models/Product");
 const Order = require("./models/Order");
 const OrderItem = require("./models/OrderItem");
 
+//magic methods
+User.createOrder = async function () {
+  const order = await Order.create({
+    where: {
+      userId: User.id,
+    },
+  });
+  return order;
+};
+
+User.cartItem = async function () {
+  const order = Order.findOne({
+    where: {
+      userId: User.id,
+    },
+  });
+  const item = await OrderItem.create({
+    where: {
+      orderId: order.id,
+    },
+  });
+  return item;
+};
+
 //associations could go here!
 User.hasMany(Order);
 Order.belongsTo(User);

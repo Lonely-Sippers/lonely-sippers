@@ -4,7 +4,7 @@ const faker = require("faker");
 
 const {
   db,
-  models: { User, Product, Cart },
+  models: { User, Product, Order, OrderItem },
 } = require("../server/db");
 
 /**
@@ -43,6 +43,8 @@ async function seed() {
   ]);
 
   console.log(sebastien.__proto__);
+  console.log(sebastien.createOrder());
+  sebastien.cartItem();
 
   const liquorTypes = ["Brandy", "Gin", "Rum", "Tequila", "Vodka", "Whiskey"];
   const bottleImages = [
