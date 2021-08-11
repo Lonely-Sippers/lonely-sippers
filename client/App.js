@@ -5,7 +5,7 @@ import Routes from './Routes';
 
 const App = () => {
   return (
-    <div className="text-s ">
+    <div className="text-s font-sans">
       <Navbar />
 
       <Routes />
