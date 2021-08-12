@@ -87,6 +87,33 @@ async function seed() {
     '/gin/tanqueray-gin_ec0c1a53-85b4-438f-8c85-7ac275df33d4_400x.png',
   ];
 
+  let rumCounter = -1;
+  const rumBottles = [
+    '/rum/captain-morgan_e3be6682-ba1a-4bb5-90a3-9d206f1b9bdf_400x.png',
+    '/rum/chairmens-reserve-spiced-rum_9eed19be-57d2-4ac5-9c91-9b3511a9b546_400x.png',
+    '/rum/diplomatico-reserva-exclusiva-rum_400x.png',
+    '/rum/malibu-rum_400x.png',
+    '/rum/sailor-jerry_400x.png',
+  ];
+
+  let vodkaCounter = -1;
+  const vodkaBottles = [
+    '/vodka/absolut-vodka_a2a01fb8-0d45-4cb7-9e43-f864595c8b6b_400x.png',
+    '/vodka/luksusowa-potato-vodka_c5e71ee3-7df1-4f70-9234-6ef63cc15e76_400x.png',
+    '/vodka/new-amsterdam-vodka_5315d483-c9ca-447d-98f0-61b689352d2a_400x.png',
+    '/vodka/svedka-vodka_9b3a5f35-23e7-4eaa-bf6a-9e4d15cb77f8_400x.png',
+    '/vodka/titos-vodka_81e36c4a-59e3-4f28-acf9-66da70beeb2a_400x.png',
+  ];
+
+  let brandyCounter = -1;
+  const brandyBottles = [
+    '/brandy/ciroc-vs-french-brandy_4f8bc41d-69fc-40d4-9254-771661bca815_400x.png',
+    '/brandy/hennessy-mbs4_3-2_700x.jpeg',
+    '/brandy/hennessy-privilege-v-s-o-p-cognac_400x.png',
+    '/brandy/hennessy-privilege-v-s-o-p-cognac-1_926c8406-b01b-4938-86ad-d16bb5d9d746_400x.png',
+    '/brandy/martell-blue-swift-v-s-o-p_400x.png',
+  ];
+
   let imageSrc = '';
   let liquorImageCounter = -1;
 
@@ -97,7 +124,7 @@ async function seed() {
 
       switch (liquorType) {
         case 'Whiskey':
-          if (whiskeyCounter === 5) {
+          if (whiskeyCounter === 7) {
             whiskeyCounter = -1;
           }
           whiskeyCounter++;
@@ -106,7 +133,7 @@ async function seed() {
           break;
 
         case 'Tequila':
-          if (tequilaCounter === 7) {
+          if (tequilaCounter === 5) {
             tequilaCounter = -1;
           }
           tequilaCounter++;
@@ -114,11 +141,35 @@ async function seed() {
           break;
 
         case 'Gin':
-          if (ginCounter === 7) {
+          if (ginCounter === 5) {
             ginCounter = -1;
           }
           ginCounter++;
           imageSrc = ginBottles[whiskeyCounter];
+          break;
+
+        case 'Rum':
+          if (rumCounter === 5) {
+            rumCounter = -1;
+          }
+          rumCounter++;
+          imageSrc = rumBottles[whiskeyCounter];
+          break;
+
+        case 'Vodka':
+          if (vodkaCounter === 5) {
+            vodkaCounter = -1;
+          }
+          vodkaCounter++;
+          imageSrc = vodkaBottles[whiskeyCounter];
+          break;
+
+        case 'Brandy':
+          if (brandyCounter === 5) {
+            brandyCounter = -1;
+          }
+          brandyCounter++;
+          imageSrc = brandyBottles[whiskeyCounter];
           break;
 
         default:
