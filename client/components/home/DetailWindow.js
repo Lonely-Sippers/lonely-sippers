@@ -1,32 +1,18 @@
-import React from "react";
-import { connect } from "react-redux";
+import React, { useState } from 'react';
+import { connect } from 'react-redux';
+import StarRating from './icons/StarRating';
 
 const DetailWindow = ({ itemId, products, count, auth }) => {
   // const { products } = props;
   // const id = props.match.params.id * 1 || '';
-  console.log(auth);
+  // console.log(auth);
   const product = products.find((product) => product.id === itemId) || {};
 
   let classes =
-    "nick   transition duration-1000 ease-in-out transform hover:-translate-y-1 hover:bg-blue-300 hover:scale-110 hover:opacity-100 m-8 p-8 relative";
-  count > 2 ? (classes += " col-span-2") : (classes += " col-span-3");
+    'nick   transition duration-1000 ease-in-out transform hover:-translate-y-1 hover:bg-blue-300 hover:scale-110 hover:opacity-100 m-8 p-8 relative';
+  count > 2 ? (classes += ' col-span-2') : (classes += ' col-span-3');
 
   let rating = product.rating;
-  let stars = [];
-
-  let fullStars = Math.floor(rating / 2);
-  let starCount = 1;
-  for (let i = 0; i < fullStars; i++) {
-    stars.push(<i className="fas fa-star" key={starCount++} />);
-  }
-
-  if (rating % 2) {
-    stars.push(<i className="fas fa-star-half-alt" key={starCount++} />);
-  }
-
-  while (stars.length < 5) {
-    stars.push(<i className="far fa-star" key={starCount++} />);
-  }
 
   return (
     <div className={classes}>
@@ -39,14 +25,14 @@ const DetailWindow = ({ itemId, products, count, auth }) => {
 
       <div className="px-8">
         <div className="mt-8  md:flex md:justify-around">
-          <div>{stars.map((star) => star)}</div>
+          <StarRating rating={rating} />
         </div>
         <div className="md:flex md:justify-between py-8">
           <h3 className="font-semibold">{product.category}</h3>
           <h4>{product.alcohol_type}</h4>
         </div>
 
-        <p>{product.description}</p>
+        {/* <p>{product.description}</p> */}
 
         <h4 className="mt-8">Country of Origin: {product.region}</h4>
 
