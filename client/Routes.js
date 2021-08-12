@@ -4,6 +4,7 @@ import { withRouter, Route, Switch, Redirect } from "react-router-dom";
 import { Login } from "./components/AuthForm";
 import Advertisement from "./components/home/Advertisement";
 //import Home from './components/Home';
+
 import { me } from "./store";
 import Cart from "./components/home/Cart";
 import ShoppingWindow from "./components/home/ShoppingWindow";

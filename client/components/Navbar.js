@@ -1,13 +1,13 @@
-import React from 'react';
-import { connect } from 'react-redux';
-import { Link } from 'react-router-dom';
-import { logout } from '../store';
-import Home from './home/Home';
-import { Login } from './AuthForm';
-import { Signup } from './Signup';
-import { withRouter, Route, Switch, Redirect } from 'react-router-dom';
+import React from "react";
+import { connect } from "react-redux";
+import { Link } from "react-router-dom";
+import { logout } from "../store";
+import Home from "./home/Home";
+import { Login } from "./AuthForm";
+import { Signup } from "./Signup";
+import { withRouter, Route, Switch, Redirect } from "react-router-dom";
 
-const Navbar = ({ handleClick, isLoggedIn }) => (
+const Navbar = ({ handleClick, isLoggedIn, isAdmin }) => (
   <div className="fixed w-screen nav">
     <nav className="md:flex md:justify-between md:items-center border-b-2 p-4 bg-wood5 px-4 text-wood1 nav">
       {/* <div> */}
@@ -17,6 +17,18 @@ const Navbar = ({ handleClick, isLoggedIn }) => (
         </h1>
       </a>
       {/* </div> */}
+      {isAdmin ? (
+        <div className="mx-4 flexy">
+          {/* The navbar will show these links after you log in */}
+          <div className="mx-4">
+          <Link to="/users">Manage Users</Link>
+          <span />
+          <Link to="/products">Manage Products</Link>
+          </div>
+        </div>
+      ) : (
+        <div />
+      )}
 
       {isLoggedIn ? (
         <div className="mx-4 flexy">
@@ -81,8 +93,10 @@ const Navbar = ({ handleClick, isLoggedIn }) => (
  * CONTAINER
  */
 const mapState = (state) => {
+  console.log("nav state", state);
   return {
     isLoggedIn: !!state.auth.id,
+    isAdmin: !!state.auth.isAdmin,
   };
 };
 
