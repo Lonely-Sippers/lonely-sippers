@@ -40,7 +40,7 @@ const adminStat = (user) => {
 //ACTION THUNKS
 export const fetchAllUsers = (users) => {
   return async (dispatch) => {
-    const res = await axios.get("/api/users");
+    const res = await axios.get("/api/admin/users");
     const allUsers = res.data;
     dispatch(getUsers(allUsers));
   };
@@ -48,7 +48,7 @@ export const fetchAllUsers = (users) => {
 
 export const deleteUser = (userId) => {
   return async (dispatch) => {
-    const res = await axios.delete(`/api/users:${userId}`);
+    const res = await axios.delete(`/api/admin/users/${userId}`);
     const removedUser = res.data;
     dispatch(deleteUsers(removedUser));
   };
@@ -56,7 +56,7 @@ export const deleteUser = (userId) => {
 
 export const fetchAllOrders = (orders) => {
   return async (dispatch) => {
-    const res = await axios.get("/api/orders");
+    const res = await axios.get("/api/admin/orders");
     const allOrders = res.data;
     dispatch(getOrders(allOrders));
   };
@@ -64,7 +64,7 @@ export const fetchAllOrders = (orders) => {
 
 export const changeAdminStat = (userId) => {
   return async (dispatch) => {
-    const res = await axios.put(`/api/users/${userId}`, { isAdmin: true });
+    const res = await axios.put(`/api/admin/users/${userId}`, { isAdmin });
     const changeAdmin = res.data;
     dispatch(adminStat(changeAdmin));
   };
@@ -72,7 +72,15 @@ export const changeAdminStat = (userId) => {
 
 //REDUCER
 
-export const adminReducer = (state, action) => {
+const adminState = {
+  users: [],
+  products: [],
+  orders: [],
+  user: {},
+  product: {}
+};
+
+export const adminReducer = (state = adminState, action) => {
   switch (action.type) {
     case VIEW_USERS:
       return {
