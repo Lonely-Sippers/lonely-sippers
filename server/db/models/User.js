@@ -2,8 +2,7 @@ const Sequelize = require('sequelize');
 const db = require('../db');
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt');
-// const axios = require('axios');
-const { STRING, INTEGER } = Sequelize;
+const { STRING, INTEGER, BOOLEAN } = Sequelize;
 
 const SALT_ROUNDS = 5;
 
@@ -25,6 +24,10 @@ const User = db.define('user', {
       isEmail: true,
     },
   },
+  isAdmin: {
+    type: BOOLEAN,
+    defaultValue: false,
+  },
   //some of the fields below probably should have an allowNull:false
   //   but I'm leaving it off for the time being so everything builds without modifying the seed file
   firstName: {
@@ -40,6 +43,10 @@ const User = db.define('user', {
   cartId: {
     type: INTEGER,
   },
+  isAdmin : {
+    type: BOOLEAN, 
+    defaultValue: false
+  }
 });
 
 module.exports = User;

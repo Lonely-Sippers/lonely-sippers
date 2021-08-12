@@ -27,6 +27,7 @@ async function seed() {
       username: 'sara',
       password: 'three',
       email: 'sara@email.com',
+      isAdmin: true
     }),
   ]);
   const [sebastien, exp] = await Promise.all([
