@@ -1,41 +1,64 @@
-import React from 'react';
+import React, { useState } from 'react';
 import DetailWindow from './DetailWindow';
 import { connect } from 'react-redux';
-import { Scrollbars } from 'react-custom-scrollbars';
+
+import FilterButton from './icons/FilterButton';
+
 import { Link } from 'react-router-dom';
 import { withRouter, Route, Switch, Redirect } from 'react-router-dom';
 
-const ShoppingWindow = ({ products }) => {
+const liquorTypes = ['Brandy', 'Gin', 'Rum', 'Tequila', 'Vodka', 'Whiskey'];
+
+const ShoppingWindow = (props) => {
   let count = 0;
+  const [filter, setFilter] = useState(props.match.params.filter);
+
+  let showProducts = props.products;
+
+  if (filter) {
+    showProducts = showProducts.filter(
+      (product) => product.alcohol_type === filter
+    );
+  }
+
   return (
     <div className="">
-      <h1>shop</h1>
-      <hr></hr>
+      <div className="sticky">
+        <div className="m-4 flexy justify-between w-10/12 mx-auto">
+          <FilterButton
+            type={'All'}
+            key={'All'}
+            history={props.history}
+            setFilter={setFilter}
+            filter={filter}
+          />
+          {liquorTypes.map((type) => (
+            <FilterButton
+              type={type}
+              key={type}
+              history={props.history}
+              setFilter={setFilter}
+              filter={filter}
+            />
+          ))}
+        </div>
+        <hr></hr>
+      </div>
       <div className="lg:grid lg:grid-cols-6 ">
-        {products.map((product) => {
+        {showProducts.map((product) => {
           count++;
           return (
             <DetailWindow key={product.id} itemId={product.id} count={count} />
           );
         })}
-        {/* <Scrollbars style={{ height: '40vh', width: '50%', margin: '1rem' }}>
-          {products.map((product) => (
-            <Link to={`/products/${product.id}`} key={product.id}>
-              <div className="card border margin padding">
-                <h3>{product.category}</h3>
-                <h4>
-                  {product.alcohol_type} from {product.region}: ${product.price}
-                </h4>
-              </div>
-            </Link>
-          ))}
-        </Scrollbars>
-        <Route path="/products/:id" component={DetailWindow} /> */}
       </div>
     </div>
   );
 };
 
-const mapState = ({ products }) => ({ products });
+const mapState = (state) => {
+  console.log('in mapstate', state);
+  return state;
+};
 
 export default connect(mapState)(ShoppingWindow);

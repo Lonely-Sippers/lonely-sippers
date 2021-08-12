@@ -60,11 +60,23 @@
   border: 1px solid black; 
 }*/
 
+.sticky {
+  position: sticky;
+  top: 7.3%;
+  z-index: 250;
+  background-color: white;
+}
+
 .btn {
   background-color: rgb(222, 184, 134);
 }
 
 .btn:hover {
+  background-color: rgb(152, 99, 59);
+  color: whitesmoke;
+}
+
+.selected {
   background-color: rgb(152, 99, 59);
   color: whitesmoke;
 }

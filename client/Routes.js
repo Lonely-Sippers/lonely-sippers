@@ -1,16 +1,16 @@
-import React, { Component, Fragment } from "react";
-import { connect } from "react-redux";
-import { withRouter, Route, Switch, Redirect } from "react-router-dom";
-import { Login } from "./components/AuthForm";
-import Advertisement from "./components/home/Advertisement";
+import React, { Component, Fragment } from 'react';
+import { connect } from 'react-redux';
+import { withRouter, Route, Switch, Redirect } from 'react-router-dom';
+import { Login } from './components/AuthForm';
+import Advertisement from './components/home/Advertisement';
 //import Home from './components/Home';
 
-import { me } from "./store";
-import Cart from "./components/home/Cart";
-import ShoppingWindow from "./components/home/ShoppingWindow";
-import { getProducts } from "../client/store/products";
+import { me } from './store';
+import Cart from './components/home/Cart';
+import ShoppingWindow from './components/home/ShoppingWindow';
+import { getProducts } from '../client/store/products';
 // import { addToCart, delFromCart, updateCart } from '../client/store/products';
-import { Signup } from "./components/Signup";
+import { Signup } from './components/Signup';
 
 /**
  * COMPONENT
@@ -34,7 +34,7 @@ class Routes extends Component {
         <Advertisement />
 
         <div className="container mx-auto ">
-          <ShoppingWindow />
+          <Route exact path="/:filter?" component={ShoppingWindow} />
           <Cart />
         </div>
       </div>
