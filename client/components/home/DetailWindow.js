@@ -1,14 +1,15 @@
-import React from 'react';
-import { connect } from 'react-redux';
+import React from "react";
+import { connect } from "react-redux";
 
-const DetailWindow = ({ itemId, products, count }) => {
+const DetailWindow = ({ itemId, products, count, auth }) => {
   // const { products } = props;
   // const id = props.match.params.id * 1 || '';
   const product = products.find((product) => product.id === itemId) || {};
 
+  //console.log(auth);
   let classes =
-    'nick   transition duration-1000 ease-in-out transform hover:-translate-y-1 hover:bg-blue-300 hover:scale-110 hover:opacity-100 m-8 p-8 relative';
-  count > 2 ? (classes += ' col-span-2') : (classes += ' col-span-3');
+    "nick   transition duration-1000 ease-in-out transform hover:-translate-y-1 hover:bg-blue-300 hover:scale-110 hover:opacity-100 m-8 p-8 relative";
+  count > 2 ? (classes += " col-span-2") : (classes += " col-span-3");
 
   let rating = product.rating;
   let stars = [];
@@ -63,10 +64,12 @@ const DetailWindow = ({ itemId, products, count }) => {
   );
 };
 
-const mapState = ({ products }) => {
+const mapState = ({ products, auth }) => {
   return {
     products,
+    auth,
   };
 };
+const mapDispatchToProps = () => {};
 
 export default connect(mapState)(DetailWindow);
