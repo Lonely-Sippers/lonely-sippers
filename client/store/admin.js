@@ -48,7 +48,7 @@ export const fetchAllUsers = (users) => {
 
 export const deleteUser = (userId) => {
   return async (dispatch) => {
-    const res = await axios.delete(`/api/admin/users:${userId}`);
+    const res = await axios.delete(`/api/admin/users/${userId}`);
     const removedUser = res.data;
     dispatch(deleteUsers(removedUser));
   };
