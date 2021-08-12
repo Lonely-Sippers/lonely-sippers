@@ -124,7 +124,7 @@ async function seed() {
 
       switch (liquorType) {
         case 'Whiskey':
-          if (whiskeyCounter === 7) {
+          if (whiskeyCounter === 6) {
             whiskeyCounter = -1;
           }
           whiskeyCounter++;
@@ -133,43 +133,43 @@ async function seed() {
           break;
 
         case 'Tequila':
-          if (tequilaCounter === 5) {
+          if (tequilaCounter === 4) {
             tequilaCounter = -1;
           }
           tequilaCounter++;
-          imageSrc = tequilaBottles[whiskeyCounter];
+          imageSrc = tequilaBottles[tequilaCounter];
           break;
 
         case 'Gin':
-          if (ginCounter === 5) {
+          if (ginCounter === 4) {
             ginCounter = -1;
           }
           ginCounter++;
-          imageSrc = ginBottles[whiskeyCounter];
+          imageSrc = ginBottles[ginCounter];
           break;
 
         case 'Rum':
-          if (rumCounter === 5) {
+          if (rumCounter === 4) {
             rumCounter = -1;
           }
           rumCounter++;
-          imageSrc = rumBottles[whiskeyCounter];
+          imageSrc = rumBottles[rumCounter];
           break;
 
         case 'Vodka':
-          if (vodkaCounter === 5) {
+          if (vodkaCounter === 4) {
             vodkaCounter = -1;
           }
           vodkaCounter++;
-          imageSrc = vodkaBottles[whiskeyCounter];
+          imageSrc = vodkaBottles[vodkaCounter];
           break;
 
         case 'Brandy':
-          if (brandyCounter === 5) {
+          if (brandyCounter === 4) {
             brandyCounter = -1;
           }
           brandyCounter++;
-          imageSrc = brandyBottles[whiskeyCounter];
+          imageSrc = brandyBottles[brandyCounter];
           break;
 
         default:
@@ -188,7 +188,6 @@ async function seed() {
         description: faker.lorem.paragraph(),
         rating: Math.round(Math.random() * 10),
         region: faker.address.country(),
-        //random price between 10 and 210 dollars, rounded to two decimals for the cents
         price: Math.random() * 200 + 10,
         year: Math.round(Math.random() * 31) + 1990,
         image_URL: imageSrc,
