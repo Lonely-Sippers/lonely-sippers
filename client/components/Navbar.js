@@ -21,9 +21,9 @@ const Navbar = ({ handleClick, isLoggedIn, isAdmin }) => (
         <div className="mx-4 flexy">
           {/* The navbar will show these links after you log in */}
           <div className="mx-4">
-          <Link to="/users">Manage Users</Link>
+          <Link to="/admin/users">Manage Users</Link>
           <span />
-          <Link to="/products">Manage Products</Link>
+          <Link to="/admin/products">Manage Products</Link>
           </div>
         </div>
       ) : (
@@ -93,7 +93,6 @@ const Navbar = ({ handleClick, isLoggedIn, isAdmin }) => (
  * CONTAINER
  */
 const mapState = (state) => {
-  console.log("nav state", state);
   return {
     isLoggedIn: !!state.auth.id,
     isAdmin: !!state.auth.isAdmin,
