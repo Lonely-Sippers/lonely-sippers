@@ -64,7 +64,7 @@ export const fetchAllOrders = (orders) => {
 
 export const changeAdminStat = (userId) => {
   return async (dispatch) => {
-    const res = await axios.put(`/api/admin/users/${userId}`, { isAdmin: true });
+    const res = await axios.put(`/api/admin/users/${userId}`, { isAdmin });
     const changeAdmin = res.data;
     dispatch(adminStat(changeAdmin));
   };
@@ -75,6 +75,7 @@ export const changeAdminStat = (userId) => {
 const adminState = {
   users: [],
   products: [],
+  orders: [],
   user: {},
   product: {}
 };

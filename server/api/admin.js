@@ -45,3 +45,12 @@ router.get("/products", async (req, res, next) => {
       next(err);
     }
   });
+
+  router.get("/orders", async (req, res, next) => {
+    try {
+      const orders = await Order.findAll();
+      res.json(orders);
+    } catch (err) {
+      next(err);
+    }
+  });

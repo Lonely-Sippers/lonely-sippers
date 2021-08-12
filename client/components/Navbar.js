@@ -24,11 +24,13 @@ const Navbar = ({ handleClick, isLoggedIn, isAdmin }) => (
           <Link to="/admin/users">Manage Users</Link>
           <span />
           <Link to="/admin/products">Manage Products</Link>
+          <span />
+          <Link to="/admin/orders">View Orders</Link>
           </div>
         </div>
       ) : (
         <div />
-      )}
+      )} 
 
       {isLoggedIn ? (
         <div className="mx-4 flexy">
