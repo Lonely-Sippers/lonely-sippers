@@ -34,9 +34,9 @@ const DetailWindow = ({ itemId, products, count, auth }) => {
 
         {/* <p>{product.description}</p> */}
 
-        <h4 className="mt-8">Country of Origin: {product.region}</h4>
+        <h4 className="">Country of Origin: {product.region}</h4>
 
-        <div className="mb-20">
+        <div className="mb-16">
           <h4>Alcohol Percentage: {product.alcohol_percentage}</h4>
         </div>
         <div className="md:flex md:justify-between py-8 absolute bottom-0 wider">

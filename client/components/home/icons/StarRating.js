@@ -19,7 +19,7 @@ const StarRating = ({ rating }) => {
 
     stars.push(
       <i
-        className={'fas fa-star' + color}
+        className={'fas fa-star cursor-pointer' + color}
         key={starCount}
         onMouseEnter={() => {
           setRated(true);
@@ -35,7 +35,7 @@ const StarRating = ({ rating }) => {
 
     stars.push(
       <i
-        className={'fas fa-star-half-alt' + color}
+        className={'fas fa-star-half-alt cursor-pointer' + color}
         key={starCount}
         onMouseEnter={() => {
           setRated(true);
@@ -51,7 +51,7 @@ const StarRating = ({ rating }) => {
 
     stars.push(
       <i
-        className={'far fa-star' + color}
+        className={'far fa-star cursor-pointer' + color}
         key={starCount}
         onMouseEnter={() => {
           setRated(true);
@@ -68,11 +68,7 @@ const StarRating = ({ rating }) => {
         setRated(false);
       }}
     >
-      {stars.map((star, idx) => {
-        if (idx < 5) {
-          return star;
-        }
-      })}
+      {stars.map((star) => star)}
     </div>
   );
 };

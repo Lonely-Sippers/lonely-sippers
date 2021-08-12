@@ -1,11 +1,11 @@
-import React from "react";
-import { connect } from "react-redux";
-import { Link } from "react-router-dom";
-import { logout } from "../store";
-import Home from "./home/Home";
-import { Login } from "./AuthForm";
-import { Signup } from "./Signup";
-import { withRouter, Route, Switch, Redirect } from "react-router-dom";
+import React from 'react';
+import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
+import { logout } from '../store';
+import Home from './home/Home';
+import { Login } from './AuthForm';
+import { Signup } from './Signup';
+import { withRouter, Route, Switch, Redirect } from 'react-router-dom';
 
 const Navbar = ({ handleClick, isLoggedIn, isAdmin }) => (
   <div className="fixed w-screen nav">
@@ -21,11 +21,14 @@ const Navbar = ({ handleClick, isLoggedIn, isAdmin }) => (
         <div className="mx-4 flexy">
           {/* The navbar will show these links after you log in */}
           <div className="mx-4">
+
+
           <Link to="/admin/users">Manage Users</Link>
           <span />
           <Link to="/admin/products">Manage Products</Link>
           <span />
           <Link to="/admin/orders">View Orders</Link>
+
           </div>
         </div>
       ) : (
@@ -95,6 +98,7 @@ const Navbar = ({ handleClick, isLoggedIn, isAdmin }) => (
  * CONTAINER
  */
 const mapState = (state) => {
+
   return {
     isLoggedIn: !!state.auth.id,
     isAdmin: !!state.auth.isAdmin,
