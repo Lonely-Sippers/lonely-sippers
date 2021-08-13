@@ -1,11 +1,19 @@
 import axios from "axios";
 
 //ACTION TYPES
+const GET_CART = "GET_CART";
 const ADD_TO_CART = "ADD_TO_CART";
 const DELETE_FROM_CART = "DELETE_FROM_CART";
 const UPDATE_QUANTITY = "UPDATE_QUANTITY";
 
 //ACTION CREATORS
+const _getCart = (cart) => {
+  return {
+    type: GET_CART,
+    cart,
+  };
+};
+
 const addProductsToCart = (product) => {
   return {
     type: ADD_TO_CART,
@@ -29,73 +37,23 @@ const updateQuantity = (productId, itemsTotal) => {
 };
 
 //ACTION THUNKS
-// export const addToCart = () => {
-//   return async (dispatch) => {
-//     const res = await axios.get("/api/cart");
-//     const products = res.data;
-//     dispatch(addProductsToCart(products));
-//   };
-// };
 
-export const addToCart = (product) => {
-  const cartItems = this.state.cartItems.slice();
-  let alreadyInCart = false;
-  cartItems.forEach((item) => {
-    if (item._id === product._id) {
-      item.count++;
-      alreadyInCart = true;
-    }
-  });
-  if (!alreadyInCart) {
-    cartItems.push({ ...product, count: 1 });
-  }
-  this.setState({ cartItems });
-};
+export const getCart = (user) => async (dispatch) => {
+  //console.log(user);
+  const cart = await (await axios.get(`/api/orders/carts/${user.id}`)).data;
 
-export const delFromCart = () => {
-  return async (dispatch) => {
-    const res = await axios.get("/api/cart");
-    const products = res.data;
-    dispatch(deleteProductsFromCart(products));
-  };
-};
-
-export const updateCart = () => {
-  return async (dispatch) => {
-    const res = await axios.get("/api/cart");
-    const products = res.data;
-    dispatch(updateQuantity(products));
-  };
-};
-
-//REDUCER
-const initialState = {
-  cart: [],
+  dispatch(_getCart(cart));
 };
 
 //will dry out later
 export const cartReducer = (state = [], action) => {
   switch (action.type) {
-    case ADD_TO_CART:
-      state.cart.push(action.product);
+    case GET_CART:
       return {
         ...state,
-        cart: state.cart,
+        cart: action.cart,
       };
-    case DELETE_FROM_CART:
-      return {
-        ...state,
-        cart: state.cart.filter((product) => product.id != action.productId),
-      };
-    case UPDATE_QUANTITY:
-      let newCart = state.cart.filter(
-        (product) => product.id != action.productId
-      );
-      newCart.push(product);
-      return {
-        ...state,
-        cart: newCart,
-      };
+
     default:
       return state;
   }

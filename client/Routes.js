@@ -1,16 +1,18 @@
-import React, { Component, Fragment } from 'react';
-import { connect } from 'react-redux';
-import { withRouter, Route, Switch, Redirect } from 'react-router-dom';
-import { Login } from './components/AuthForm';
-import Advertisement from './components/home/Advertisement';
+import React, { Component, Fragment } from "react";
+import { connect } from "react-redux";
+import { withRouter, Route, Switch, Redirect } from "react-router-dom";
+import { Login } from "./components/AuthForm";
+import Advertisement from "./components/home/Advertisement";
+import { getCart } from "./store/cart";
+
 //import Home from './components/Home';
 
-import { me } from './store';
-import Cart from './components/home/Cart';
-import ShoppingWindow from './components/home/ShoppingWindow';
-import { getProducts } from '../client/store/products';
+import { me } from "./store";
+import Cart from "./components/home/Cart";
+import ShoppingWindow from "./components/home/ShoppingWindow";
+import { getProducts } from "../client/store/products";
 // import { addToCart, delFromCart, updateCart } from '../client/store/products';
-import { Signup } from './components/Signup';
+import { Signup } from "./components/Signup";
 
 /**
  * COMPONENT
@@ -20,9 +22,8 @@ class Routes extends Component {
     this.props.loadInitialData();
     this.props.getProducts();
   }
-  componentDidUpdate(bananaProps) {
+  async componentDidUpdate(bananaProps) {
     if (bananaProps.isLoggedIn !== this.props.isLoggedIn) {
-      console.log(this.props.user);
     }
   }
 
