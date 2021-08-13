@@ -21,10 +21,8 @@ const FilterButton = (props) => {
       // onClick={() => props.history.push(`/${props.type}`)}
       onClick={() => {
         if (props.type === 'All') {
-          props.setFilter('');
           props.history.push(`/`);
         } else {
-          props.setFilter(props.type);
           props.history.push(`/${props.type}`);
         }
       }}

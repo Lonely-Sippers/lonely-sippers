@@ -1,26 +1,12 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import DetailWindow from './DetailWindow';
 import { connect } from 'react-redux';
 
 import FilterButton from './icons/FilterButton';
 
-import { Link } from 'react-router-dom';
-import { withRouter, Route, Switch, Redirect } from 'react-router-dom';
-
-const liquorTypes = ['Brandy', 'Gin', 'Rum', 'Tequila', 'Vodka', 'Whiskey'];
-
 const ShoppingWindow = (props) => {
+  const liquorTypes = ['Brandy', 'Gin', 'Rum', 'Tequila', 'Vodka', 'Whiskey'];
   let count = 0;
-  const [filter, setFilter] = useState(props.match.params.filter);
-
-  let showProducts = props.products;
-
-  if (filter) {
-    showProducts = showProducts.filter(
-      (product) => product.alcohol_type === filter
-    );
-  }
-
   return (
     <div className="">
       <div className="sticky">
@@ -29,23 +15,21 @@ const ShoppingWindow = (props) => {
             type={'All'}
             key={'All'}
             history={props.history}
-            setFilter={setFilter}
-            filter={filter}
+            filter={props.filter}
           />
           {liquorTypes.map((type) => (
             <FilterButton
               type={type}
               key={type}
               history={props.history}
-              setFilter={setFilter}
-              filter={filter}
+              filter={props.filter}
             />
           ))}
         </div>
-        <hr></hr>
+        <hr className="wood1"></hr>
       </div>
       <div className="lg:grid lg:grid-cols-6 ">
-        {showProducts.map((product) => {
+        {props.products.map((product) => {
           count++;
           return (
             <DetailWindow key={product.id} itemId={product.id} count={count} />
@@ -56,9 +40,16 @@ const ShoppingWindow = (props) => {
   );
 };
 
-const mapState = (state) => {
-  console.log('in mapstate', state);
-  return state;
+const mapState = ({ products }, history) => {
+  const filter = history.match.params.filter;
+  let showProducts = products;
+
+  if (filter) {
+    showProducts = showProducts.filter(
+      (product) => product.alcohol_type === filter
+    );
+  }
+  return { products: showProducts, filter };
 };
 
 export default connect(mapState)(ShoppingWindow);

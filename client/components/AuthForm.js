@@ -10,7 +10,7 @@ const AuthForm = (props) => {
 
   return (
     <div className="bg-secondary ">
-      <form onSubmit={handleSubmit} name={name} className="flexy p-4">
+      <form onSubmit={handleSubmit} name={name} className="flexy p-4 bigz">
         <div>
           <label htmlFor="username">
             <small>Username</small>

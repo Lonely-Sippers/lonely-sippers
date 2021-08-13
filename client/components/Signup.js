@@ -9,8 +9,8 @@ const SignupForm = (props) => {
   const { name, displayName, handleSubmit, error } = props;
 
   return (
-    <div className="bg-secondary ">
-      <form onSubmit={handleSubmit} name={name} className="flexy p-4">
+    <div className="bg-secondary bigz">
+      <form onSubmit={handleSubmit} name={name} className="flexy p-4 bigz">
         <div>
           <label htmlFor="username">
             <small>Username</small>
