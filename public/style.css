@@ -2,6 +2,10 @@
   color: #deb886;
 }
 
+.wood4 {
+  color: #42291a;
+}
+
 /*
       wood2: '#98633B',
       wood3: '#6F432A',
@@ -62,11 +66,14 @@
 
 .sticky {
   position: sticky;
-  top: 7.3%;
+  top: 94px;
   z-index: 250;
   background-color: white;
 }
 
+.bigz {
+  z-index: 300;
+}
 .btn {
   background-color: rgb(222, 184, 134);
 }
@@ -88,7 +95,6 @@
 .flexy {
   display: flex;
 }
-
 
 /*
 
