@@ -66,14 +66,15 @@
 
 .sticky {
   position: sticky;
-  top: 93px;
+  top: 66px;
   z-index: 250;
   background-color: white;
 }
 
 .navUserImage {
-  width: 60px;
+  width: 46px;
   border-radius: 50%;
+  border: 3px solid #deb886;
 }
 
 .bigz {

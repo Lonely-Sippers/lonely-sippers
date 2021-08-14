@@ -1,11 +1,12 @@
 //this is the access point for all things database related!
 
-const db = require("./db");
+const db = require('./db');
 
-const User = require("./models/User");
-const Product = require("./models/Product");
-const Order = require("./models/Order");
-const OrderItem = require("./models/OrderItem");
+const User = require('./models/User');
+const Product = require('./models/Product');
+const Order = require('./models/Order');
+const OrderItem = require('./models/OrderItem');
+const Review = require('./models/Review');
 
 //magic methods
 User.createOrder = async function () {
@@ -40,6 +41,12 @@ OrderItem.belongsTo(Order);
 
 Product.hasMany(OrderItem);
 OrderItem.belongsTo(Product);
+
+User.hasMany(Review);
+Review.belongsTo(User);
+
+Product.hasMany(Review);
+Review.belongsTo(Product);
 
 module.exports = {
   db,
