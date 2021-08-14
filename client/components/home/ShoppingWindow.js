@@ -10,7 +10,7 @@ const ShoppingWindow = (props) => {
   return (
     <div className="">
       <div className="sticky">
-        <div className="m-4 flexy justify-between w-10/12 mx-auto">
+        <div className=" flexy justify-between w-10/12 mx-auto">
           <FilterButton
             type={'All'}
             key={'All'}

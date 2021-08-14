@@ -8,7 +8,7 @@ import { Signup } from './Signup';
 import { withRouter, Route, Switch, Redirect } from 'react-router-dom';
 
 const Navbar = ({ handleClick, isLoggedIn, isAdmin }) => (
-  <nav className="md:flex md:justify-between md:items-center border-b-2 p-4 bg-wood5 px-4 text-wood1 nav">
+  <nav className="md:flex md:justify-between md:items-center border-b p-4 bg-wood5 px-4 text-wood1 nav">
     {/* <div> */}
     <Link to="/">
       <h1 className="md:flex text-justify items-end text-6xl font-bold">

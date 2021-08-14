@@ -4,16 +4,16 @@ import { withRouter, Link, Route, Switch, Redirect } from 'react-router-dom';
 
 const FilterButton = (props) => {
   let classes =
-    'btn w-32 transition-colors duration-300  m-2   rounded-full text-xs font-semibold text-white uppercase py-3 px-8 text-center';
+    'btn w-32 transition-colors duration-300  m-3   rounded-full text-xs font-semibold text-white uppercase py-3 px-8 text-center';
 
   if (props.type === props.filter) {
     classes =
-      'selected w-32  m-2   rounded-full text-xs font-semibold  uppercase py-3 px-8 text-center';
+      'selected w-32    m-3  rounded-full text-xs font-semibold  uppercase py-3 px-8 text-center';
   }
 
   if (props.type === 'All' && !props.filter) {
     classes =
-      'selected w-32  m-2   rounded-full text-xs font-semibold  uppercase py-3 px-8 text-center';
+      'selected w-32   m-3   rounded-full text-xs font-semibold  uppercase py-3 px-8 text-center';
   }
 
   return (
