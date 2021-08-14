@@ -6,17 +6,16 @@ import Home from './home/Home';
 import { Login } from './AuthForm';
 import { Signup } from './Signup';
 import { withRouter, Route, Switch, Redirect } from 'react-router-dom';
+import UserIcon from './home/icons/UserIcon';
 
-const Navbar = ({ handleClick, isLoggedIn, isAdmin }) => (
+const Navbar = ({ handleClick, isLoggedIn, isAdmin, userImage }) => (
   <nav className="md:flex md:justify-between md:items-center border-b p-4 bg-wood5 px-4 text-wood1 nav">
-    {/* <div> */}
     <Link to="/">
       <h1 className="md:flex text-justify items-end text-6xl font-bold">
         <img src="/favicon.ico" width="60px"></img>Lonely Sippers
       </h1>
     </Link>
 
-    {/* </div> */}
     {isAdmin ? (
       <div className="mx-4 flexy">
         {/* The navbar will show these links after you log in */}
@@ -34,20 +33,12 @@ const Navbar = ({ handleClick, isLoggedIn, isAdmin }) => (
 
     {isLoggedIn ? (
       <div className="mx-4 flexy">
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          className="h-10 w-10"
-          fill="none"
-          viewBox="0 0 24 24"
-          stroke="currentColor"
-        >
-          <path
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            strokeWidth={2}
-            d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"
-          />
-        </svg>
+        {userImage ? (
+          <img src={userImage} className="navUserImage" />
+        ) : (
+          <UserIcon />
+        )}
+
         <div className="mx-8">
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -88,9 +79,11 @@ const Navbar = ({ handleClick, isLoggedIn, isAdmin }) => (
  * CONTAINER
  */
 const mapState = (state) => {
+  console.log(state.auth);
   return {
     isLoggedIn: !!state.auth.id,
     isAdmin: !!state.auth.isAdmin,
+    userImage: state.auth.userImage,
   };
 };
 

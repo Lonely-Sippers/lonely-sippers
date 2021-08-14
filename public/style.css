@@ -71,6 +71,11 @@
   background-color: white;
 }
 
+.navUserImage {
+  width: 60px;
+  border-radius: 50%;
+}
+
 .bigz {
   z-index: 300;
 }
