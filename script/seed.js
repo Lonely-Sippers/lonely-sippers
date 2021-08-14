@@ -15,31 +15,97 @@ async function seed() {
   await db.sync({ force: true }); // clears db and matches models to tables
   console.log("db synced!");
 
+  const userImages = [
+    'https://i.imgur.com/G2sedfG.jpg',
+    'https://i.imgur.com/XvLU6yG.jpg',
+    'https://i.imgur.com/AOOE57T.jpg',
+    'https://i.imgur.com/7O7uIS9.jpg',
+    'https://i.imgur.com/5xjxkSf.jpg',
+    'https://i.imgur.com/2ZA8YtO.jpg',
+    'https://i.imgur.com/yGoLJ3i.jpg',
+    'https://i.imgur.com/dIsB6TA.jpg',
+    'https://i.imgur.com/IGUmKSZ.jpg',
+    'https://i.imgur.com/Jfh6piS.jpg',
+    'https://i.imgur.com/T6n0qlg.jpg',
+    'https://i.imgur.com/ycoSJ4g.jpg',
+    'https://i.imgur.com/X1LmIiy.jpg',
+    'https://i.imgur.com/yS44Oly.jpg',
+    'https://i.imgur.com/T0Kw64Q.jpg',
+    'https://i.imgur.com/o1YqdjZ.jpg',
+    'https://i.imgur.com/Ia7tI2k.jpg',
+    'https://i.imgur.com/WmSFe93.jpg',
+    'https://i.imgur.com/0crQhMu.jpg',
+    'https://i.imgur.com/e8z9R12.jpg',
+    'https://i.imgur.com/epWMgDg.jpg',
+    'https://i.imgur.com/w4YWOeG.jpg',
+    'https://i.imgur.com/YQFZA8r.jpg',
+    'https://i.imgur.com/5a4qs8U.jpg',
+    'https://i.imgur.com/zdHSGFq.jpg',
+    'https://i.imgur.com/uKyeWK8.jpg',
+    'https://i.imgur.com/a9bS5q5.jpg',
+    'https://i.imgur.com/dfdJ8Iu.jpg',
+    'https://i.imgur.com/burUh1S.jpg',
+    'https://i.imgur.com/YFEiJO7.jpg',
+    'https://i.imgur.com/kSIJ05h.jpg',
+    'https://i.imgur.com/nMlQluu.jpg',
+    'https://i.imgur.com/uIqClPT.jpg',
+    'https://i.imgur.com/WREGKQz.jpg',
+    'https://i.imgur.com/X2hYmyn.jpg',
+    'https://i.imgur.com/ecNU6zA.jpg',
+    'https://i.imgur.com/sA2VPs9.jpg',
+    'https://i.imgur.com/bymqRUL.jpg',
+    'https://i.imgur.com/WP26v97.jpg',
+    'https://i.imgur.com/dsXuFf4.jpg',
+    'https://i.imgur.com/4NwFZ6d.jpg',
+    'https://i.imgur.com/MBICtQu.jpg',
+    'https://i.imgur.com/kMQ68bf.jpg',
+    'https://i.imgur.com/UcSTXZu.jpg',
+    'https://i.imgur.com/W3KW1o5.jpg',
+    'https://i.imgur.com/cOx4m5Z.jpg',
+    'https://i.imgur.com/wvGl8dX.jpg',
+    'https://i.imgur.com/cHFUr1f.jpg',
+    'https://i.imgur.com/9exhJB4.jpg',
+    'https://i.imgur.com/Ouv5xtZ.jpg',
+  ];
+
   // Creating Users
   const users = await Promise.all([
-    User.create({ username: "cody", password: "one", email: "cody@email.com" }),
+
     User.create({
-      username: "murphy",
-      password: "two",
-      email: "murphy@email.com",
+      username: 'cody',
+      password: 'one',
+      email: 'cody@email.com',
+      userImage: userImages[4],
     }),
     User.create({
-      username: "sara",
-      password: "three",
-      email: "sara@email.com",
+      username: 'murphy',
+      password: 'two',
+      email: 'murphy@email.com',
+      userImage: userImages[0],
+    }),
+    User.create({
+      username: 'sara',
+      password: 'three',
+      email: 'sara@email.com',
       isAdmin: true,
+      userImage: userImages[1],
+    
     }),
   ]);
   const [sebastien, exp] = await Promise.all([
     User.create({
-      username: "sebastien",
-      password: "one",
-      email: "seb@email.com",
+
+      username: 'sebastien',
+      password: 'one',
+      email: 'seb@email.com',
+      userImage: userImages[2],
     }),
     User.create({
-      username: "exp",
-      password: "onex",
-      email: "xp@email.com",
+      username: 'exp',
+      password: 'onex',
+      email: 'xp@email.com',
+      userImage: userImages[3],
+
     }),
   ]);
 
