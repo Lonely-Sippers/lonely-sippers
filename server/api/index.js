@@ -10,6 +10,7 @@ router.use("/orders", require("./orders"));
 router.use("/signup", require("../auth/index"));
 
 router.use("/admin", require("./admin"));
+router.use("/items", require("./items"));
 
 router.use((req, res, next) => {
   const error = new Error("Not Found");

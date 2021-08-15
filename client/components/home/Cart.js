@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import { withRouter, Route, Switch, Redirect } from "react-router-dom";
 import { Login } from "../AuthForm";
-import { getCart } from "../../store/cart";
+import { getCart, deleteCart } from "../../store/cart";
 
 // const Cart = ({ isLoggedIn, cart }) => {
 class Cart extends Component {
@@ -50,6 +50,9 @@ class Cart extends Component {
                         <img src={product.image_URL} alt={product.category} />
                       </div>
                       <div>{product.category}</div>
+                      <button onClick={() => this.props.deleteCart(item)}>
+                        x
+                      </button>
                     </li>
                   );
                 })}
@@ -72,6 +75,7 @@ const mapState = (state) => {
 };
 const mapDispatchToProps = {
   getCart,
+  deleteCart,
 };
 
 export default connect(mapState, mapDispatchToProps)(Cart);

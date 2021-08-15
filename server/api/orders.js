@@ -54,3 +54,6 @@ router.get("/carts/:id", async (req, res, next) => {
     next(err);
   }
 });
+
+//specific cart item
+router.get("/carts/cart/:item");
