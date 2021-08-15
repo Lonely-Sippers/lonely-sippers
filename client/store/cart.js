@@ -14,25 +14,10 @@ const _getCart = (cart) => {
   };
 };
 
-const addProductsToCart = (product) => {
-  return {
-    type: ADD_TO_CART,
-    product,
-  };
-};
-
-const deleteProductsFromCart = (productId) => {
+const _deleteCart = (cart) => {
   return {
     type: DELETE_FROM_CART,
-    productId: productId,
-  };
-};
-
-const updateQuantity = (productId, itemsTotal) => {
-  return {
-    type: UPDATE_QUANTITY,
-    productId: productId,
-    itemsTotal: itemsTotal,
+    cart,
   };
 };
 
@@ -45,7 +30,12 @@ export const getCart = (user) => async (dispatch) => {
   dispatch(_getCart(cart));
 };
 
-//will dry out later
+export const deleteCart = (cart) => async (dispatch) => {
+  await axios.delete(`api/items/${cart.id}`);
+  console.log(cart);
+  dispatch(_deleteCart(cart));
+};
+//Reducer
 export const cartReducer = (state = [], action) => {
   switch (action.type) {
     case GET_CART:
@@ -53,6 +43,8 @@ export const cartReducer = (state = [], action) => {
         ...state,
         cart: action.cart,
       };
+    case DELETE_FROM_CART:
+      return state.cart.filter((cart) => cart.id !== action.cart.id * 1);
 
     default:
       return state;
