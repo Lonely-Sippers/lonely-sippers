@@ -1,13 +1,13 @@
-import React from 'react';
-import { connect } from 'react-redux';
-import { Link } from 'react-router-dom';
-import { logout } from '../store';
-import Home from './home/Home';
-import { Login } from './AuthForm';
-import { Signup } from './Signup';
-import { withRouter, Route, Switch, Redirect } from 'react-router-dom';
-import UserIcon from './home/icons/UserIcon';
-import ShoppingBagIcon from './home/icons/ShoppingBagIcon';
+import React from "react";
+import { connect } from "react-redux";
+import { Link } from "react-router-dom";
+import { logout } from "../store";
+import Home from "./home/Home";
+import { Login } from "./AuthForm";
+import { Signup } from "./Signup";
+import { withRouter, Route, Switch, Redirect } from "react-router-dom";
+import UserIcon from "./home/icons/UserIcon";
+import ShoppingBagIcon from "./home/icons/ShoppingBagIcon";
 
 const Navbar = ({ handleClick, isLoggedIn, isAdmin, userImage }) => (
   <nav className="md:flex md:justify-between md:items-center border-b-2 p-2 bg-wood5 px-4 text-wood1 nav">
@@ -69,7 +69,7 @@ const Navbar = ({ handleClick, isLoggedIn, isAdmin, userImage }) => (
  * CONTAINER
  */
 const mapState = (state) => {
-  console.log(state.auth);
+  //console.log(state.auth);
   return {
     isLoggedIn: !!state.auth.id,
     isAdmin: !!state.auth.isAdmin,

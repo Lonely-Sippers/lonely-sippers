@@ -104,6 +104,7 @@ async function seed() {
       userImage: userImages[3],
     }),
   ]);
+  //users[0].createCart();
 
   // console.log(sebastien.__proto__);
   // console.log(sebastien.createOrder());
@@ -267,7 +268,7 @@ async function seed() {
     }),
     OrderItem.create({
       total: 1,
-      orderId: order2.id,
+      orderId: order1.id,
       productId: products[1].id,
     }),
     OrderItem.create({

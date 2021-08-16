@@ -23,11 +23,9 @@ class Cart extends Component {
   }
   render() {
     const { isLoggedIn, cart, user, products } = this.props;
-    console.log(cart, products);
+    console.log(user);
+
     return (
-      // <div className="border padding oneThird backgroundWhite">
-      //   {isLoggedIn ? <h1>Your cart is empty!</h1> : <Login />}
-      // </div>
       <div>
         {cart.length === 0 ? (
           <div className="cart cart-header"> Cart is empty </div>
@@ -44,6 +42,7 @@ class Cart extends Component {
                   const product = products.find(
                     (product) => product.id === item.productId
                   );
+
                   return (
                     <li key={item.id}>
                       <div>
@@ -68,7 +67,7 @@ class Cart extends Component {
 const mapState = (state) => {
   return {
     isLoggedIn: !!state.auth.id,
-    cart: state.cart.cart || [],
+    cart: state.cart[0] || [],
     user: state.auth,
     products: state.products,
   };

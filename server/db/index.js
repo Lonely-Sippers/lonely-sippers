@@ -1,35 +1,34 @@
 //this is the access point for all things database related!
 
-const db = require('./db');
+const db = require("./db");
 
-const User = require('./models/User');
-const Product = require('./models/Product');
-const Order = require('./models/Order');
-const OrderItem = require('./models/OrderItem');
-const Review = require('./models/Review');
+const User = require("./models/User");
+const Product = require("./models/Product");
+const Order = require("./models/Order");
+const OrderItem = require("./models/OrderItem");
+const Review = require("./models/Review");
 
-//magic methods
-User.createOrder = async function () {
-  const order = await Order.create({
-    where: {
-      userId: User.id,
-    },
+//class methods
+User.prototype.createCart = function () {
+  return Order.create({
+    userId: this.id,
+    inProgress: true,
   });
-  return order;
 };
 
-User.cartItem = async function () {
-  const order = Order.findOne({
+User.prototype.getCart = async function () {
+  let cart = await Order.findOne({
     where: {
-      userId: User.id,
+      userId: this.id,
+      inProgress: true,
     },
   });
-  const item = await OrderItem.create({
-    where: {
-      orderId: order.id,
-    },
-  });
-  return item;
+  if (!cart) {
+    cart = await Order.create({
+      userId: this.id,
+    });
+  }
+  return cart;
 };
 
 //associations could go here!
