@@ -33,7 +33,7 @@ const Navbar = ({ handleClick, isLoggedIn, isAdmin, userImage }) => (
     )}
 
     {isLoggedIn ? (
-      <div className="mx-4 flexy items-center">
+      <div className="mx-4 flexy items-center relative">
         {/* The navbar will show these links after you log in */}
         <div className="flexy items-center">
           <Home />
@@ -42,6 +42,9 @@ const Navbar = ({ handleClick, isLoggedIn, isAdmin, userImage }) => (
           </a>
         </div>
         <ShoppingBagIcon />
+
+        <h4 className="bagCount">3</h4>
+
         {userImage ? (
           <img src={userImage} className="navUserImage" />
         ) : (
@@ -69,7 +72,6 @@ const Navbar = ({ handleClick, isLoggedIn, isAdmin, userImage }) => (
  * CONTAINER
  */
 const mapState = (state) => {
-  console.log(state.auth);
   return {
     isLoggedIn: !!state.auth.id,
     isAdmin: !!state.auth.isAdmin,

@@ -35,34 +35,9 @@
   box-shadow: 10px 10px 10px 10px rgba(150, 89, 89, 0.5);
 }
 
-/* html {
-  font-size: 62.5%;
-  box-sizing: border-box;
-} */
-/* 
-.container {
-  max-width: 1300px;
-  margin: auto;
-  overflow: hidden;
-  padding: 0 2rem;
-} */
-
-/* body {
-  background: linear-gradient(to top, white 0%, rgba(108, 169, 233, 0.2));
-  height: 100vh;
-} */
-
 .nav {
   z-index: 100;
 }
-
-/* .margin {
-  margin: 1rem;
-}
-
-.border {
-  border: 1px solid black; 
-}*/
 
 .sticky {
   position: sticky;
@@ -102,82 +77,27 @@
   display: flex;
 }
 
-/*
-
-.marginTop {
-  margin-top: 1rem;
-}
-
-.padding {
-  padding: 1rem;
-}
-
-.window {
-  width: auto;
-  height: auto;
-  padding: 1rem;
-  justify-content: space-around;
-  background: linear-gradient(to bottom, white 0%, rgba(108, 169, 233, 0.2));
-}
-
-.backgroundWhite {
-  background-color: white;
-}
-
-.maxHeight {
-  height: 55vh;
-}
-
-.twoThird {
-  width: 65%;
-}
-
-.oneThird {
-  width: 25%;
-}
-
-.detail {
-  width: 45%;
-  height: 40vh;
-  display: flex;
-  flex-direction: column;
-}
-
-.bottle {
-  width: 60%;
-  align-items: center;
-}
-
-.card {
-  box-shadow: 2px 2px 2px 1px rgba(0, 0, 0, 0.3);
-  background: linear-gradient(to bottom, white 0%, rgba(108, 169, 233, 0.2));
-  text-decoration: none;
-  color: black;
-}
-#advert {
+.bagCount {
+  position: absolute;
+  right: 76px;
+  top: 20px;
+  background-color: #72082d;
+  padding: auto;
   text-align: center;
-  height: 150px;
-  background: linear-gradient(to bottom, white 0%, rgba(108, 169, 233, 0.2));
+  padding-bottom: 2px;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
 }
 
-body {
-  font-family: sans-serif;
+.singleProd {
+  justify-content: center;
 }
 
-a {
-  text-decoration: none;
+.singleLeft {
+  flex: auto;
 }
 
-label {
-  display: block;
+.singleRight {
+  flex: 1;
 }
-
-nav a {
-  display: inline-block;
-  margin: 1em;
-}
-
-form div {
-  margin: 1em;
-  display: inline-block;
-} */

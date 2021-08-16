@@ -14,13 +14,13 @@ import ShoppingWindow from './components/home/ShoppingWindow';
 import { getProducts } from '../client/store/products';
 // import { addToCart, delFromCart, updateCart } from '../client/store/products';
 import { Signup } from './components/Signup';
+import SingleProduct from './components/home/SingleProduct';
 
 /**
  * COMPONENT
  */
 class Routes extends Component {
   componentDidMount() {
-    console.log('compMount', this.props);
     this.props.loadInitialData();
     this.props.getProducts();
   }
@@ -30,26 +30,23 @@ class Routes extends Component {
   }
 
   render() {
-    const { isLoggedIn } = this.props;
+    // const { isLoggedIn } = this.props;
 
     return (
       <div className="">
         <div className="fixed w-screen nav bigz">
           <Navbar />
-          <div className="bg-white ">
-            <Switch>
-              <Route exact path="/login" component={Login} />
-              <Route exact path="/signup" component={Signup} />
-            </Switch>
-          </div>
-        </div>
-        <Advertisement />
 
-        <div className="container mx-auto wood4">
-          <Route exact path="/:filter?" component={ShoppingWindow} />
-
-          <Cart />
+          <Switch>
+            <Route exact path="/login" component={Login} />
+            <Route exact path="/signup" component={Signup} />
+          </Switch>
         </div>
+
+        <Route exact path="/products/:id" component={SingleProduct} />
+        <Route exact path="/:filter?" component={ShoppingWindow} />
+
+        <Cart />
       </div>
     );
   }
