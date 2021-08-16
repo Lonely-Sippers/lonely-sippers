@@ -4,7 +4,7 @@ const ShoppingBagIcon = () => {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
-      className="h-10 w-10 mx-4"
+      className="h-12 w-12 mx-4"
       fill="none"
       viewBox="0 0 24 24"
       stroke="currentColor"

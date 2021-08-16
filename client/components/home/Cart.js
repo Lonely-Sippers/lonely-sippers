@@ -1,8 +1,8 @@
-import React, { Component } from "react";
-import { connect } from "react-redux";
-import { withRouter, Route, Switch, Redirect } from "react-router-dom";
-import { Login } from "../AuthForm";
-import { getCart, deleteCart } from "../../store/cart";
+import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import { withRouter, Route, Switch, Redirect } from 'react-router-dom';
+import { Login } from '../AuthForm';
+import { getCart, deleteCart } from '../../store/cart';
 
 // const Cart = ({ isLoggedIn, cart }) => {
 class Cart extends Component {
@@ -23,7 +23,6 @@ class Cart extends Component {
   }
   render() {
     const { isLoggedIn, cart, user, products } = this.props;
-    console.log(cart, products);
     return (
       // <div className="border padding oneThird backgroundWhite">
       //   {isLoggedIn ? <h1>Your cart is empty!</h1> : <Login />}

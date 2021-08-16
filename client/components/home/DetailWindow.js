@@ -1,11 +1,9 @@
 import React, { useState } from 'react';
 import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
 import StarRating from './icons/StarRating';
 
 const DetailWindow = ({ itemId, products, count, auth }) => {
-  // const { products } = props;
-  // const id = props.match.params.id * 1 || '';
-  // console.log(auth);
   const product = products.find((product) => product.id === itemId) || {};
 
   let classes =
@@ -36,11 +34,16 @@ const DetailWindow = ({ itemId, products, count, auth }) => {
 
         <h4 className="">Country of Origin: {product.region}</h4>
 
-        <div className="mb-16">
+        <div>
           <h4>Alcohol Percentage: {product.alcohol_percentage}</h4>
         </div>
+        <h4 className="mb-16">Price: ${product.price}</h4>
         <div className="md:flex md:justify-between py-8 absolute bottom-0 wider">
-          <h4>Price: ${product.price}</h4>
+          <Link to={`/products/${product.id}`}>
+            <button className="btn transition-colors duration-300  mt-4 lg:mt-0  rounded-full text-xs font-semibold text-white uppercase py-3 px-8">
+              Read More
+            </button>
+          </Link>
           <button className="btn transition-colors duration-300  mt-4 lg:mt-0 lg:ml-3 rounded-full text-xs font-semibold text-white uppercase py-3 px-8">
             Add to Cart
           </button>

@@ -1,9 +1,10 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
 const StarRating = ({ rating }) => {
   //   const [userRating, setUserRating] = useState(rating);
   let stars = [];
   const [userRating, setUserRating] = useState(rating);
+
   const [rated, setRated] = useState(false);
   let fullStars = Math.floor(userRating / 2);
   let starCount = 1;
