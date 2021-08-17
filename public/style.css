@@ -101,3 +101,16 @@
 .singleRight {
   flex: 1;
 }
+
+.cart-items {
+  display: flex;
+  flex-direction: column;
+}
+
+.cart-items img {
+  width: 5rem;
+}
+
+.down {
+  padding: 20rem;
+}
