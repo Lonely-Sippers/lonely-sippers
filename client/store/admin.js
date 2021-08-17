@@ -1,4 +1,5 @@
 //Capabilities: see all users, delete a user, see all orders, make user an admin/remove admin?, add/delete products
+import axios from "axios";
 
 //ACTION TYPES
 const VIEW_USERS = "VIEW_USERS";
@@ -38,6 +39,14 @@ const adminStat = (user) => {
 };
 
 //ACTION THUNKS
+const adminState = {
+  users: [],
+  products: [],
+  orders: [],
+  user: {},
+  product: {}
+};
+
 export const fetchAllUsers = (users) => {
   return async (dispatch) => {
     const res = await axios.get("/api/admin/users");
@@ -71,14 +80,6 @@ export const changeAdminStat = (userId) => {
 };
 
 //REDUCER
-
-const adminState = {
-  users: [],
-  products: [],
-  orders: [],
-  user: {},
-  product: {}
-};
 
 export const adminReducer = (state = adminState, action) => {
   switch (action.type) {
