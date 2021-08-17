@@ -40,13 +40,12 @@ class Routes extends Component {
           <Switch>
             <Route exact path="/login" component={Login} />
             <Route exact path="/signup" component={Signup} />
+            <Route exact path="/cart" component={Cart} />
           </Switch>
         </div>
 
         <Route exact path="/products/:id" component={SingleProduct} />
         <Route exact path="/:filter?" component={ShoppingWindow} />
-
-        <Cart />
       </div>
     );
   }

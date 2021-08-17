@@ -7,6 +7,8 @@ const {
   models: { User, Product, Order, OrderItem },
 } = require('../server/db');
 
+const Review = require('../server/db/models/Review');
+
 /**
  * seed - this function clears the database, updates tables to
  *      match the models, and populates the database.
@@ -281,6 +283,22 @@ async function seed() {
       productId: products[4].id,
     }),
   ]);
+
+  const reviews = [];
+
+  for (let i = 0; i < users.length; i++) {
+    let revs = await Promise.all(
+      [...products].map((prod) => {
+        return Review.create({
+          userId: users[i].id,
+          productId: prod.id,
+          rating: Math.round(Math.random() * 10),
+          writtenReview: faker.lorem.paragraphs(2),
+        });
+      })
+    );
+    reviews.push(revs);
+  }
 
   console.log(`seeded ${users.length} users`);
   console.log(`seeded successfully`);

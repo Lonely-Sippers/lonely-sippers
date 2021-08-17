@@ -31,7 +31,7 @@ const ShoppingWindow = (props) => {
           </div>
           <hr className="wood1"></hr>
         </div>
-        <div className="lg:grid lg:grid-cols-6 ">
+        <div className="lg:grid lg:grid-cols-6 mt-3">
           {props.products.map((product) => {
             count++;
             return (

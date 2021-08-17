@@ -5,12 +5,12 @@ import StarRating from './icons/StarRating';
 
 const DetailWindow = ({ itemId, products, count, auth }) => {
   const product = products.find((product) => product.id === itemId) || {};
+  let rating =
+    product.reviews.reduce((a, r) => a + r.rating, 0) / product.reviews.length;
 
   let classes =
     'nick   transition duration-1000 ease-in-out transform hover:-translate-y-1 hover:bg-blue-300 hover:scale-110 hover:opacity-100 m-8 p-8 relative';
   count > 2 ? (classes += ' col-span-2') : (classes += ' col-span-3');
-
-  let rating = product.rating;
 
   return (
     <div className={classes}>
@@ -22,8 +22,9 @@ const DetailWindow = ({ itemId, products, count, auth }) => {
       />
 
       <div className="px-8">
-        <div className="mt-8  md:flex md:justify-around">
+        <div className="mt-8   text-center">
           <StarRating rating={rating} />
+          <h5>{product.reviews.length} reviews</h5>
         </div>
         <div className="md:flex md:justify-between py-8">
           <h3 className="font-semibold">{product.category}</h3>
