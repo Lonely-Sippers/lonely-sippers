@@ -101,3 +101,7 @@
 .singleRight {
   flex: 1;
 }
+
+.cart-container {
+  display: flex;
+}
