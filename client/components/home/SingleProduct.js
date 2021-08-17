@@ -1,9 +1,31 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
 import StarRating from './icons/StarRating';
 import { Link } from 'react-router-dom';
+import { getSingleProduct } from '../../store/products';
+import axios from 'axios';
 
-const SingleProduct = ({ product, rating }) => {
+const SingleProduct = ({ product }) => {
+  // const [product, setProd] = useState({});
+  // console.log(history);
+  // const [rating, setRating] = useState(0);
+
+  // useEffect(() => {
+  //   async function fetchData() {
+  //     const res = await axios.get(`/api/products/${history.match.params.id}`);
+  //     // const product = res.data;
+  //     setProd(res.data);
+  //     console.log('inHook', res.data);
+  //     setRating(res.data.rating);
+  //   }
+  //   fetchData();
+  // }, []);
+
+  // console.log('hookedRate', product);
+
+  let rating =
+    product.reviews.reduce((a, r) => a + r.rating, 0) / product.reviews.length;
+
   return (
     <div className="container mx-auto wood4 pt-20  lg:grid lg:grid-cols-5">
       <div className="col-span-3">
@@ -22,38 +44,16 @@ const SingleProduct = ({ product, rating }) => {
         <div className="mx-12">
           <h3 className="font-semibold py-4">User Reviews</h3>
           <hr className="wood1 py-4"></hr>
-          <p className="pb-4">
-            Assumenda quidem sint et facilis perferendis vel exercitationem sed.
-            Fugiat et recusandae labore autem voluptatem commodi in. Natus
-            maxime cupiditate necessitatibus voluptatem et placeat debitis aut.
-            Maxime ex provident ut vitae nam ex. Dolores doloremque similique
-            vel. Ad nihil ex maiores et autem. Ut cumque voluptatem sunt. Et est
-            est similique. Omnis non natus voluptatum quia distinctio aliquam
-            voluptatem dolorum. Dolores quos amet officiis qui fugit dolorem
-            dicta quidem quibusdam.{' '}
-          </p>
-          <hr className="wood1 py-4"></hr>
-          <p className="pb-4">
-            Assumenda quidem sint et facilis perferendis vel exercitationem sed.
-            Fugiat et recusandae labore autem voluptatem commodi in. Natus
-            maxime cupiditate necessitatibus voluptatem et placeat debitis aut.
-            Maxime ex provident ut vitae nam ex. Dolores doloremque similique
-            vel. Ad nihil ex maiores et autem. Ut cumque voluptatem sunt. Et est
-            est similique. Omnis non natus voluptatum quia distinctio aliquam
-            voluptatem dolorum. Dolores quos amet officiis qui fugit dolorem
-            dicta quidem quibusdam.{' '}
-          </p>
-          <hr className="wood1 py-4"></hr>
-          <p className="pb-4">
-            Assumenda quidem sint et facilis perferendis vel exercitationem sed.
-            Fugiat et recusandae labore autem voluptatem commodi in. Natus
-            maxime cupiditate necessitatibus voluptatem et placeat debitis aut.
-            Maxime ex provident ut vitae nam ex. Dolores doloremque similique
-            vel. Ad nihil ex maiores et autem. Ut cumque voluptatem sunt. Et est
-            est similique. Omnis non natus voluptatum quia distinctio aliquam
-            voluptatem dolorum. Dolores quos amet officiis qui fugit dolorem
-            dicta quidem quibusdam.{' '}
-          </p>
+          {product.reviews &&
+            product.reviews.map((review) => (
+              <div key={review.id}>
+                <div>
+                  {review.user.username} <StarRating rating={review.rating} />
+                </div>
+                <p className="pb-8">{review.writtenReview}</p>
+                <hr className="wood1 py-4"></hr>
+              </div>
+            ))}
         </div>
       </div>
 
@@ -97,7 +97,13 @@ const mapState = ({ products }, history) => {
   return {
     product: product,
     rating: rating,
+    history,
   };
 };
 
-export default connect(mapState)(SingleProduct);
+const mapDispatch = (dispatch) => {
+  return {
+    getSingleProduct: (id) => dispatch(getSingleProduct(id)),
+  };
+};
+export default connect(mapState, mapDispatch)(SingleProduct);
