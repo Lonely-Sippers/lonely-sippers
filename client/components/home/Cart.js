@@ -6,20 +6,19 @@ import { getCart, deleteCart } from "../../store/cart";
 
 // const Cart = ({ isLoggedIn, cart }) => {
 class Cart extends Component {
+  constructor(props) {
+    super(props);
+  }
   async componentDidMount() {
-    // const { user } = this.props;
-    // const userz = Object.assign({}, user);
-    // console.log(userz);
-    //await this.props.getCart(userz);
+    const { user } = this.props;
+    console.log(user);
+    await this.props.getCart(user);
   }
   async componentDidUpdate(prev) {
-    const { user } = this.props;
-    if (prev.user !== user) {
+    if (prev.cart.length !== this.props.length) {
+      const { user } = this.props;
       await this.props.getCart(user);
     }
-    //const userz = Object.assign({}, user);
-    //console.log(userz);
-    //await this.props.getCart(user);
   }
   render() {
     const { isLoggedIn, cart, user, products } = this.props;
@@ -34,7 +33,7 @@ class Cart extends Component {
             You have {cart.length} in the cart
           </div>
         )}
-        <div>
+        <div className="down">
           {cart.length !== 0 && (
             <div className="cart">
               <ul className="cart-items">
