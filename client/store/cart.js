@@ -39,12 +39,12 @@ export const deleteCart = (cart) => async (dispatch) => {
 export const cartReducer = (state = [], action) => {
   switch (action.type) {
     case GET_CART:
-      return {
-        ...state,
-        cart: action.cart,
-      };
+      return [...state, action.cart];
     case DELETE_FROM_CART:
-      return state.cart.filter((cart) => cart.id !== action.cart.id * 1);
+      return state[0].filter((cart) => {
+        console.log(cart, action.cart);
+        cart.id !== action.cart.id;
+      });
 
     default:
       return state;

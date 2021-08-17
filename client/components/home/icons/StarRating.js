@@ -1,9 +1,12 @@
 import React, { useState, useEffect } from 'react';
 
-const StarRating = ({ rating }) => {
+const StarRating = ({ rating, editable }) => {
   //   const [userRating, setUserRating] = useState(rating);
   let stars = [];
-  const [userRating, setUserRating] = useState(rating);
+  const [userRating, setUserRating] = useState(0);
+  useEffect(() => {
+    setUserRating(rating);
+  }, []);
 
   const [rated, setRated] = useState(false);
   let fullStars = Math.floor(userRating / 2);

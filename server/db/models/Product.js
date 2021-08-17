@@ -23,9 +23,9 @@ const Product = db.define('product', {
     type: TEXT,
   },
 
-  rating: {
-    type: INTEGER,
-  },
+  // rating: {
+  //   type: INTEGER,
+  // }, EVENTUALLY MAKE A VIRTUAL FIELD
 
   price: {
     type: DECIMAL(10, 2),
