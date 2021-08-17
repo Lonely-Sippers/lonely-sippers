@@ -9,7 +9,7 @@ import Navbar from './components/Navbar';
 //import Home from './components/Home';
 
 import { me } from './store';
-import Cart from './components/home/Cart';
+// import Cart from './components/home/Cart';
 import ShoppingWindow from './components/home/ShoppingWindow';
 import { getProducts } from '../client/store/products';
 // import { addToCart, delFromCart, updateCart } from '../client/store/products';
@@ -43,7 +43,7 @@ class Routes extends Component {
           <Switch>
             <Route exact path="/login" component={Login} />
             <Route exact path="/signup" component={Signup} />
-            <Route exact path="/cart" component={Cart} />
+            {/* <Route exact path="/cart" component={Cart} /> */}
           </Switch>
         </div>
 

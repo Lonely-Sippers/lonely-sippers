@@ -13,7 +13,6 @@ class _AdminManageUsers extends React.Component {
   }
   render() {
     const allUsers = this.props.state.admin.users || [];
-    console.log("fetched", allUsers);
     return (
       <div id="listUsers">
         <section>

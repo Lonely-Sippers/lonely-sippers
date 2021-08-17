@@ -1,55 +1,68 @@
 import React from "react";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
-// import { fetchAllProducts, changeAdminStat } from '../../store/admin';
+import { getProducts } from "../../store/products";
 
-const _AdminManageProducts = ({ props }) => {
-  console.log("props", props);
-  return (
-    <div id="listProducts">
-      <section>
-        <h1>Products</h1>
-        {props.products.map((product) => {
-          console.log("propsdotproducts", props.products);
+class _AdminManageProducts extends React.Component {
+  componentDidMount() {
+    this.props.getProducts();
+  }
 
-          return (
-            <div key={product.id} className="card">
-              <div className="product-card">
-                <ul>
-                  <li>
-                    <Link
-                      to={{
-                        pathname: `/products/${product.id}`,
-                        query: { productId: product.id },
-                      }}
-                    >
-                      <img src={product.image_URL} />
-                    </Link>
-                    <Link
-                      to={{
-                        pathname: `/products/${product.id}`,
-                        query: { productId: product.id },
-                      }}
-                    >
-                      {product.name}
-                    </Link>
-                  </li>
-                </ul>
+  render() {
+    const allProducts = this.props.products || [];
+    return (
+      <div id="listProducts">
+        <h1 className="pt-20">Products</h1>
+        <div className="lg:grid lg:grid-cols-6 mt-3">
+          {allProducts.map((product) => {
+            return (
+              <div key={product.id}>
+                <div>
+                  <ul>
+                    <li>
+                      <Link
+                        to={{
+                          pathname: `/admin/products/${product.id}`,
+                          query: { productId: product.id },
+                        }}
+                      >
+                        <img src={product.image_URL} />
+                      </Link>
+                      <Link
+                        to={{
+                          pathname: `/admin/products/${product.id}`,
+                          query: { productId: product.id },
+                        }}
+                      >
+                        {product.category}
+                      </Link>
+                    </li>
+                  </ul>
+                </div>
               </div>
-            </div>
-          );
-        })}
-      </section>
-    </div>
-  );
-};
+            );
+          })}
+        </div>
+      </div>
+    );
+  }
+}
 
-const mapState = ({ products }) => {
+const mapStateToProps = ({ products }) => {
   return {
-    products
+    products,
   };
 };
 
-const AdminManageProducts = connect(mapState)(_AdminManageProducts);
+const mapDispatchToProps = (dispatch) => {
+  return {
+    getProducts: () => dispatch(getProducts()),
+  };
+};
+
+const AdminManageProducts = connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(_AdminManageProducts);
 
 export default AdminManageProducts;
