@@ -2,9 +2,9 @@ import axios from "axios";
 
 //ACTION TYPES
 const GET_CART = "GET_CART";
+const CREATE_CART = "CREATE_CART";
 const ADD_TO_CART = "ADD_TO_CART";
 const DELETE_FROM_CART = "DELETE_FROM_CART";
-const UPDATE_QUANTITY = "UPDATE_QUANTITY";
 
 //ACTION CREATORS
 const _getCart = (cart) => {
@@ -23,16 +23,22 @@ const _deleteCart = (cart) => {
 
 //ACTION THUNKS
 
+export const checkCart = (user) => async (dispatch) => {
+  const cart = await axios.get(`/api/orders/${user}`);
+  console.log(cart);
+};
+
 export const getCart = (user) => async (dispatch) => {
   //console.log(user);
   const cart = await (await axios.get(`/api/orders/carts/${user.id}`)).data;
+  console.log(cart["order items"]);
 
-  dispatch(_getCart(cart));
+  dispatch(_getCart(cart["order items"]));
 };
 
 export const deleteCart = (cart) => async (dispatch) => {
   await axios.delete(`api/items/${cart.id}`);
-  console.log(cart);
+  //console.log(cart);
   dispatch(_deleteCart(cart));
 };
 //Reducer

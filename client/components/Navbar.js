@@ -1,13 +1,13 @@
-import React from 'react';
-import { connect } from 'react-redux';
-import { Link } from 'react-router-dom';
-import { logout } from '../store';
-import Home from './home/Home';
-import { Login } from './AuthForm';
-import { Signup } from './Signup';
-import { withRouter, Route, Switch, Redirect } from 'react-router-dom';
-import UserIcon from './home/icons/UserIcon';
-import ShoppingBagIcon from './home/icons/ShoppingBagIcon';
+import React from "react";
+import { connect } from "react-redux";
+import { Link } from "react-router-dom";
+import { logout } from "../store";
+import Home from "./home/Home";
+import { Login } from "./AuthForm";
+import { Signup } from "./Signup";
+import { withRouter, Route, Switch, Redirect } from "react-router-dom";
+import UserIcon from "./home/icons/UserIcon";
+import ShoppingBagIcon from "./home/icons/ShoppingBagIcon";
 
 const Navbar = ({ handleClick, isLoggedIn, isAdmin, userImage }) => (
   <nav className="md:flex md:justify-between md:items-center border-b-2 p-2 bg-wood5 px-4 text-wood1 nav">
@@ -21,7 +21,7 @@ const Navbar = ({ handleClick, isLoggedIn, isAdmin, userImage }) => (
       <div className="mx-4 flexy">
         {/* The navbar will show these links after you log in */}
         <div className="mx-4">
-        <Link to="/admin/users">Manage Users</Link>
+          <Link to="/admin/users">Manage Users</Link>
           <span />
           <Link to="/admin/products">Manage Products</Link>
           <span />
@@ -41,7 +41,9 @@ const Navbar = ({ handleClick, isLoggedIn, isAdmin, userImage }) => (
             Logout
           </a>
         </div>
-        <ShoppingBagIcon />
+        <Link to="/cart">
+          <ShoppingBagIcon />
+        </Link>
 
         <h4 className="bagCount">3</h4>
 
