@@ -6,57 +6,51 @@ import { fetchAllUsers, changeAdminStat } from "../../store/admin";
 class _AdminManageUsers extends React.Component {
 //   constructor(props) {
 //     super(props);
-//     console.log("thisdotprops", this.props);
-
-//     console.log("thisdotpropsdotstate", this.props.state.admin);
 //   }
 
-//   componentDidMount() {
-//     this.props.fetchAllUsers();
-//   }
-  render() {
-    // console.log("thisdotprops", this.props);
-    // const allUsers = this.props.state.admin.users || [];
-    // console.log("fetched", allUsers);
-    return (
-        <h1>Users</h1>
-    )
-    // //   <div id="listUsers">
-    // //     <section>
-    //       <h1>Users</h1>
-    //       {/* {allUsers.map((user) => {
-    //         return (
-    //           <div key={user.id} className="card">
-    //             <div className="user-card">
-    //               <ul>
-    //                 <li>
-    //                   <Link
-    //                     to={{
-    //                       pathname: `/users/${user.id}`,
-    //                       query: { userId: user.id },
-    //                     }}
-    //                   >
-    //                     <img src={user.userImage} />
-    //                   </Link>
-    //                   <Link
-    //                     to={{
-    //                       pathname: `/users/${user.id}`,
-    //                       query: { userId: user.id },
-    //                     }}
-    //                   >
-    //                     {user.firstName} + {user.lasName}
-    //                   </Link>
-    //                 </li>
-    //               </ul>
-    //             </div>
-    //           </div>
-    //         );
-    //       })} */}
-    // //     </section>
-    // //   </div>
-    // );
+  componentDidMount() {
+    this.props.fetchAllUsers();
   }
-}
+  render() {
+    const allUsers = this.props.state.admin.users || [];
+    console.log("fetched", allUsers);
+    return (
+      <div id="listUsers">
+        <section>
+          <h1 className="pt-20">Users</h1>
+          {allUsers.map((user) => {
+            return (
+              <div key={user.id}>
+                <div>
+                  <ul>
+                    <li>
+                      <Link
+                        to={{
+                          pathname: `/admin/users/${user.id}`,
+                          query: { userId: user.id },
+                        }}
+                      >
+                        <img src={user.userImage} />
+                      </Link>
+                      <Link
+                        to={{
+                          pathname: `/admin/users/${user.id}`,
+                          query: { userId: user.id },
+                        }}
+                      >
+                        { user.username }
+                      </Link>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            );
+          })}
+         </section>
+       </div>
+    );
+  }
+};
 
 const mapStateToProps = (state) => ({
   state,
@@ -69,7 +63,7 @@ const mapDispatchToProps = (dispatch) => {
 };
 
 const AdminManageUsers = connect(
-  mapStateToProps
+  mapStateToProps, mapDispatchToProps
 )(_AdminManageUsers);
 
 export default AdminManageUsers;
