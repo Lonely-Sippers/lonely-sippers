@@ -77,4 +77,5 @@ const mapDispatchToProps = {
   deleteCart,
 };
 
-export default connect(mapState, mapDispatchToProps)(Cart);
+
+// export default connect(mapState, mapDispatchToProps)(Cart);

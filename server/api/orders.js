@@ -35,25 +35,25 @@ router.get("/carts", async (req, res, next) => {
 });
 
 //cart for a spec user
-router.get("/carts/:id", async (req, res, next) => {
-  try {
-    const orders = await Order.findOne({
-      where: {
-        inProgress: true,
-        userId: req.params.id,
-      },
-    });
-    const cart = await OrderItem.findAll({
-      where: {
-        orderId: orders.id,
-      },
-    });
-    res.json(cart);
-    console.log(orders);
-  } catch (err) {
-    next(err);
-  }
-});
+// router.get("/carts/:id", async (req, res, next) => {
+//   try {
+//     const orders = await Order.findOne({
+//       where: {
+//         inProgress: true,
+//         userId: req.params.id,
+//       },
+//     });
+//     const cart = await OrderItem.findAll({
+//       where: {
+//         orderId: orders.id,
+//       },
+//     });
+//     res.json(cart);
+//     console.log(orders);
+//   } catch (err) {
+//     next(err);
+//   }
+// });
 
 //specific cart item
 router.get("/carts/cart/:item");
