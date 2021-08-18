@@ -1,11 +1,11 @@
-import axios from "axios";
+import axios from 'axios';
 
 //ACTION TYPES
-const GET_CART = "GET_CART";
-const CHECK_CART = "CHECK_CART";
-const CREATE_CART = "CREATE_CART";
-const ADD_TO_CART = "ADD_TO_CART";
-const DELETE_FROM_CART = "DELETE_FROM_CART";
+const GET_CART = 'GET_CART';
+const CHECK_CART = 'CHECK_CART';
+const CREATE_CART = 'CREATE_CART';
+const ADD_TO_CART = 'ADD_TO_CART';
+const DELETE_FROM_CART = 'DELETE_FROM_CART';
 
 //ACTION CREATORS
 const _getCart = (cart) => {
@@ -32,7 +32,7 @@ const _addToCart = (cart) => {
 
 export const createCart = (user) => async (dispatch) => {
   const cart = { inProgress: true, userId: user };
-  await axios.post("/api/orders/", cart);
+  await axios.post('/api/orders/', cart);
 };
 
 export const checkCart = (user) => async (dispatch) => {
@@ -40,12 +40,14 @@ export const checkCart = (user) => async (dispatch) => {
   return cart;
 };
 
-export const getCart = (user) => async (dispatch) => {
-  //console.log(user);
-  const cart = await (await axios.get(`/api/orders/carts/${user.id}`)).data;
-  console.log(cart);
+export const getCart = (user) => {
+  return async (dispatch) => {
+    //console.log(user);
+    const cart = await (await axios.get(`/api/orders/carts/${user.id}`)).data;
+    // console.log(cart);
 
-  dispatch(_getCart(cart["order items"]));
+    dispatch(_getCart(cart));
+  };
 };
 
 export const deleteCart = (cart) => async (dispatch) => {
@@ -59,7 +61,7 @@ export const addToCart = (product, user) => async (dispatch) => {
   console.log(order, product);
   const orderItem = { orderId: order.id, productId: product };
   console.log(orderItem);
-  const cart = await axios.post("/api/items", orderItem).data;
+  const cart = await axios.post('/api/items', orderItem).data;
   dispatch(_addToCart(cart));
 };
 
@@ -67,7 +69,7 @@ export const addToCart = (product, user) => async (dispatch) => {
 export const cartReducer = (state = [], action) => {
   switch (action.type) {
     case GET_CART:
-      return [...state, action.cart];
+      return action.cart;
     case DELETE_FROM_CART:
       return state[0].filter((cart) => {
         console.log(cart, action.cart);

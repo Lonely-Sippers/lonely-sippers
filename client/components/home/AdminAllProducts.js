@@ -1,11 +1,12 @@
-import React from "react";
-import { connect } from "react-redux";
-import { Link } from "react-router-dom";
-import { getProducts } from "../../store/products";
+import React from 'react';
+import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
+import { getProducts } from '../../store/products';
 
 class _AdminManageProducts extends React.Component {
-  componentDidMount() {
-    this.props.getProducts();
+  async componentDidMount() {
+    console.log('mounting products');
+    await this.props.getProducts();
   }
 
   render() {
