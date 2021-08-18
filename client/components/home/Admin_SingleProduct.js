@@ -11,9 +11,9 @@ class _AdminSingleProduct extends React.Component {
           product: {}
       };
     }
-  componentDidMount() {
+  async componentDidMount() {
     const { id } = this.props.match.params;
-    this.props.getSingleProduct(id);
+    await this.props.getSingleProduct(id);
   }
 
   render() {
@@ -44,7 +44,7 @@ class _AdminSingleProduct extends React.Component {
               <h4>Alcohol Percentage: {product.alcohol_percentage}</h4>
             </div>
             <h4 className="mb-16">Price: ${product.price}</h4>
-            <div className="md:flex md:justify-between py-8 absolute bottom-0 wider">
+            <div className="md:flex md:justify-between py-8 relative bottom-0 wider">
               <button className="btn transition-colors duration-300  mt-4 lg:mt-0  rounded-full text-xs font-semibold text-white uppercase py-3 px-8">
                 Edit This Product
               </button>
