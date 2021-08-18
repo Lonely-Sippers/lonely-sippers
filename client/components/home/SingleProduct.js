@@ -1,11 +1,12 @@
-import React, { useState, useEffect } from 'react';
-import { connect } from 'react-redux';
-import StarRating from './icons/StarRating';
-import { Link } from 'react-router-dom';
-import { getSingleProduct } from '../../store/products';
-import axios from 'axios';
+import React, { useState, useEffect } from "react";
+import { connect } from "react-redux";
+import StarRating from "./icons/StarRating";
+import { Link } from "react-router-dom";
+import { getSingleProduct } from "../../store/products";
+import { addToCart } from "../../store/cart";
+import axios from "axios";
 
-const SingleProduct = ({ product }) => {
+const SingleProduct = ({ product, addToCart }) => {
   // const [product, setProd] = useState({});
   // console.log(history);
   // const [rating, setRating] = useState(0);
@@ -22,6 +23,7 @@ const SingleProduct = ({ product }) => {
   // }, []);
 
   // console.log('hookedRate', product);
+  console.log(product);
 
   let rating =
     product.reviews.reduce((a, r) => a + r.rating, 0) / product.reviews.length;
@@ -72,7 +74,10 @@ const SingleProduct = ({ product }) => {
           <p className="py-8">{product.description}</p>
           <h4 className="">Price: ${product.price}</h4>
           <div className="md:flex md:justify-between py-8  wider">
-            <button className="btn transition-colors duration-300  mt-4 lg:mt-0  rounded-full text-xs font-semibold text-white uppercase py-3 px-8">
+            <button
+              className="btn transition-colors duration-300  mt-4 lg:mt-0  rounded-full text-xs font-semibold text-white uppercase py-3 px-8"
+              onClick={() => addToCart(product.id)}
+            >
               Add to Cart
             </button>
 
@@ -104,6 +109,7 @@ const mapState = ({ products }, history) => {
 const mapDispatch = (dispatch) => {
   return {
     getSingleProduct: (id) => dispatch(getSingleProduct(id)),
+    addToCart,
   };
 };
 export default connect(mapState, mapDispatch)(SingleProduct);

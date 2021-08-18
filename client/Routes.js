@@ -1,9 +1,10 @@
 import React, { Component, Fragment } from "react";
+import axios from "axios";
 import { connect } from "react-redux";
 import { withRouter, Route, Switch, Redirect } from "react-router-dom";
 import { Login } from "./components/AuthForm";
 import Advertisement from "./components/home/Advertisement";
-import { getCart } from "./store/cart";
+import { getCart, checkCart } from "./store/cart";
 import Navbar from "./components/Navbar";
 
 //import Home from './components/Home';
@@ -25,8 +26,14 @@ class Routes extends Component {
     this.props.getProducts();
   }
   async componentDidUpdate(bananaProps) {
-    if (bananaProps.isLoggedIn !== this.props.isLoggedIn) {
-      this.props.getCart(this.props.user);
+    if (bananaProps.user !== this.props.user) {
+      // let cart = await axios.get(`/api/orders/carts/${this.props.user.id}`);
+      // let check = false;
+      // console.log(cart);
+      // if (cart) {
+      //   check = true;
+      // }
+      // console.log(check);
     }
   }
 
@@ -71,6 +78,7 @@ const mapDispatch = (dispatch) => {
     },
     getProducts: () => dispatch(getProducts()),
     getCart,
+    checkCart,
   };
 };
 
