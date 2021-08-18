@@ -6,7 +6,7 @@ import { getSingleProduct } from "../../store/products";
 import { addToCart } from "../../store/cart";
 import axios from "axios";
 
-const SingleProduct = ({ product, addToCart }) => {
+const SingleProduct = ({ product, addToCart, auth }) => {
   // const [product, setProd] = useState({});
   // console.log(history);
   // const [rating, setRating] = useState(0);
@@ -76,7 +76,7 @@ const SingleProduct = ({ product, addToCart }) => {
           <div className="md:flex md:justify-between py-8  wider">
             <button
               className="btn transition-colors duration-300  mt-4 lg:mt-0  rounded-full text-xs font-semibold text-white uppercase py-3 px-8"
-              onClick={() => addToCart(product.id)}
+              onClick={() => addToCart(product.id, auth.id)}
             >
               Add to Cart
             </button>
@@ -93,7 +93,7 @@ const SingleProduct = ({ product, addToCart }) => {
   );
 };
 
-const mapState = ({ products }, history) => {
+const mapState = ({ products, auth }, history) => {
   const product =
     products.find((prod) => prod.id === history.match.params.id * 1) || {};
 
@@ -103,6 +103,7 @@ const mapState = ({ products }, history) => {
     product: product,
     rating: rating,
     history,
+    auth,
   };
 };
 

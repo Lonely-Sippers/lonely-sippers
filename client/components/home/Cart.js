@@ -54,6 +54,9 @@ class Cart extends Component {
                     </li>
                   );
                 })}
+                <div>
+                  <button>Checkout</button>
+                </div>
               </ul>
             </div>
           )}

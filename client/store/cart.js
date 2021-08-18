@@ -30,6 +30,11 @@ const _addToCart = (cart) => {
 };
 //ACTION THUNKS
 
+export const createCart = (user) => async (dispatch) => {
+  const cart = { inProgress: true, userId: user };
+  await axios.post("/api/orders/", cart);
+};
+
 export const checkCart = (user) => async (dispatch) => {
   const cart = (await axios.get(`/api/orders/carts/${user.id}`)).data;
   return cart;
@@ -54,9 +59,10 @@ export const addToCart = (product, user) => async (dispatch) => {
   console.log(order, product);
   const orderItem = { orderId: order.id, productId: product };
   console.log(orderItem);
-  const cart = await axios.post("/api/items", orderItem);
+  const cart = await axios.post("/api/items", orderItem).data;
   dispatch(_addToCart(cart));
 };
+
 //Reducer
 export const cartReducer = (state = [], action) => {
   switch (action.type) {
