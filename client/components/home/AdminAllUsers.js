@@ -1,18 +1,15 @@
-import React from "react";
-import { connect } from "react-redux";
-import { Link } from "react-router-dom";
-import { fetchAllUsers, changeAdminStat } from "../../store/admin";
+import React from 'react';
+import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
+import { fetchAllUsers, changeAdminStat } from '../../store/admin';
 
 class _AdminManageUsers extends React.Component {
-//   constructor(props) {
-//     super(props);
-//   }
-
-  componentDidMount() {
-    this.props.fetchAllUsers();
+  async componentDidMount() {
+    await this.props.fetchAllUsers();
   }
   render() {
     const allUsers = this.props.state.admin.users || [];
+
     return (
       <div id="listUsers">
         <section>
@@ -37,7 +34,7 @@ class _AdminManageUsers extends React.Component {
                           query: { userId: user.id },
                         }}
                       >
-                        { user.username }
+                        {user.username}
                       </Link>
                     </li>
                   </ul>
@@ -45,11 +42,11 @@ class _AdminManageUsers extends React.Component {
               </div>
             );
           })}
-         </section>
-       </div>
+        </section>
+      </div>
     );
   }
-};
+}
 
 const mapStateToProps = (state) => ({
   state,
@@ -57,12 +54,13 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    fetchAllUsers: () => dispatch(fetchAllUsers())
-  }
+    fetchAllUsers: () => dispatch(fetchAllUsers()),
+  };
 };
 
 const AdminManageUsers = connect(
-  mapStateToProps, mapDispatchToProps
+  mapStateToProps,
+  mapDispatchToProps
 )(_AdminManageUsers);
 
 export default AdminManageUsers;
