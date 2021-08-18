@@ -4,7 +4,7 @@ const UserIcon = () => {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
-      className="h-10 w-10"
+      className="h-12 w-12"
       fill="none"
       viewBox="0 0 24 24"
       stroke="currentColor"
