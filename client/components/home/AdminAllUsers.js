@@ -1,3 +1,4 @@
+
 import React from "react";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
@@ -9,8 +10,9 @@ class _AdminManageUsers extends React.Component {
         this.toggleAdmin = this.toggleAdmin.bind(this);
       }
 
-  componentDidMount() {
-    this.props.fetchAllUsers();
+  async componentDidMount() {
+    await this.props.fetchAllUsers();
+
   }
 
 //   componentDidUpdate() {
@@ -29,6 +31,7 @@ class _AdminManageUsers extends React.Component {
 
   render() {
     const allUsers = this.props.state.admin.users || [];
+
     return (
       <div id="listUsers">
         <section className="px-5">
@@ -53,7 +56,7 @@ class _AdminManageUsers extends React.Component {
                           query: { userId: user.id },
                         }}
                       >
-                        { user.username }
+                        {user.username}
                       </Link>
                       <button onClick={()=> this.toggleAdmin(user.id)} className="bg-white hover:bg-gray-100 text-gray-800 font-semibold py-2 px-1 border border-gray-400 rounded shadow">
                           Toggle Admin Status
@@ -64,11 +67,11 @@ class _AdminManageUsers extends React.Component {
               </div>
             );
           })}
-         </section>
-       </div>
+        </section>
+      </div>
     );
   }
-};
+}
 
 const mapStateToProps = (state) => ({
   state,
@@ -77,13 +80,16 @@ const mapStateToProps = (state) => ({
 const mapDispatchToProps = (dispatch) => {
   return {
     fetchAllUsers: () => dispatch(fetchAllUsers()),
+
     fetchUser: () => dispatch(fetchUser()),
     updateAdmin: (id, isAdmin) => dispatch(changeAdminStat(id, isAdmin))
   }
+
 };
 
 const AdminManageUsers = connect(
-  mapStateToProps, mapDispatchToProps
+  mapStateToProps,
+  mapDispatchToProps
 )(_AdminManageUsers);
 
 export default AdminManageUsers;

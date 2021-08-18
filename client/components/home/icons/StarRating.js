@@ -1,20 +1,46 @@
 import React, { useState, useEffect } from 'react';
+import { connect } from 'react-redux';
 
-const StarRating = ({ rating, editable }) => {
-  //   const [userRating, setUserRating] = useState(rating);
-  let stars = [];
+const StarRating = ({
+  rating,
+  editable,
+  writeReview,
+  userId,
+  productId,
+  isLoggedIn,
+}) => {
   const [userRating, setUserRating] = useState(0);
+  let stars = [];
   useEffect(() => {
     setUserRating(rating);
   }, []);
 
+  const ratingToUse = userRating || rating;
+
   const [rated, setRated] = useState(false);
-  let fullStars = Math.floor(userRating / 2);
+  let fullStars = Math.floor(ratingToUse / 2);
   let starCount = 1;
 
   let color = ' starColor';
   if (rated) {
     color = ' wood1';
+  }
+
+  let mouseEnter = () => {};
+
+  if (editable && isLoggedIn) {
+    mouseEnter = (currentRate) => {
+      setRated(true);
+      setUserRating(Math.floor(currentRate * 2));
+    };
+  }
+
+  let review = () => {};
+
+  if (writeReview && isLoggedIn) {
+    review = (rating, userId, productId, written) => {
+      writeReview(rating, userId, productId, written);
+    };
   }
 
   for (let i = 0; i < fullStars; i++) {
@@ -26,8 +52,10 @@ const StarRating = ({ rating, editable }) => {
         className={'fas fa-star cursor-pointer' + color}
         key={starCount}
         onMouseEnter={() => {
-          setRated(true);
-          setUserRating(Math.floor(currentRate * 2));
+          mouseEnter(currentRate);
+        }}
+        onClick={() => {
+          review(currentRate * 2, userId, productId);
         }}
       />
     );
@@ -42,8 +70,10 @@ const StarRating = ({ rating, editable }) => {
         className={'fas fa-star-half-alt cursor-pointer' + color}
         key={starCount}
         onMouseEnter={() => {
-          setRated(true);
-          setUserRating(Math.floor(currentRate * 2));
+          mouseEnter(currentRate);
+        }}
+        onClick={() => {
+          review(currentRate * 2, userId, productId);
         }}
       />
     );
@@ -58,8 +88,10 @@ const StarRating = ({ rating, editable }) => {
         className={'far fa-star cursor-pointer' + color}
         key={starCount}
         onMouseEnter={() => {
-          setRated(true);
-          setUserRating(Math.floor(currentRate * 2));
+          mouseEnter(currentRate);
+        }}
+        onClick={() => {
+          review(currentRate * 2, userId, productId);
         }}
       />
     );
@@ -77,4 +109,10 @@ const StarRating = ({ rating, editable }) => {
   );
 };
 
-export default StarRating;
+const mapState = (state) => {
+  return {
+    isLoggedIn: !!state.auth.id,
+  };
+};
+
+export default connect(mapState)(StarRating);
