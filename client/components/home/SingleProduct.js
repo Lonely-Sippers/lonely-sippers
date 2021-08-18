@@ -1,32 +1,24 @@
-import React, { useState, useEffect } from "react";
-import { connect } from "react-redux";
-import StarRating from "./icons/StarRating";
-import { Link } from "react-router-dom";
-import { getSingleProduct } from "../../store/products";
+
+import React, { useState, useEffect } from 'react';
+import { connect } from 'react-redux';
+import StarRating from './icons/StarRating';
+import { Link } from 'react-router-dom';
+import { writeReview } from '../../store/products';
+import axios from 'axios';
 import { addToCart } from "../../store/cart";
-import axios from "axios";
 
-const SingleProduct = ({ product, addToCart, auth }) => {
-  // const [product, setProd] = useState({});
-  // console.log(history);
-  // const [rating, setRating] = useState(0);
+const SingleProduct = ({ product, writeReview, user }) => {
+  console.log('singleProdUser', user);
+  let reviews = product.reviews || [];
 
-  // useEffect(() => {
-  //   async function fetchData() {
-  //     const res = await axios.get(`/api/products/${history.match.params.id}`);
-  //     // const product = res.data;
-  //     setProd(res.data);
-  //     console.log('inHook', res.data);
-  //     setRating(res.data.rating);
-  //   }
-  //   fetchData();
-  // }, []);
 
-  // console.log('hookedRate', product);
-  console.log(product);
+  let rating = [];
 
-  let rating =
-    product.reviews.reduce((a, r) => a + r.rating, 0) / product.reviews.length;
+
+  if (reviews) {
+    rating = reviews.reduce((a, r) => a + r.rating, 0) / reviews.length;
+  }
+
 
   return (
     <div className="container mx-auto wood4 pt-20  lg:grid lg:grid-cols-5">
@@ -40,14 +32,20 @@ const SingleProduct = ({ product, addToCart, auth }) => {
 
         <div className="px-8">
           <div className="mt-8  md:flex md:justify-around">
-            <StarRating rating={rating} />
+            <StarRating
+              rating={rating}
+              editable={true}
+              writeReview={writeReview}
+              userId={user.id}
+              productId={product.id}
+            />
           </div>
         </div>
         <div className="mx-12">
           <h3 className="font-semibold py-4">User Reviews</h3>
           <hr className="wood1 py-4"></hr>
-          {product.reviews &&
-            product.reviews.map((review) => (
+          {reviews &&
+            reviews.map((review) => (
               <div key={review.id}>
                 <div>
                   {review.user.username} <StarRating rating={review.rating} />
@@ -100,17 +98,25 @@ const mapState = ({ products, auth }, history) => {
   let rating = product.rating || 0;
 
   return {
-    product: product,
-    rating: rating,
+    product: product || {},
+    // rating: rating,
     history,
-    auth,
+
+    user: auth,
+
   };
 };
 
 const mapDispatch = (dispatch) => {
   return {
-    getSingleProduct: (id) => dispatch(getSingleProduct(id)),
+
+    writeReview: (rating, userId, productId, written) =>
+      dispatch(
+        writeReview({ rating, userId, productId, writtenReview: written })
+      ),
+
     addToCart,
+
   };
 };
 export default connect(mapState, mapDispatch)(SingleProduct);

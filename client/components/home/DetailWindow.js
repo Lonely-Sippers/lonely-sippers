@@ -24,7 +24,7 @@ const DetailWindow = ({ itemId, products, count, auth, addToCart }) => {
 
       <div className="px-8">
         <div className="mt-8   text-center">
-          <StarRating rating={rating} />
+          <StarRating rating={rating} editable={true} />
           <h5>{product.reviews.length} reviews</h5>
         </div>
         <div className="md:flex md:justify-between py-8">

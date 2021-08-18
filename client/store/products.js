@@ -3,6 +3,7 @@ import axios from 'axios';
 //ACTION TYPES
 const GOT_PRODUCTS = 'GOT_PRODUCTS';
 const GOT_SINGLE_PRODUCT = 'GOT_SINGLE_PRODUCT';
+const WROTE_REVIEW = 'WROTE_REVIEW';
 
 //ACTION CREATOR
 const gotProducts = (products) => {
@@ -15,6 +16,13 @@ const gotProducts = (products) => {
 const gotSingleProduct = (product) => {
   return {
     type: GOT_SINGLE_PRODUCT,
+    product,
+  };
+};
+
+const wroteReview = (product) => {
+  return {
+    type: WROTE_REVIEW,
     product,
   };
 };
@@ -36,12 +44,28 @@ export const getProducts = () => {
   };
 };
 
+export const writeReview = (review) => {
+  return async (dispatch) => {
+    const { data: created } = await axios.post('/api/reviews', review);
+
+    const res = await axios.get(`/api/products/${review.productId}`);
+    const product = res.data;
+    console.log('thunk', product);
+    dispatch(wroteReview(product));
+  };
+};
+
 export const productReducer = (state = [], action) => {
   switch (action.type) {
     case GOT_PRODUCTS:
       return action.products;
     case GOT_SINGLE_PRODUCT:
       return action.product;
+    case WROTE_REVIEW:
+      return [
+        ...state.filter((prod) => prod.id !== action.product.id),
+        action.product,
+      ];
     default:
       return state;
   }
