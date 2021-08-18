@@ -20,7 +20,7 @@ const Navbar = ({ handleClick, isLoggedIn, isAdmin, userImage }) => (
     {isAdmin ? (
       <div className="mx-4 flexy">
         {/* The navbar will show these links after you log in */}
-        <div className="mx-4">
+        <div className="mx-4 space-x-3">
           <Link to="/admin/users">Manage Users</Link>
           <span />
           <Link to="/admin/products">Manage Products</Link>

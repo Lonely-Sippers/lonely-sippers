@@ -16,6 +16,9 @@ import { getProducts } from "../client/store/products";
 // import { addToCart, delFromCart, updateCart } from '../client/store/products';
 import { Signup } from "./components/Signup";
 import SingleProduct from "./components/home/SingleProduct";
+import AdminManageUsers from "./components/home/AdminAllUsers";
+import AdminManageProducts from "./components/home/AdminAllProducts";
+import AdminSingleProduct from "./components/home/Admin_SingleProduct";
 
 /**
  * COMPONENT
@@ -54,6 +57,9 @@ class Routes extends Component {
 
         <Route exact path="/products/:id" component={SingleProduct} />
         <Route exact path="/:filter?" component={ShoppingWindow} />
+        <Route exact path="/admin/users" component={AdminManageUsers} />
+        <Route exact path="/admin/products" component={AdminManageProducts} />
+        <Route exact path="/admin/products/:id" component={AdminSingleProduct} />
       </div>
     );
   }
