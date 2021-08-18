@@ -73,6 +73,18 @@
   margin: auto;
 }
 
+.cartDrop {
+  position: fixed;
+  top: 66px;
+  right: 50px;
+  background-color: #deb886;
+  color: #42291a;
+  padding: 1rem;
+  border: solid 2px #42291a;
+  border-radius: 5%;
+  box-shadow: 4px 4px 4px rgba(150, 89, 89, 0.5);
+}
+
 .flexy {
   display: flex;
 }
