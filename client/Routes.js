@@ -1,34 +1,39 @@
-import React, { Component, Fragment } from 'react';
-import { connect } from 'react-redux';
-import { withRouter, Route, Switch, Redirect } from 'react-router-dom';
-import { Login } from './components/AuthForm';
-import Advertisement from './components/home/Advertisement';
-import { getCart } from './store/cart';
-import Navbar from './components/Navbar';
+import React, { Component, Fragment } from "react";
+import axios from "axios";
+import { connect } from "react-redux";
+import { withRouter, Route, Switch, Redirect } from "react-router-dom";
+import { Login } from "./components/AuthForm";
+import Advertisement from "./components/home/Advertisement";
+import { getCart, checkCart } from "./store/cart";
+import Navbar from "./components/Navbar";
 
 //import Home from './components/Home';
 
-import { me } from './store';
-// import Cart from './components/home/Cart';
-import ShoppingWindow from './components/home/ShoppingWindow';
-import { getProducts } from '../client/store/products';
+import { me } from "./store";
+import Cart from "./components/home/Cart";
+import ShoppingWindow from "./components/home/ShoppingWindow";
+import { getProducts } from "../client/store/products";
 // import { addToCart, delFromCart, updateCart } from '../client/store/products';
-import { Signup } from './components/Signup';
-import SingleProduct from './components/home/SingleProduct';
-import AdminManageUsers from './components/home/AdminAllUsers';
-import AdminManageProducts from './components/home/AdminAllProducts';
-
+import { Signup } from "./components/Signup";
+import SingleProduct from "./components/home/SingleProduct";
 
 /**
  * COMPONENT
  */
 class Routes extends Component {
-  componentDidMount() {
-    this.props.loadInitialData();
+  async componentDidMount() {
+    await this.props.loadInitialData();
     this.props.getProducts();
   }
   async componentDidUpdate(bananaProps) {
-    if (bananaProps.isLoggedIn !== this.props.isLoggedIn) {
+    if (bananaProps.user !== this.props.user) {
+      // let cart = await axios.get(`/api/orders/carts/${this.props.user.id}`);
+      // let check = false;
+      // console.log(cart);
+      // if (cart) {
+      //   check = true;
+      // }
+      // console.log(check);
     }
   }
 
@@ -43,16 +48,12 @@ class Routes extends Component {
           <Switch>
             <Route exact path="/login" component={Login} />
             <Route exact path="/signup" component={Signup} />
-            {/* <Route exact path="/cart" component={Cart} /> */}
+            <Route exact path="/cart" component={Cart} />
           </Switch>
         </div>
 
         <Route exact path="/products/:id" component={SingleProduct} />
         <Route exact path="/:filter?" component={ShoppingWindow} />
-        <Route exact path="/admin/users" component={AdminManageUsers} />
-        <Route exact path="/admin/products" component={AdminManageProducts} />
-
-        {/* <Cart /> */}
       </div>
     );
   }
@@ -66,7 +67,7 @@ const mapState = (state) => {
     // Being 'logged in' for our purposes will be defined has having a state.auth that has a truthy id.
     // Otherwise, state.auth will be an empty object, and state.auth.id will be falsey
     isLoggedIn: !!state.auth.id,
-    user: state.auth.id,
+    user: state.auth,
   };
 };
 
@@ -75,7 +76,9 @@ const mapDispatch = (dispatch) => {
     loadInitialData() {
       dispatch(me());
     },
-    getProducts: () => dispatch(getProducts())
+    getProducts: () => dispatch(getProducts()),
+    getCart,
+    checkCart,
   };
 };
 

@@ -1,19 +1,24 @@
+
 import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
 import StarRating from './icons/StarRating';
 import { Link } from 'react-router-dom';
 import { writeReview } from '../../store/products';
 import axios from 'axios';
+import { addToCart } from "../../store/cart";
 
 const SingleProduct = ({ product, writeReview, user }) => {
   console.log('singleProdUser', user);
   let reviews = product.reviews || [];
 
+
   let rating = [];
+
 
   if (reviews) {
     rating = reviews.reduce((a, r) => a + r.rating, 0) / reviews.length;
   }
+
 
   return (
     <div className="container mx-auto wood4 pt-20  lg:grid lg:grid-cols-5">
@@ -67,7 +72,10 @@ const SingleProduct = ({ product, writeReview, user }) => {
           <p className="py-8">{product.description}</p>
           <h4 className="">Price: ${product.price}</h4>
           <div className="md:flex md:justify-between py-8  wider">
-            <button className="btn transition-colors duration-300  mt-4 lg:mt-0  rounded-full text-xs font-semibold text-white uppercase py-3 px-8">
+            <button
+              className="btn transition-colors duration-300  mt-4 lg:mt-0  rounded-full text-xs font-semibold text-white uppercase py-3 px-8"
+              onClick={() => addToCart(product.id, auth.id)}
+            >
               Add to Cart
             </button>
 
@@ -93,16 +101,22 @@ const mapState = ({ products, auth }, history) => {
     product: product || {},
     // rating: rating,
     history,
+
     user: auth,
+
   };
 };
 
 const mapDispatch = (dispatch) => {
   return {
+
     writeReview: (rating, userId, productId, written) =>
       dispatch(
         writeReview({ rating, userId, productId, writtenReview: written })
       ),
+
+    addToCart,
+
   };
 };
 export default connect(mapState, mapDispatch)(SingleProduct);
