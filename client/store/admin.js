@@ -4,6 +4,7 @@ import axios from "axios";
 //ACTION TYPES
 const VIEW_USERS = "VIEW_USERS";
 const DELETE_USER = "DELETE_USER";
+const GET_USER = "GET_USER";
 const VIEW_ORDERS = "VIEW_ORDERS";
 // const ADD_PRODUCT = "ADD_PRODUCT";
 // const DELETE_PRODUCT = "DELETE_PRODUCT";
@@ -21,6 +22,13 @@ const deleteUsers = (userId) => {
   return {
     type: DELETE_USER,
     userId,
+  };
+};
+
+const getSingleUser = (user) => {
+  return {
+    type: GET_USER,
+    user,
   };
 };
 
@@ -63,6 +71,14 @@ export const deleteUser = (userId) => {
   };
 };
 
+export const fetchUser = (userId) => {
+  return async (dispatch) => {
+    const res = await axios.put(`/api/admin/users/${userId}`);
+    const gotUser = res.data;
+    dispatch(getSingleUser(gotUser));
+  };
+};
+
 export const fetchAllOrders = (orders) => {
   return async (dispatch) => {
     const res = await axios.get("/api/admin/orders");
@@ -92,6 +108,11 @@ export const adminReducer = (state = adminState, action) => {
       return {
         ...state,
         user: state.users.filter((user) => user.id !== action.userId),
+      };
+      case GET_USER:
+      return {
+        ...state,
+        user: action.user,
       };
     case VIEW_ORDERS:
       return {
