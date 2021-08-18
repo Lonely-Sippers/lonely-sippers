@@ -12,9 +12,12 @@ class _AdminManageProducts extends React.Component {
   render() {
     const allProducts = this.props.products || [];
     return (
-      <div id="listProducts">
-        <h1 className="pt-20">Products</h1>
-        <div className="lg:grid lg:grid-cols-6 mt-3">
+      <div id="listProducts" className="px-3">
+        <h1 className="pt-20 px-3">Products</h1>
+        <div className="pt-3"><button className="bg-white hover:bg-gray-100 text-gray-800 font-semibold py-2 px-4 border border-gray-400 rounded shadow">
+          Add A New Product
+        </button></div>
+        <div className="lg:grid lg:grid-cols-6 mt-3 pt-3 px-3 py-3">
           {allProducts.map((product) => {
             return (
               <div key={product.id}>
