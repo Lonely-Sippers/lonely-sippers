@@ -15,3 +15,7 @@ router.delete("/:id", async (req, res) => {
   await Item.destroy();
   res.sendStatus(204);
 });
+
+router.post("/", async (req, res) => {
+  res.status(201).send(await OrderItem.create(req.body));
+});
