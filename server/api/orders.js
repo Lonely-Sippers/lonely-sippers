@@ -21,6 +21,11 @@ router.get("/", async (req, res, next) => {
   }
 });
 
+//create a cart
+router.post("/", async (req, res) => {
+  res.status(201).send(await Order.create(req.body));
+});
+
 router.get("/:id", async (req, res, next) => {
   try {
     const orders = await Order.findAll({
