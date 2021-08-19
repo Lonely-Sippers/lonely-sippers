@@ -1,6 +1,6 @@
-import React from 'react';
-import { connect } from 'react-redux';
-import { authenticate } from '../store';
+import React from "react";
+import { connect } from "react-redux";
+import { authenticate } from "../store";
 
 /**
  * COMPONENT
@@ -42,6 +42,12 @@ const SignupForm = (props) => {
           <input name="lastName" type="text" />
         </div>
         <div>
+          <label htmlFor="address">
+            <small>Address</small>
+          </label>
+          <input name="address" type="text" />
+        </div>
+        <div>
           <button type="submit">{displayName}</button>
         </div>
         {error && error.response && <div> {error.response.data} </div>}
@@ -52,8 +58,8 @@ const SignupForm = (props) => {
 
 const mapSignup = (state) => {
   return {
-    name: 'signup',
-    displayName: 'Sign Up',
+    name: "signup",
+    displayName: "Sign Up",
     error: state.auth.error,
   };
 };
@@ -68,8 +74,17 @@ const mapDispatch = (dispatch) => {
       const email = evt.target.email.value;
       const firstName = evt.target.firstName.value;
       const lastName = evt.target.lastName.value;
+      const address = evt.target.address.value;
       dispatch(
-        authenticate(username, password, formName, email, firstName, lastName)
+        authenticate(
+          username,
+          password,
+          formName,
+          email,
+          firstName,
+          lastName,
+          address
+        )
       );
     },
   };

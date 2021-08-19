@@ -126,3 +126,13 @@
 .down {
   padding: 20rem;
 }
+
+.checkout-container {
+  display: flex;
+  justify-content: space-around;
+}
+
+.order-topper {
+  display: flex;
+  justify-content: space-evenly;
+}
