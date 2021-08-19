@@ -14,15 +14,17 @@ class Checkout extends Component {
     return (
       <div className="checkout-container">
         <div className={'pt-20'}>
-          <p>
-            <strong>Checkout:</strong>
-          </p>
-        </div>
-        <div>
-          <p>
-            {user.firstName} {user.lastName}
-          </p>
-          <p>{user.address}</p>
+          <div>
+            <p>
+              <strong>Checkout:</strong>
+            </p>
+          </div>
+          <div>
+            <p>
+              {user.firstName} {user.lastName}
+            </p>
+            <p>{user.address}</p>
+          </div>
         </div>
       </div>
     );

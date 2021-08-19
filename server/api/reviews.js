@@ -22,3 +22,12 @@ router.post('/', async (req, res, next) => {
     next(err);
   }
 });
+
+//find by what?
+// router.put('/:id', async (req, res, next) => {
+//     try {
+//       const review = await Review.update()
+//     } catch (err) {
+//       next(err);
+//     }
+//   });

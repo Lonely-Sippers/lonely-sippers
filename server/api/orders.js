@@ -15,7 +15,6 @@ router.get('/', async (req, res, next) => {
       },
     });
     res.json(orders);
-    console.log(orders);
   } catch (err) {
     next(err);
   }
@@ -37,7 +36,6 @@ router.get('/:id', async (req, res, next) => {
       include: { model: OrderItem, include: { model: Product } },
     });
     res.json(orders);
-    console.log(orders);
   } catch (err) {
     next(err);
   }
@@ -52,7 +50,6 @@ router.get('/carts', async (req, res, next) => {
       },
     });
     res.json(orders);
-    console.log(orders);
   } catch (err) {
     next(err);
   }
@@ -68,7 +65,7 @@ router.get('/carts/:id', async (req, res, next) => {
       },
       include: { model: OrderItem, include: { model: Product } },
     });
-    console.log('in api', orders);
+
     res.send(orders);
   } catch (err) {
     next(err);

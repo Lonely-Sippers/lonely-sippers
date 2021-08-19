@@ -7,7 +7,6 @@ import axios from 'axios';
 import { addToCart } from '../../store/cart';
 
 const SingleProduct = ({ product, writeReview, user, addToCart }) => {
-  console.log('singleProdUser', user);
   let reviews = product.reviews || [];
 
   let rating = [];
@@ -141,6 +140,7 @@ const mapDispatch = (dispatch) => {
       dispatch(
         writeReview({ rating, userId, productId, writtenReview: written })
       ),
+    //update review. if yourReview, dispatch update, else writeReview
   };
 };
 export default connect(mapState, mapDispatch)(SingleProduct);

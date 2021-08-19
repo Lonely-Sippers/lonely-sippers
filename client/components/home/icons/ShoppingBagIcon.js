@@ -1,6 +1,6 @@
 import React from 'react';
 
-const ShoppingBagIcon = ({ setshowCart, showCart }) => {
+const ShoppingBagIcon = ({ setshowCart, setshowUser }) => {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
@@ -8,8 +8,10 @@ const ShoppingBagIcon = ({ setshowCart, showCart }) => {
       fill="none"
       viewBox="0 0 24 24"
       stroke="currentColor"
-      onMouseEnter={() => setshowCart(true)}
-      // onMouseLeave={() => setshowCart(false)}
+      onMouseEnter={() => {
+        setshowCart(true);
+        setshowUser(false);
+      }}
     >
       <path
         strokeLinecap="round"

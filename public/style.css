@@ -39,6 +39,10 @@
   z-index: 100;
 }
 
+.logout:hover {
+  cursor: pointer;
+}
+
 .sticky {
   position: sticky;
   top: 66px;
@@ -85,6 +89,18 @@
   box-shadow: 4px 4px 4px rgba(150, 89, 89, 0.5);
 }
 
+.userDrop {
+  position: fixed;
+  top: 66px;
+  right: 0px;
+  background-color: #deb886;
+  color: #42291a;
+  padding: 1rem;
+  border: solid 2px #42291a;
+  border-radius: 5%;
+  box-shadow: 4px 4px 4px rgba(150, 89, 89, 0.5);
+}
+
 .flexy {
   display: flex;
 }
@@ -95,6 +111,7 @@
   top: 20px;
   font-weight: 800;
   text-align: center;
+  width: 20px;
 }
 
 .singleProd {

@@ -1,6 +1,6 @@
 import React from 'react';
 
-const UserIcon = () => {
+const UserIcon = ({ setshowCart, setshowUser }) => {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
@@ -8,6 +8,10 @@ const UserIcon = () => {
       fill="none"
       viewBox="0 0 24 24"
       stroke="currentColor"
+      onMouseEnter={() => {
+        setshowCart(false);
+        setshowUser(true);
+      }}
     >
       <path
         strokeLinecap="round"
