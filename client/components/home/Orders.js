@@ -1,19 +1,28 @@
+
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { getOrder } from "../../store/orders";
 import { Link } from "react-router-dom";
 
+
 class Orders extends Component {
   constructor(props) {
     super(props);
   }
-  async componentDidMount() {}
+
+  async componentDidMount() {
+    const { user } = this.props;
+    console.log(this.props.match);
+
+  }
+
 
   render() {
     const { orders, user } = this.props;
 
     console.log(orders[0].orderItems, user);
     return (
+
       <div className="order-list">
         {orders.map((order) => {
           const itemTotal = (order) => {
@@ -23,7 +32,7 @@ class Orders extends Component {
           };
           return (
             <div className="orders-container" key={order.id}>
-              <div className="order-topper">
+              <div className="order-topper pt-20">
                 <div>Order placed:</div>
                 <div>Total</div>
                 <div>Shipped to:</div>
@@ -54,6 +63,7 @@ class Orders extends Component {
             </div>
           );
         })}
+
       </div>
     );
   }
