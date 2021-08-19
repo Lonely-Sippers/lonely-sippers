@@ -32,10 +32,10 @@ const _deleteORDER = (order) => {
 export const getOrder = (user) => {
   return async (dispatch) => {
     console.log(user);
-    const res = await axios.get(`/api/orders/${user}`);
+    const res = await axios.get(`/api/orders/${user.id}`);
     const order = res.data;
     // console.log(ORDER);
-    console.log(order);
+    console.log(order.orderItems);
 
     dispatch(_getOrder(order));
   };
