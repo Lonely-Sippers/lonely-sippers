@@ -1,11 +1,11 @@
-import axios from "axios";
+import axios from 'axios';
 
 //ACTION TYPES
-const GET_ORDER = "GET_ORDER";
-const CHECK_ORDER = "CHECK_ORDER";
-const CREATE_ORDER = "CREATE_ORDER";
-const ADD_TO_ORDER = "ADD_TO_ORDER";
-const DELETE_FROM_ORDER = "DELETE_FROM_ORDER";
+const GET_ORDER = 'GET_ORDER';
+const CHECK_ORDER = 'CHECK_ORDER';
+const CREATE_ORDER = 'CREATE_ORDER';
+const ADD_TO_ORDER = 'ADD_TO_ORDER';
+const DELETE_FROM_ORDER = 'DELETE_FROM_ORDER';
 
 //ACTION CREATORS
 const _getOrder = (order) => {
@@ -35,7 +35,7 @@ export const getOrder = (user) => {
     const res = await axios.get(`/api/orders/${user.id}`);
     const order = res.data;
     // console.log(ORDER);
-    console.log(order.orderItems);
+    // console.log(order.orderItems);
 
     dispatch(_getOrder(order));
   };
