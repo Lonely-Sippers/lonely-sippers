@@ -1,7 +1,7 @@
-import React, { Component } from 'react';
-import { connect } from 'react-redux';
-import { withRouter, Route, Switch, Redirect } from 'react-router-dom';
-import { Login } from '../AuthForm';
+import React, { Component } from "react";
+import { connect } from "react-redux";
+import { withRouter, Route, Switch, Redirect } from "react-router-dom";
+import { Login } from "../AuthForm";
 
 class Checkout extends Component {
   constructor(props) {
@@ -10,19 +10,23 @@ class Checkout extends Component {
   render() {
     console.log(this.props);
     const { user, cart } = this.props;
-    console.log(user, cart.orderItems);
+    const orderItems = cart.orderItems;
+    console.log(user, orderItems);
+
     return (
       <div className="checkout-container">
-        <div className={'pt-20'}>
-          <p>
-            <strong>Checkout:</strong>
-          </p>
-        </div>
-        <div>
-          <p>
-            {user.firstName} {user.lastName}
-          </p>
-          <p>{user.address}</p>
+        <div className={"pt-20"}>
+          <div>
+            <p>
+              <strong>Checkout:</strong>
+            </p>
+          </div>
+          <div>
+            <p>
+              {user.firstName} {user.lastName}
+            </p>
+            <p>{user.address}</p>
+          </div>
         </div>
       </div>
     );

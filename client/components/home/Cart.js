@@ -3,29 +3,29 @@ import { connect } from "react-redux";
 import { withRouter, Route, Switch, Redirect } from "react-router-dom";
 import { Login } from "../AuthForm";
 import { Link } from "react-router-dom";
+import StripeCheckout from "react-stripe-checkout";
 import { getCart, deleteCart } from "../../store/cart";
 
 // const Cart = ({ isLoggedIn, cart }) => {
 class Cart extends Component {
   constructor(props) {
     super(props);
+    this.state = {
+      checkout: false,
+    };
   }
-  // async componentDidMount() {
-  //   const { user } = this.props;
+  componentDidMount() {}
 
-  //   await this.props.getCart(user);
-  // }
-  // async componentDidUpdate(prev) {
-  //   if (prev.cart.length !== this.props.length) {
-  //     const { user } = this.props;
-  //     await this.props.getCart(user);
-  //   }
-  // }
   render() {
     const { isLoggedIn, cart, user, products } = this.props;
+    let { checkout } = this.state;
 
     const orderItems = cart.orderItems || [];
-
+    console.log(checkout);
+    const handleToken = (token, addresses) => {
+      console.log(token, addresses);
+    };
+    let total = 0;
     return (
       <div className="pt-20">
         {orderItems.length === 0 ? (
@@ -42,30 +42,50 @@ class Cart extends Component {
                 {orderItems.map((item) => {
                   console.log(item.id);
                   const product = item.product;
+                  total += product.price * 1;
 
                   return (
                     <li key={item.id}>
                       <div>
                         <img src={product.image_URL} alt={product.category} />
                       </div>
-                      <div>{product.category}</div>
+                      <div>
+                        <div>{product.category}</div>
+                        <p>{` $ ${product.price}`}</p>
+                      </div>
+
                       <button
                         onClick={() =>
                           this.props.deleteCart(item.id * 1, user.id * 1)
                         }
                       >
-                        x
+                        Remove item
                       </button>
                     </li>
                   );
                 })}
                 <div>
-                  <Link to="/checkout">
-                    <button>Proceed to checkout</button>
-                  </Link>
+                  {/* <Link to="/checkout"> */}
+                  <button
+                    onClick={() => {
+                      this.setState({ checkout: true });
+                    }}
+                  >
+                    Proceed to checkout
+                  </button>
+                  {/* </Link> */}
                 </div>
               </ul>
             </div>
+          )}
+          {checkout && (
+            <StripeCheckout
+              stripeKey="pk_test_51JQIRkBCNADMq9vuUSF0VtLWEcRAifyQBMZUkkXkjBcqwpE1dLKmnhJUtboCGdKA03eI4IjImmkXJDGQQDwWTN7600gtdbdYhd"
+              token={handleToken}
+              billingAddress
+              shippingAddress
+              amount={total * 100}
+            />
           )}
         </div>
       </div>
