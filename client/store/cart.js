@@ -42,7 +42,19 @@ export const checkCart = (user) => async (dispatch) => {
 
 export const getCart = (user) => {
   return async (dispatch) => {
-    const cart = await (await axios.get(`/api/orders/carts/${user.id}`)).data;
+    let res = await axios.get(`/api/orders/carts/${user.id}`);
+
+    let cart = res.data;
+
+    console.log('IN FETCH CART', cart);
+
+    if (!cart) {
+      res = await axios.post(`/api/orders`, {
+        inProgress: true,
+        userId: user.id,
+      });
+      cart = res.data;
+    }
 
     dispatch(_getCart(cart));
   };

@@ -1,6 +1,6 @@
-import React, { Component } from "react";
-import { connect } from "react-redux";
-import { getOrder } from "../../store/orders";
+import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import { getOrder } from '../../store/orders';
 
 class Orders extends Component {
   constructor(props) {
@@ -9,7 +9,7 @@ class Orders extends Component {
   async componentDidMount() {
     const { user } = this.props;
     console.log(this.props.match);
-    //await this.props.fetchOrders(user.id);
+    console.log('ARE YOU OUT THERE ORDER COMP?');
   }
 
   render() {
@@ -18,7 +18,7 @@ class Orders extends Component {
     console.log(orderItems, user);
     return (
       <div className="orders-container">
-        <div className="order-topper">
+        <div className="order-topper pt-20">
           <div>Order placed:</div>
           <div>Total</div>
           <div>Shipped to:</div>
