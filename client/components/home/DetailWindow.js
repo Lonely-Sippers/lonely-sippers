@@ -1,8 +1,8 @@
-import React, { useState } from "react";
-import { connect } from "react-redux";
-import { Link } from "react-router-dom";
-import StarRating from "./icons/StarRating";
-import { addToCart } from "../../store/cart";
+import React, { useState } from 'react';
+import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
+import StarRating from './icons/StarRating';
+import { addToCart } from '../../store/cart';
 
 const DetailWindow = ({ itemId, products, count, auth, addToCart }) => {
   const product = products.find((product) => product.id === itemId) || {};
@@ -10,8 +10,8 @@ const DetailWindow = ({ itemId, products, count, auth, addToCart }) => {
     product.reviews.reduce((a, r) => a + r.rating, 0) / product.reviews.length;
 
   let classes =
-    "nick   transition duration-1000 ease-in-out transform hover:-translate-y-1 hover:bg-blue-300 hover:scale-110 hover:opacity-100 m-8 p-8 relative";
-  count > 2 ? (classes += " col-span-2") : (classes += " col-span-3");
+    'nick   transition duration-1000 ease-in-out transform hover:-translate-y-1 hover:bg-blue-300 hover:scale-110 hover:opacity-100 m-8 p-8 relative';
+  count > 2 ? (classes += ' col-span-2') : (classes += ' col-span-3');
 
   return (
     <div className={classes}>
@@ -48,7 +48,7 @@ const DetailWindow = ({ itemId, products, count, auth, addToCart }) => {
           </Link>
           <button
             className="btn transition-colors duration-300  mt-4 lg:mt-0 lg:ml-3 rounded-full text-xs font-semibold text-white uppercase py-3 px-8"
-            onClick={() => addToCart(product.id, auth.id)}
+            onClick={() => addToCart(auth.id, product.id)}
           >
             Add to Cart
           </button>
@@ -64,8 +64,11 @@ const mapState = ({ products, auth }) => {
     auth,
   };
 };
-const dispatch = {
-  addToCart,
+const mapDispatch = (dispatch) => {
+  return {
+    addToCart: (userId, productId, total) =>
+      dispatch(addToCart(userId, productId, total)),
+  };
 };
 
-export default connect(mapState, dispatch)(DetailWindow);
+export default connect(mapState, mapDispatch)(DetailWindow);

@@ -20,7 +20,6 @@ const Navbar = ({
   const [showCart, setshowCart] = useState(false);
   const orderItems = cart.orderItems || [];
 
-
   return (
     <nav className="md:flex md:justify-between md:items-center border-b-2 p-2 bg-wood5 px-4 text-wood1 nav">
       <Link to="/">
@@ -29,21 +28,20 @@ const Navbar = ({
         </h1>
       </Link>
 
-
       {isAdmin ? (
-      <div className="mx-4 flexy">
-        {/* The navbar will show these links after you log in */}
-        <div className="mx-4 space-x-3">
-          <Link to="/admin/users">Manage Users</Link>
-          <span />
-          <Link to="/admin/products">Manage Products</Link>
-          <span />
-          <Link to="/admin/orders">View Orders</Link>
+        <div className="mx-4 flexy">
+          {/* The navbar will show these links after you log in */}
+          <div className="mx-4 space-x-3">
+            <Link to="/admin/users">Manage Users</Link>
+            <span />
+            <Link to="/admin/products">Manage Products</Link>
+            <span />
+            <Link to="/admin/orders">View Orders</Link>
+          </div>
         </div>
-      </div>
-    ) : (
-      <div />
-    )}
+      ) : (
+        <div />
+      )}
 
       {isLoggedIn ? (
         <div className="mx-4 flexy items-center relative">
@@ -54,7 +52,6 @@ const Navbar = ({
               href="#"
               onClick={() => {
                 handleClick();
-                history.push('/');
               }}
               className="ml-4"
             >
@@ -64,7 +61,9 @@ const Navbar = ({
 
           <ShoppingBagIcon setshowCart={setshowCart} showCart={showCart} />
 
-          <h4 className="bagCount">3</h4>
+          {orderItems.length > 0 && (
+            <h4 className="bagCount">{orderItems.length}</h4>
+          )}
 
           {userImage ? (
             <img src={userImage} className="navUserImage" />
@@ -114,7 +113,6 @@ const mapState = (state, { history }) => {
     isAdmin: !!state.auth.isAdmin,
     userImage: state.auth.userImage,
     cart: state.cart || {},
-    history,
   };
 };
 

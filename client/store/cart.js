@@ -42,41 +42,40 @@ export const checkCart = (user) => async (dispatch) => {
 
 export const getCart = (user) => {
   return async (dispatch) => {
-    //console.log(user);
     const cart = await (await axios.get(`/api/orders/carts/${user.id}`)).data;
-    // console.log(cart);
 
     dispatch(_getCart(cart));
   };
 };
 
-export const deleteCart = (cart) => async (dispatch) => {
-  await axios.delete(`api/items/${cart.id}`);
-  //console.log(cart);
-  dispatch(_deleteCart(cart));
+export const deleteCart = (itemId, userId) => async (dispatch) => {
+  console.log('in thunk itemId', itemId);
+  await axios.delete(`api/items/${itemId}`);
+  const cart = await axios.get(`/api/orders/carts/${userId}`);
+  dispatch(_deleteCart(cart.data));
 };
 
-export const addToCart = (product, user) => async (dispatch) => {
-  const order = await (await axios.get(`/api/orders/carts/${user}`)).data;
-  console.log(order, product);
-  const orderItem = { orderId: order.id, productId: product };
-  console.log(orderItem);
-  const cart = await axios.post('/api/items', orderItem).data;
-  dispatch(_addToCart(cart));
+export const addToCart = (userId, productId) => {
+  return async function (dispatch) {
+    let cart = await (await axios.get(`/api/orders/carts/${userId}`)).data;
+
+    await axios.post('/api/items', { orderId: cart.id, productId });
+
+    cart = await (await axios.get(`/api/orders/carts/${userId}`)).data;
+
+    dispatch(_addToCart(cart));
+  };
 };
 
 //Reducer
-export const cartReducer = (state = [], action) => {
+export const cartReducer = (state = {}, action) => {
   switch (action.type) {
     case GET_CART:
       return action.cart;
     case DELETE_FROM_CART:
-      return state[0].filter((cart) => {
-        console.log(cart, action.cart);
-        cart.id !== action.cart.id;
-      });
+      return action.cart;
     case ADD_TO_CART:
-      return [...state, action.cart];
+      return action.cart;
 
     default:
       return state;
