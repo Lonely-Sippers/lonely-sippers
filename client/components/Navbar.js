@@ -1,13 +1,13 @@
-import React, { useState } from 'react';
-import { connect } from 'react-redux';
-import { Link } from 'react-router-dom';
-import { logout } from '../store';
-import Home from './home/Home';
-import { Login } from './AuthForm';
-import { Signup } from './Signup';
-import { withRouter, Route, Switch, Redirect } from 'react-router-dom';
-import UserIcon from './home/icons/UserIcon';
-import ShoppingBagIcon from './home/icons/ShoppingBagIcon';
+import React, { useState } from "react";
+import { connect } from "react-redux";
+import { Link } from "react-router-dom";
+import { logout } from "../store";
+import Home from "./home/Home";
+import { Login } from "./AuthForm";
+import { Signup } from "./Signup";
+import { withRouter, Route, Switch, Redirect } from "react-router-dom";
+import UserIcon from "./home/icons/UserIcon";
+import ShoppingBagIcon from "./home/icons/ShoppingBagIcon";
 
 const Navbar = ({
   handleClick,
@@ -16,6 +16,7 @@ const Navbar = ({
   userImage,
   cart,
   history,
+  id,
 }) => {
   const [showCart, setshowCart] = useState(false);
   const orderItems = cart.orderItems || [];
@@ -52,18 +53,21 @@ const Navbar = ({
               href="#"
               onClick={() => {
                 handleClick();
+
               }}
               className="ml-4"
             >
               Logout
             </a>
           </div>
-
+          <Link to="/orders">Orders</Link>
           <ShoppingBagIcon setshowCart={setshowCart} showCart={showCart} />
+
 
           {orderItems.length > 0 && (
             <h4 className="bagCount">{orderItems.length}</h4>
           )}
+
 
           {userImage ? (
             <img src={userImage} className="navUserImage" />
@@ -113,6 +117,9 @@ const mapState = (state, { history }) => {
     isAdmin: !!state.auth.isAdmin,
     userImage: state.auth.userImage,
     cart: state.cart || {},
+
+    id: state.auth.id,
+
   };
 };
 

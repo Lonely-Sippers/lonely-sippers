@@ -1,8 +1,9 @@
-import React, { Component } from 'react';
-import { connect } from 'react-redux';
-import { withRouter, Route, Switch, Redirect } from 'react-router-dom';
-import { Login } from '../AuthForm';
-import { getCart, deleteCart } from '../../store/cart';
+import React, { Component } from "react";
+import { connect } from "react-redux";
+import { withRouter, Route, Switch, Redirect } from "react-router-dom";
+import { Login } from "../AuthForm";
+import { Link } from "react-router-dom";
+import { getCart, deleteCart } from "../../store/cart";
 
 // const Cart = ({ isLoggedIn, cart }) => {
 class Cart extends Component {
@@ -59,7 +60,9 @@ class Cart extends Component {
                   );
                 })}
                 <div>
-                  <button>Checkout</button>
+                  <Link to="/checkout">
+                    <button>Proceed to checkout</button>
+                  </Link>
                 </div>
               </ul>
             </div>
