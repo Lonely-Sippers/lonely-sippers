@@ -1,13 +1,13 @@
-const router = require('express').Router();
+const router = require("express").Router();
 const {
   models: { Order, OrderItem, Product },
-} = require('../db');
-const User = require('../db/models/User');
+} = require("../db");
+const User = require("../db/models/User");
 
 module.exports = router;
 
 // shows all processed orders
-router.get('/', async (req, res, next) => {
+router.get("/", async (req, res, next) => {
   try {
     const orders = await Order.findAll({
       where: {
@@ -22,17 +22,19 @@ router.get('/', async (req, res, next) => {
 });
 
 //create a cart
-router.post('/', async (req, res) => {
+router.post("/", async (req, res) => {
   res.status(201).send(await Order.create(req.body));
 });
 
-router.get('/:id', async (req, res, next) => {
+//all orders for a spec user
+router.get("/:id", async (req, res, next) => {
   try {
-    const orders = await Order.findAll({
+    const orders = await Order.findOne({
       where: {
-        inProgress: true,
+        inProgress: false,
         userId: req.params.id,
       },
+      include: { model: OrderItem, include: { model: Product } },
     });
     res.json(orders);
     console.log(orders);
@@ -42,7 +44,7 @@ router.get('/:id', async (req, res, next) => {
 });
 
 //all carts
-router.get('/carts', async (req, res, next) => {
+router.get("/carts", async (req, res, next) => {
   try {
     const orders = await Order.findAll({
       where: {
@@ -57,7 +59,7 @@ router.get('/carts', async (req, res, next) => {
 });
 
 //cart for a spec user
-router.get('/carts/:id', async (req, res, next) => {
+router.get("/carts/:id", async (req, res, next) => {
   try {
     const orders = await Order.findOne({
       where: {
@@ -66,18 +68,12 @@ router.get('/carts/:id', async (req, res, next) => {
       },
       include: { model: OrderItem, include: { model: Product } },
     });
-    // const cart = await OrderItem.findAll({
-    //   where: {
-    //     orderId: orders.id,
-    //   },
-    // });
 
     res.send(orders);
-    // console.log(orders);
   } catch (err) {
     next(err);
   }
 });
 
 //specific cart item
-router.get('/carts/cart/:item');
+router.get("/carts/cart/:item");

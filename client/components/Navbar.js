@@ -1,13 +1,13 @@
-import React, { useState } from 'react';
-import { connect } from 'react-redux';
-import { Link } from 'react-router-dom';
-import { logout } from '../store';
-import Home from './home/Home';
-import { Login } from './AuthForm';
-import { Signup } from './Signup';
-import { withRouter, Route, Switch, Redirect } from 'react-router-dom';
-import UserIcon from './home/icons/UserIcon';
-import ShoppingBagIcon from './home/icons/ShoppingBagIcon';
+import React, { useState } from "react";
+import { connect } from "react-redux";
+import { Link } from "react-router-dom";
+import { logout } from "../store";
+import Home from "./home/Home";
+import { Login } from "./AuthForm";
+import { Signup } from "./Signup";
+import { withRouter, Route, Switch, Redirect } from "react-router-dom";
+import UserIcon from "./home/icons/UserIcon";
+import ShoppingBagIcon from "./home/icons/ShoppingBagIcon";
 
 const Navbar = ({
   handleClick,
@@ -16,10 +16,10 @@ const Navbar = ({
   userImage,
   cart,
   history,
+  id,
 }) => {
   const [showCart, setshowCart] = useState(false);
   const orderItems = cart.orderItems || [];
-
 
   return (
     <nav className="md:flex md:justify-between md:items-center border-b-2 p-2 bg-wood5 px-4 text-wood1 nav">
@@ -29,21 +29,20 @@ const Navbar = ({
         </h1>
       </Link>
 
-
       {isAdmin ? (
-      <div className="mx-4 flexy">
-        {/* The navbar will show these links after you log in */}
-        <div className="mx-4 space-x-3">
-          <Link to="/admin/users">Manage Users</Link>
-          <span />
-          <Link to="/admin/products">Manage Products</Link>
-          <span />
-          <Link to="/admin/orders">View Orders</Link>
+        <div className="mx-4 flexy">
+          {/* The navbar will show these links after you log in */}
+          <div className="mx-4 space-x-3">
+            <Link to="/admin/users">Manage Users</Link>
+            <span />
+            <Link to="/admin/products">Manage Products</Link>
+            <span />
+            <Link to="/admin/orders">View Orders</Link>
+          </div>
         </div>
-      </div>
-    ) : (
-      <div />
-    )}
+      ) : (
+        <div />
+      )}
 
       {isLoggedIn ? (
         <div className="mx-4 flexy items-center relative">
@@ -54,18 +53,16 @@ const Navbar = ({
               href="#"
               onClick={() => {
                 handleClick();
-                history.push('/');
+                history.push("/");
               }}
               className="ml-4"
             >
               Logout
             </a>
           </div>
-
+          <Link to="/orders">Orders</Link>
           <ShoppingBagIcon setshowCart={setshowCart} showCart={showCart} />
-
           <h4 className="bagCount">3</h4>
-
           {userImage ? (
             <img src={userImage} className="navUserImage" />
           ) : (
@@ -115,6 +112,7 @@ const mapState = (state, { history }) => {
     userImage: state.auth.userImage,
     cart: state.cart || {},
     history,
+    id: state.auth.id,
   };
 };
 
