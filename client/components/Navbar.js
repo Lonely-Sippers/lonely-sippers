@@ -1,13 +1,13 @@
-import React, { useState } from "react";
-import { connect } from "react-redux";
-import { Link } from "react-router-dom";
-import { logout } from "../store";
-import Home from "./home/Home";
-import { Login } from "./AuthForm";
-import { Signup } from "./Signup";
-import { withRouter, Route, Switch, Redirect } from "react-router-dom";
-import UserIcon from "./home/icons/UserIcon";
-import ShoppingBagIcon from "./home/icons/ShoppingBagIcon";
+import React, { useState } from 'react';
+import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
+import { logout } from '../store';
+import Home from './home/Home';
+import { Login } from './AuthForm';
+import { Signup } from './Signup';
+import { withRouter, Route, Switch, Redirect } from 'react-router-dom';
+import UserIcon from './home/icons/UserIcon';
+import ShoppingBagIcon from './home/icons/ShoppingBagIcon';
 
 const Navbar = ({
   handleClick,
@@ -19,6 +19,8 @@ const Navbar = ({
   id,
 }) => {
   const [showCart, setshowCart] = useState(false);
+  const [showUser, setshowUser] = useState(false);
+
   const orderItems = cart.orderItems || [];
 
   return (
@@ -49,30 +51,28 @@ const Navbar = ({
           {/* The navbar will show these links after you log in */}
           <div className="flexy items-center">
             <Home />
-            <a
-              href="#"
-              onClick={() => {
-                handleClick();
-
-              }}
-              className="ml-4"
-            >
-              Logout
-            </a>
           </div>
-          <Link to="/orders">Orders</Link>
-          <ShoppingBagIcon setshowCart={setshowCart} showCart={showCart} />
 
+          <ShoppingBagIcon
+            setshowCart={setshowCart}
+            setshowUser={setshowUser}
+          />
 
           {orderItems.length > 0 && (
             <h4 className="bagCount">{orderItems.length}</h4>
           )}
 
-
           {userImage ? (
-            <img src={userImage} className="navUserImage" />
+            <img
+              src={userImage}
+              className="navUserImage"
+              onMouseEnter={() => {
+                setshowUser(true);
+                setshowCart(false);
+              }}
+            />
           ) : (
-            <UserIcon />
+            <UserIcon setshowUser={setshowUser} setshowCart={setshowCart} />
           )}
         </div>
       ) : (
@@ -84,8 +84,11 @@ const Navbar = ({
             </Link>
             <Link to="/signup">Sign Up</Link>
 
-            <ShoppingBagIcon setshowCart={setshowCart} />
-            <UserIcon />
+            <ShoppingBagIcon
+              setshowUser={setshowUser}
+              setshowCart={setshowCart}
+            />
+            <UserIcon setshowUser={setshowUser} setshowCart={setshowCart} />
           </div>
         </div>
       )}
@@ -104,6 +107,27 @@ const Navbar = ({
           </ul>
         </div>
       )}
+
+      {showUser && (
+        <div className="userDrop" onMouseLeave={() => setshowUser(false)}>
+          <h4 className="font-semibold	m-1">Account Details</h4>
+          <hr className="text-wood4"></hr>
+          <h4 className="font-semibold	m-1">
+            <Link to="/orders">View Past Orders</Link>
+          </h4>
+          <hr className="text-wood4 mb-2"></hr>
+
+          <h4
+            className="font-semibold	m-1 mt-4 logout"
+            onClick={() => {
+              handleClick();
+            }}
+          >
+            Logout
+          </h4>
+          <hr className="text-wood4"></hr>
+        </div>
+      )}
     </nav>
   );
 };
@@ -119,7 +143,6 @@ const mapState = (state, { history }) => {
     cart: state.cart || {},
 
     id: state.auth.id,
-
   };
 };
 

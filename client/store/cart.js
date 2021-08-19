@@ -46,8 +46,6 @@ export const getCart = (user) => {
 
     let cart = res.data;
 
-    console.log('IN FETCH CART', cart);
-
     if (!cart) {
       res = await axios.post(`/api/orders`, {
         inProgress: true,
@@ -61,7 +59,6 @@ export const getCart = (user) => {
 };
 
 export const deleteCart = (itemId, userId) => async (dispatch) => {
-  console.log('in thunk itemId', itemId);
   await axios.delete(`api/items/${itemId}`);
   const cart = await axios.get(`/api/orders/carts/${userId}`);
   dispatch(_deleteCart(cart.data));
