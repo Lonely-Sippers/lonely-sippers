@@ -40,6 +40,7 @@ class Cart extends Component {
             <div className="cart">
               <ul className="cart-items">
                 {orderItems.map((item) => {
+                  console.log(item.id);
                   const product = item.product;
 
                   return (
@@ -48,7 +49,11 @@ class Cart extends Component {
                         <img src={product.image_URL} alt={product.category} />
                       </div>
                       <div>{product.category}</div>
-                      <button onClick={() => this.props.deleteCart(item)}>
+                      <button
+                        onClick={() =>
+                          this.props.deleteCart(item.id * 1, user.id * 1)
+                        }
+                      >
                         x
                       </button>
                     </li>
@@ -72,7 +77,7 @@ const mapState = (state) => {
   return {
     isLoggedIn: !!state.auth.id,
     cart: state.cart || {},
-    user: state.auth,
+    user: state.auth || {},
     // products: state.products,
   };
 };

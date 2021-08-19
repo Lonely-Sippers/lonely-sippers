@@ -53,7 +53,7 @@ const Navbar = ({
               href="#"
               onClick={() => {
                 handleClick();
-                history.push("/");
+
               }}
               className="ml-4"
             >
@@ -62,7 +62,13 @@ const Navbar = ({
           </div>
           <Link to="/orders">Orders</Link>
           <ShoppingBagIcon setshowCart={setshowCart} showCart={showCart} />
-          <h4 className="bagCount">3</h4>
+
+
+          {orderItems.length > 0 && (
+            <h4 className="bagCount">{orderItems.length}</h4>
+          )}
+
+
           {userImage ? (
             <img src={userImage} className="navUserImage" />
           ) : (
@@ -111,8 +117,9 @@ const mapState = (state, { history }) => {
     isAdmin: !!state.auth.isAdmin,
     userImage: state.auth.userImage,
     cart: state.cart || {},
-    history,
+
     id: state.auth.id,
+
   };
 };
 

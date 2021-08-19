@@ -50,7 +50,7 @@ export const writeReview = (review) => {
 
     const res = await axios.get(`/api/products/${review.productId}`);
     const product = res.data;
-    console.log('thunk', product);
+
     dispatch(wroteReview(product));
   };
 };

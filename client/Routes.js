@@ -15,14 +15,17 @@ import ShoppingWindow from "./components/home/ShoppingWindow";
 import { getProducts } from "../client/store/products";
 // import { addToCart, delFromCart, updateCart } from '../client/store/products';
 
-import { Signup } from "./components/Signup";
-import SingleProduct from "./components/home/SingleProduct";
-import AdminManageUsers from "./components/home/AdminAllUsers";
-import AdminManageProducts from "./components/home/AdminAllProducts";
-import AdminSingleProduct from "./components/home/Admin_SingleProduct";
+
+import { Signup } from './components/Signup';
+import SingleProduct from './components/home/SingleProduct';
+import AdminManageUsers from './components/home/AdminAllUsers';
+import AdminManageProducts from './components/home/AdminAllProducts';
+import AdminSingleProduct from './components/home/Admin_SingleProduct';
+
 
 import Checkout from "./components/home/Checkout";
 import Orders from "./components/home/Orders";
+
 
 /**
  * COMPONENT
@@ -43,10 +46,11 @@ class Routes extends Component {
       await this.props.getCart(user);
     }
     if (prevProps.isLoggedIn && !this.props.isLoggedIn) {
-      console.log("logout firing!");
-      const { user } = this.props;
 
-      await this.props.getCart(user);
+      // console.log('logout firing!');
+      // const { user } = this.props;
+      // await this.props.getCart(user);
+
     }
   }
 
@@ -64,18 +68,21 @@ class Routes extends Component {
           </Switch>
         </div>
 
-        <Route exact path="/cart" component={Cart} />
-        <Route exact path="/products/:id" component={SingleProduct} />
-        <Route exact path="/:filter?" component={ShoppingWindow} />
-        <Route exact path="/admin/users" component={AdminManageUsers} />
-        <Route exact path="/admin/products" component={AdminManageProducts} />
-        <Route
-          exact
-          path="/admin/products/:id"
-          component={AdminSingleProduct}
-        />
-        <Route exact path="/checkout" component={Checkout} />
+        <Switch>
+          <Route exact path="/cart" component={Cart} />
+          <Route exact path="/products/:id" component={SingleProduct} />
+          <Route exact path="/:filter?" component={ShoppingWindow} />
+          <Route exact path="/admin/users" component={AdminManageUsers} />
+          <Route exact path="/admin/products" component={AdminManageProducts} />
+          <Route
+            exact
+            path="/admin/products/:id"
+            component={AdminSingleProduct}
+          />
+              <Route exact path="/checkout" component={Checkout} />
         <Route exact path="/orders" component={Orders} />
+        </Switch>
+
       </div>
     );
   }

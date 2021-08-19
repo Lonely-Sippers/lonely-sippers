@@ -1,24 +1,26 @@
-
 import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
 import StarRating from './icons/StarRating';
 import { Link } from 'react-router-dom';
 import { writeReview } from '../../store/products';
 import axios from 'axios';
-import { addToCart } from "../../store/cart";
+import { addToCart } from '../../store/cart';
 
-const SingleProduct = ({ product, writeReview, user }) => {
+const SingleProduct = ({ product, writeReview, user, addToCart }) => {
   console.log('singleProdUser', user);
   let reviews = product.reviews || [];
 
-
   let rating = [];
-
 
   if (reviews) {
     rating = reviews.reduce((a, r) => a + r.rating, 0) / reviews.length;
   }
 
+  let yourReview = null;
+
+  if (reviews) {
+    yourReview = reviews.find((rev) => rev.user.id === user.id);
+  }
 
   return (
     <div className="container mx-auto wood4 pt-20  lg:grid lg:grid-cols-5">
@@ -42,18 +44,45 @@ const SingleProduct = ({ product, writeReview, user }) => {
           </div>
         </div>
         <div className="mx-12">
-          <h3 className="font-semibold py-4">User Reviews</h3>
-          <hr className="wood1 py-4"></hr>
-          {reviews &&
-            reviews.map((review) => (
-              <div key={review.id}>
+          {yourReview && (
+            <div>
+              <h3 className="font-semibold py-4">Your Review</h3>
+              <hr className="wood1 py-4"></hr>
+              <div key={yourReview.id}>
+                <h1 className="mb-2">
+                  Thank you for leaving a review{' '}
+                  <strong>{yourReview.user.username}</strong>!
+                </h1>
                 <div>
-                  {review.user.username} <StarRating rating={review.rating} />
+                  <StarRating rating={yourReview.rating} />
                 </div>
-                <p className="pb-8">{review.writtenReview}</p>
+                <p className="pb-8">{yourReview.writtenReview}</p>
+                <button className="btn transition-colors duration-300  mt-2 mb-4 lg:mt-0   rounded-full text-xs font-semibold text-white uppercase py-3 px-8">
+                  Edit Review
+                </button>
                 <hr className="wood1 py-4"></hr>
               </div>
-            ))}
+            </div>
+          )}
+
+          <h3 className="font-semibold py-4 mb-4">User Reviews</h3>
+          {/* <hr className="wood1 py-4"></hr> */}
+
+          {reviews &&
+            reviews.map((review) => {
+              if (!yourReview || review.id !== yourReview.id) {
+                return (
+                  <div key={review.id}>
+                    <div>
+                      {review.user.username}{' '}
+                      <StarRating rating={review.rating} />
+                    </div>
+                    <p className="pb-8">{review.writtenReview}</p>
+                    <hr className="wood1 py-4"></hr>
+                  </div>
+                );
+              }
+            })}
         </div>
       </div>
 
@@ -74,7 +103,7 @@ const SingleProduct = ({ product, writeReview, user }) => {
           <div className="md:flex md:justify-between py-8  wider">
             <button
               className="btn transition-colors duration-300  mt-4 lg:mt-0  rounded-full text-xs font-semibold text-white uppercase py-3 px-8"
-              onClick={() => addToCart(product.id, auth.id)}
+              onClick={() => addToCart(user.id, product.id)}
             >
               Add to Cart
             </button>
@@ -95,28 +124,23 @@ const mapState = ({ products, auth }, history) => {
   const product =
     products.find((prod) => prod.id === history.match.params.id * 1) || {};
 
-  let rating = product.rating || 0;
-
   return {
     product: product || {},
     // rating: rating,
     history,
 
     user: auth,
-
   };
 };
 
 const mapDispatch = (dispatch) => {
   return {
-
+    addToCart: (userId, productId, total) =>
+      dispatch(addToCart(userId, productId, total)),
     writeReview: (rating, userId, productId, written) =>
       dispatch(
         writeReview({ rating, userId, productId, writtenReview: written })
       ),
-
-    addToCart,
-
   };
 };
 export default connect(mapState, mapDispatch)(SingleProduct);

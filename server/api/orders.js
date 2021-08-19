@@ -26,6 +26,7 @@ router.post("/", async (req, res) => {
   res.status(201).send(await Order.create(req.body));
 });
 
+
 //all orders for a spec user
 router.get("/:id", async (req, res, next) => {
   try {
@@ -58,6 +59,7 @@ router.get("/carts", async (req, res, next) => {
   }
 });
 
+
 //cart for a spec user
 router.get("/carts/:id", async (req, res, next) => {
   try {
@@ -75,5 +77,7 @@ router.get("/carts/:id", async (req, res, next) => {
   }
 });
 
+
 //specific cart item
 router.get("/carts/cart/:item");
+
