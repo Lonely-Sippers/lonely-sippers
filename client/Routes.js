@@ -5,6 +5,7 @@ import { withRouter, Route, Switch, Redirect } from "react-router-dom";
 import { Login } from "./components/AuthForm";
 import Advertisement from "./components/home/Advertisement";
 import { getCart, checkCart } from "./store/cart";
+import { getOrder } from "./store/orders";
 import Navbar from "./components/Navbar";
 
 //import Home from './components/Home';
@@ -34,6 +35,7 @@ class Routes extends Component {
     const { user } = this.props;
     // if (user) {
     await this.props.getCart(user);
+    await this.props.getOrder(user);
     // }
   }
   async componentDidUpdate(prevProps) {
@@ -103,6 +105,7 @@ const mapDispatch = (dispatch) => {
     getProducts: () => dispatch(getProducts()),
     getCart: (user) => dispatch(getCart(user)),
     checkCart,
+    getOrder: (user) => dispatch(getOrder(user)),
   };
 };
 

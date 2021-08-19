@@ -136,3 +136,9 @@
   display: flex;
   justify-content: space-evenly;
 }
+.listItems img {
+  width: 5rem;
+}
+.orders-listItems {
+  display: flex;
+}
