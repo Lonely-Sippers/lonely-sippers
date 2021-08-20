@@ -1,11 +1,12 @@
-import axios from 'axios';
+import axios from "axios";
 
 //ACTION TYPES
-const GET_CART = 'GET_CART';
-const CHECK_CART = 'CHECK_CART';
-const CREATE_CART = 'CREATE_CART';
-const ADD_TO_CART = 'ADD_TO_CART';
-const DELETE_FROM_CART = 'DELETE_FROM_CART';
+const GET_CART = "GET_CART";
+const CHECK_CART = "CHECK_CART";
+const CREATE_CART = "CREATE_CART";
+const ADD_TO_CART = "ADD_TO_CART";
+const DELETE_FROM_CART = "DELETE_FROM_CART";
+const UPDATE_CART = "UPDATE_CAR";
 
 //ACTION CREATORS
 const _getCart = (cart) => {
@@ -28,12 +29,12 @@ const _addToCart = (cart) => {
     cart,
   };
 };
-//ACTION THUNKS
 
-export const createCart = (user) => async (dispatch) => {
-  const cart = { inProgress: true, userId: user };
-  await axios.post('/api/orders/', cart);
+const _updateCart = (cart) => {
+  return {};
 };
+
+//ACTION THUNKS
 
 export const checkCart = (user) => async (dispatch) => {
   const cart = (await axios.get(`/api/orders/carts/${user.id}`)).data;
@@ -67,13 +68,30 @@ export const deleteCart = (itemId, userId) => async (dispatch) => {
 export const addToCart = (userId, productId) => {
   return async function (dispatch) {
     let cart = await (await axios.get(`/api/orders/carts/${userId}`)).data;
+    const check = { orderId: cart.id, productId, total: 1 };
 
-    await axios.post('/api/items', { orderId: cart.id, productId });
+    await axios.post("/api/items", { orderId: cart.id, productId, total: 1 });
 
     cart = await (await axios.get(`/api/orders/carts/${userId}`)).data;
 
     dispatch(_addToCart(cart));
   };
+};
+
+//here
+export const updateCart = (user, carts) => {
+  return async function (dispatch) {
+    carts.inProgress = false;
+    console.log(user.id);
+    const cart = await axios.put(`/api/orders/carts/${carts.id}`, carts).data;
+    createCart(user.id);
+  };
+};
+
+export const createCart = (user) => async (dispatch) => {
+  const res = { inProgress: true, userId: user };
+  const cart = await axios.post("/api/orders", res);
+  dispatch(_addToCart(cart));
 };
 
 //Reducer

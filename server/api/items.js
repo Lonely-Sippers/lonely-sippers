@@ -10,6 +10,14 @@ router.get("/:id", async (req, res) => {
   res.json(Item);
 });
 
+router.get("/item/:id", async (req, res) => {
+  const item = await OrderItem.findAll({
+    where: {
+      orderId: req.params.id,
+    },
+  });
+});
+
 router.delete("/:id", async (req, res) => {
   const Item = await OrderItem.findByPk(req.params.id);
   await Item.destroy();
