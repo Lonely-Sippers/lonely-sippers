@@ -53,10 +53,12 @@ const Navbar = ({
             <Home />
           </div>
 
-          <ShoppingBagIcon
-            setshowCart={setshowCart}
-            setshowUser={setshowUser}
-          />
+          <Link to="/cart">
+            <ShoppingBagIcon
+              setshowCart={setshowCart}
+              setshowUser={setshowUser}
+            />
+          </Link>
 
           {orderItems.length > 0 && (
             <h4 className="bagCount">
@@ -86,18 +88,18 @@ const Navbar = ({
             </Link>
             <Link to="/signup">Sign Up</Link>
 
-            <ShoppingBagIcon
-              setshowUser={setshowUser}
-              setshowCart={setshowCart}
-            />
+            <Link to="/cart">
+              <ShoppingBagIcon
+                setshowCart={setshowCart}
+                setshowUser={setshowUser}
+              />
+            </Link>
             <UserIcon setshowUser={setshowUser} setshowCart={setshowCart} />
           </div>
         </div>
       )}
       {showCart && (
         <div className="cartDrop" onMouseLeave={() => setshowCart(false)}>
-          <h4 className="font-semibold	m-1">Proceed to Checkout</h4>
-          <hr className="text-wood4"></hr>
           <h4 className="font-semibold	m-1">
             <Link to="/cart">View Cart</Link>
           </h4>
