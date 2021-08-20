@@ -6,19 +6,35 @@ import { Link } from 'react-router-dom';
 import StripeCheckout from 'react-stripe-checkout';
 import { getCart, deleteCart, updateCart } from '../../store/cart';
 
-const Cart = ({ isLoggedIn, cart, user, products, updateCart, deleteCart }) => {
+const Cart = ({
+  isLoggedIn,
+  cart,
+  user,
+  products,
+  updateCart,
+  deleteCart,
+  getCart,
+}) => {
   const [checkout, setcheckout] = useState(false);
-  const [localCart, setlocalCart] = useState(cart);
+  const [localCart, setlocalCart] = useState({});
 
-  const useCart = localCart || cart;
+  useEffect(() => {
+    setlocalCart(cart);
+  }, []);
 
-  const orderItems = useCart.orderItems || [];
+  let orderItems = [];
+
+  if (localCart) {
+    orderItems = localCart.orderItems;
+  }
+
+  if (!orderItems) {
+    orderItems = [];
+  }
 
   const handleToken = async (token, addresses) => {
     setcheckout(false);
-    await updateCart(user, useCart);
-    const newCart = await getCart(user);
-    setlocalCart(newCart);
+    await updateCart(user, cart);
   };
 
   let total = 0;
@@ -137,10 +153,12 @@ const mapState = (state) => {
     // products: state.products,
   };
 };
-const mapDispatchToProps = {
-  getCart,
-  deleteCart,
-  updateCart,
+const mapDispatchToProps = (dispatch) => {
+  return {
+    getCart: (user) => dispatch(getCart(user)),
+    deleteCart: (itemId, userId) => dispatch(deleteCart(itemId, userId)),
+    updateCart: (user, cart) => dispatch(updateCart(user, cart)),
+  };
 };
 
 export default connect(mapState, mapDispatchToProps)(Cart);
