@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { logout } from '../store';
@@ -20,8 +20,15 @@ const Navbar = ({
 }) => {
   const [showCart, setshowCart] = useState(false);
   const [showUser, setshowUser] = useState(false);
+  // const [localCart, setlocalCart] = useState(cart);
+
+  // const useCart = localCart || cart;
 
   const orderItems = cart.orderItems || [];
+
+  // useEffect(() => {
+  //   setlocalCart(cart);
+  // }, []);
 
   return (
     <nav className="md:flex md:justify-between md:items-center border-b-2 p-2 bg-wood5 px-4 text-wood1 nav">
@@ -153,7 +160,7 @@ const mapState = (state, { history }) => {
     isAdmin: !!state.auth.isAdmin,
     userImage: state.auth.userImage,
     cart: state.cart || {},
-
+    user: state.auth,
     id: state.auth.id,
   };
 };
