@@ -4,7 +4,7 @@ import { withRouter, Route, Switch, Redirect } from "react-router-dom";
 import { Login } from "../AuthForm";
 import { Link } from "react-router-dom";
 import StripeCheckout from "react-stripe-checkout";
-import { getCart, deleteCart } from "../../store/cart";
+import { getCart, deleteCart, updateCart } from "../../store/cart";
 
 // const Cart = ({ isLoggedIn, cart }) => {
 class Cart extends Component {
@@ -21,10 +21,12 @@ class Cart extends Component {
     let { checkout } = this.state;
 
     const orderItems = cart.orderItems || [];
-    console.log(checkout);
+    console.log(cart);
     const handleToken = (token, addresses) => {
-      console.log(token, addresses);
+      this.setState({ checkout: false });
+      this.props.updateCart(user, cart);
     };
+
     let total = 0;
     return (
       <div className="pt-20">
@@ -104,6 +106,7 @@ const mapState = (state) => {
 const mapDispatchToProps = {
   getCart,
   deleteCart,
+  updateCart,
 };
 
 export default connect(mapState, mapDispatchToProps)(Cart);
