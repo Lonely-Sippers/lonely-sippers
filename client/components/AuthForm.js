@@ -9,22 +9,31 @@ const AuthForm = (props) => {
   const { name, displayName, handleSubmit, error } = props;
 
   return (
-    <div className="bg-secondary ">
-      <form onSubmit={handleSubmit} name={name} className="flexy p-4 bigz">
+    <div className="bg-primary ">
+      <form
+        onSubmit={handleSubmit}
+        name={name}
+        className="flexy p-4 bigz items-center font-semibold"
+      >
         <div>
-          <label htmlFor="username">
+          <label className="px-2" htmlFor="username">
             <small>Username</small>
           </label>
           <input name="username" type="text" />
         </div>
         <div>
-          <label htmlFor="password">
+          <label className="px-2" htmlFor="password">
             <small>Password</small>
           </label>
           <input name="password" type="password" />
         </div>
         <div>
-          <button type="submit">{displayName}</button>
+          <button
+            type="submit"
+            className="formbtn transition-colors duration-300    lg:ml-3 rounded-full text-xs font-semibold text-white uppercase py-2 px-8 items-center"
+          >
+            {displayName}
+          </button>
         </div>
         {error && error.response && <div> {error.response.data} </div>}
       </form>

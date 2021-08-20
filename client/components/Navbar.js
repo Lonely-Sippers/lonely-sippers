@@ -1,13 +1,13 @@
-import React, { useState } from "react";
-import { connect } from "react-redux";
-import { Link } from "react-router-dom";
-import { logout } from "../store";
-import Home from "./home/Home";
-import { Login } from "./AuthForm";
-import { Signup } from "./Signup";
-import { withRouter, Route, Switch, Redirect } from "react-router-dom";
-import UserIcon from "./home/icons/UserIcon";
-import ShoppingBagIcon from "./home/icons/ShoppingBagIcon";
+import React, { useState } from 'react';
+import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
+import { logout } from '../store';
+import Home from './home/Home';
+import { Login } from './AuthForm';
+import { Signup } from './Signup';
+import { withRouter, Route, Switch, Redirect } from 'react-router-dom';
+import UserIcon from './home/icons/UserIcon';
+import ShoppingBagIcon from './home/icons/ShoppingBagIcon';
 
 const Navbar = ({
   handleClick,
@@ -59,7 +59,9 @@ const Navbar = ({
           />
 
           {orderItems.length > 0 && (
-            <h4 className="bagCount">{orderItems.length}</h4>
+            <h4 className="bagCount">
+              {orderItems.reduce((a, oi) => a + oi.total, 0)}
+            </h4>
           )}
 
           {userImage ? (
@@ -102,7 +104,11 @@ const Navbar = ({
           <hr className="text-wood4 mb-2"></hr>
           <ul className="">
             {orderItems.map((orderItem) => {
-              return <li key={orderItem.id}>{orderItem.product.category}</li>;
+              return (
+                <li key={orderItem.id}>
+                  {orderItem.total} {orderItem.product.category}
+                </li>
+              );
             })}
           </ul>
         </div>
@@ -117,15 +123,19 @@ const Navbar = ({
           </h4>
           <hr className="text-wood4 mb-2"></hr>
 
-          <h4
-            className="font-semibold	m-1 mt-4 logout"
-            onClick={() => {
-              handleClick();
-            }}
-          >
-            Logout
-          </h4>
-          <hr className="text-wood4"></hr>
+          {isLoggedIn && (
+            <div>
+              <h4
+                className="font-semibold	m-1 mt-4 logout"
+                onClick={() => {
+                  handleClick();
+                }}
+              >
+                Logout
+              </h4>
+              <hr className="text-wood4"></hr>
+            </div>
+          )}
         </div>
       )}
     </nav>

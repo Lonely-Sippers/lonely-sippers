@@ -5,11 +5,14 @@ import { Link } from 'react-router-dom';
 import { writeReview } from '../../store/products';
 import axios from 'axios';
 import { addToCart } from '../../store/cart';
+import { Quantity } from './Quantity';
 
 const SingleProduct = ({ product, writeReview, user, addToCart }) => {
   let reviews = product.reviews || [];
 
   let rating = [];
+
+  const [quant, setquant] = useState(1);
 
   if (reviews) {
     rating = reviews.reduce((a, r) => a + r.rating, 0) / reviews.length;
@@ -100,12 +103,15 @@ const SingleProduct = ({ product, writeReview, user, addToCart }) => {
           <p className="py-8">{product.description}</p>
           <h4 className="">Price: ${product.price}</h4>
           <div className="md:flex md:justify-between py-8  wider">
-            <button
-              className="btn transition-colors duration-300  mt-4 lg:mt-0  rounded-full text-xs font-semibold text-white uppercase py-3 px-8"
-              onClick={() => addToCart(user.id, product.id)}
-            >
-              Add to Cart
-            </button>
+            <div>
+              <Quantity setquant={setquant} quant={quant} />
+              <button
+                className="btn transition-colors duration-300  mt-4 lg:mt-0  rounded-full text-xs font-semibold text-white uppercase py-3 px-8"
+                onClick={() => addToCart(user.id, product.id, quant)}
+              >
+                Add to Cart
+              </button>
+            </div>
 
             <Link to={`/`}>
               <button className="btn transition-colors duration-300  mt-4 lg:mt-0  lg:ml-3 rounded-full text-xs font-semibold text-white uppercase py-3 px-8">
