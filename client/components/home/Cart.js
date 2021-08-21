@@ -14,27 +14,27 @@ const Cart = ({
   updateCart,
   deleteCart,
   getCart,
+  loadInitialData,
+  getProducts,
+  getOrder,
 }) => {
   const [checkout, setcheckout] = useState(false);
-  const [localCart, setlocalCart] = useState({});
 
   useEffect(() => {
-    setlocalCart(cart);
+    async function pleaseWork() {
+      await getCart(user);
+    }
+    pleaseWork();
   }, []);
 
-  let orderItems = [];
-
-  if (localCart) {
-    orderItems = localCart.orderItems;
-  }
-
-  if (!orderItems) {
-    orderItems = [];
-  }
+  let orderItems = cart.orderItems || [];
 
   const handleToken = async (token, addresses) => {
     setcheckout(false);
     await updateCart(user, cart);
+
+    await getCart(user);
+    window.location.reload(false);
   };
 
   let total = 0;
@@ -150,7 +150,6 @@ const mapState = (state) => {
     isLoggedIn: !!state.auth.id,
     cart: state.cart || {},
     user: state.auth || {},
-    // products: state.products,
   };
 };
 const mapDispatchToProps = (dispatch) => {
