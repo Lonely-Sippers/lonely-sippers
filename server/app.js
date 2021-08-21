@@ -2,9 +2,7 @@ const path = require("path");
 const express = require("express");
 const cors = require("cors");
 const morgan = require("morgan");
-const stripe = require("stripe")(
-  "sk_test_51JQIRkBCNADMq9vuUfDkJ6FK8kIjsXX17AzxWCvV4Gl2kQeRMiiTl9TlHQ6KLNLW5prlamidVNu8Cs1jurAIuN8M00SGRwrus0"
-);
+const stripe = require("stripe")();
 const { uuid } = require("uuidv4");
 const app = express();
 module.exports = app;

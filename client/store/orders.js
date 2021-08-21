@@ -1,11 +1,9 @@
-import axios from 'axios';
+import axios from "axios";
 
 //ACTION TYPES
-const GET_ORDER = 'GET_ORDER';
-const CHECK_ORDER = 'CHECK_ORDER';
-const CREATE_ORDER = 'CREATE_ORDER';
-const ADD_TO_ORDER = 'ADD_TO_ORDER';
-const DELETE_FROM_ORDER = 'DELETE_FROM_ORDER';
+const GET_ORDER = "GET_ORDER";
+
+const DELETE_FROM_ORDER = "DELETE_FROM_ORDER";
 
 //ACTION CREATORS
 const _getOrder = (order) => {
@@ -23,11 +21,6 @@ const _deleteORDER = (order) => {
 };
 
 //ACTION THUNKS
-
-// export const createOrder = (user) => async (dispatch) => {
-//   const ORDER = { inProgress: true, userId: user };
-//   await axios.post("/api/orders/", ORDER);
-// };
 
 export const getOrder = (user) => {
   return async (dispatch) => {
@@ -52,10 +45,10 @@ export const addToORDER = (product, user) => async (dispatch) => {
 };
 
 //Reducer
-export const orderRecucer = (state = [], action) => {
+export const orderRecucer = (state = {}, action) => {
   switch (action.type) {
     case GET_ORDER:
-      return [...state, action.order];
+      return action.order;
 
     default:
       return state;
