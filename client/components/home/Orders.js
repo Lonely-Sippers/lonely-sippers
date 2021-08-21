@@ -14,10 +14,9 @@ class Orders extends Component {
   }
 
   render() {
-    const { user } = this.props;
-    let orders = this.props.orders || [];
+    const { user, orders } = this.props;
 
-    console.log(orders, user);
+    console.log(orders[0], user);
     return (
       <div className="order-list">
         {orders.map((order) => {
@@ -36,7 +35,7 @@ class Orders extends Component {
                   <div>Shipped to:</div>
                 </div>
                 <div className="order-topper pt-20">
-                  <div>{order.updatedAt.slice(0, -14)}</div>
+                  <div>{order.createdAt.slice(0, -14)}</div>
                   <div>{`$ ${itemTotal(order)}`}</div>
                   <div>{user.firstName}</div>
                 </div>
@@ -75,7 +74,7 @@ class Orders extends Component {
 }
 
 const mapState = (state) => {
-  return { orders: state.orders || {}, user: state.auth };
+  return { orders: state.orders || [], user: state.auth || {} };
 };
 const mapDispatch = (dispatch) => {
   return {

@@ -45,7 +45,7 @@ export const addToORDER = (product, user) => async (dispatch) => {
 };
 
 //Reducer
-export const orderRecucer = (state = {}, action) => {
+export const orderRecucer = (state = [], action) => {
   switch (action.type) {
     case GET_ORDER:
       return action.order;
