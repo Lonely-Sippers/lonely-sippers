@@ -1,10 +1,10 @@
-import React, { useState, useEffect } from 'react';
-import { connect } from 'react-redux';
-import { withRouter, Route, Switch, Redirect } from 'react-router-dom';
-import { Login } from '../AuthForm';
-import { Link } from 'react-router-dom';
-import StripeCheckout from 'react-stripe-checkout';
-import { getCart, deleteCart, updateCart } from '../../store/cart';
+import React, { useState, useEffect } from "react";
+import { connect } from "react-redux";
+import { withRouter, Route, Switch, Redirect } from "react-router-dom";
+import { Login } from "../AuthForm";
+import { Link } from "react-router-dom";
+import StripeCheckout from "react-stripe-checkout";
+import { getCart, deleteCart, updateCart } from "../../store/cart";
 
 const Cart = ({
   isLoggedIn,
@@ -44,8 +44,8 @@ const Cart = ({
       {orderItems.length === 0 ? (
         <div className="container mx-auto flexy flex-col">
           <h1 className="cart cart-header font-semibold justify-center text-center mt-4">
-            {' '}
-            You're cart is empty{' '}
+            {" "}
+            You're cart is empty{" "}
           </h1>
 
           <Link
@@ -62,9 +62,9 @@ const Cart = ({
               {orderItems.length !== 0 && (
                 <div>
                   {orderItems.map((item) => {
-                    console.log(item.id);
+                    console.log(item);
                     const product = item.product;
-                    total += product.price * 1;
+                    total += product.price * item.total * 1;
 
                     return (
                       <div
@@ -110,7 +110,7 @@ const Cart = ({
               </div>
 
               <h1 className="py-8">
-                Order Total:{' $'}
+                Order Total:{" $"}
                 {Math.round(
                   orderItems.reduce((a, item) => {
                     return a + item.total * item.product.price;

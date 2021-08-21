@@ -180,16 +180,27 @@
   display: flex;
   justify-content: space-around;
 }
+.orders-container {
+}
 
 .order-topper {
   display: flex;
   justify-content: space-evenly;
+  background-color: cornflowerblue;
+  font-size: larger;
+}
+
+.order-topper-container {
+  outline: black solid 2px;
 }
 .listItems img {
-  width: 5rem;
+  width: 10rem;
 }
 .orders-listItems {
   display: flex;
+  justify-content: space-evenly;
+  padding: 3rem;
+  align-items: center;
 }
 
 /* .sebastbutton {
