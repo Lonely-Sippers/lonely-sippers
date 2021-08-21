@@ -49,10 +49,11 @@ class Orders extends Component {
                     >
                       <div className>
                         <img src={item.product.image_URL} width="20%" />
+                        {`(${item.total})`}
                       </div>
                       <div>
                         <p> {item.product.category}</p>
-                        <p> {`$ ${item.product.price}`}</p>
+                        <p> {`$ ${item.product.price * item.total}`}</p>
                       </div>
                       <div>
                         <Link to={`/products/${item.productId}`}>
