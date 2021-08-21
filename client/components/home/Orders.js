@@ -53,7 +53,16 @@ class Orders extends Component {
                       </div>
                       <div>
                         <p> {item.product.category}</p>
-                        <p> {`$ ${item.product.price * item.total}`}</p>
+                        <p> price:{`$ ${item.product.price}`}</p>
+
+                        {item.total > 1 ? (
+                          <p>
+                            Subtotal:{" "}
+                            {`(${item.total})items $ ${
+                              item.product.price * item.total
+                            }`}
+                          </p>
+                        ) : null}
                       </div>
                       <div>
                         <Link to={`/products/${item.productId}`}>
