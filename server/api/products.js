@@ -1,13 +1,13 @@
-const router = require("express").Router();
+const router = require('express').Router();
 const {
   models: { Product, Cart },
   models,
-} = require("../db");
-const Review = require("../db/models/Review");
-const User = require("../db/models/User");
+} = require('../db');
+const Review = require('../db/models/Review');
+const User = require('../db/models/User');
 module.exports = router;
 
-router.get("/", async (req, res, next) => {
+router.get('/', async (req, res, next) => {
   try {
     const products = await Product.findAll({
       include: [{ model: Review, include: { model: User } }],
@@ -18,7 +18,7 @@ router.get("/", async (req, res, next) => {
   }
 });
 
-router.get("/:id", async (req, res, next) => {
+router.get('/:id', async (req, res, next) => {
   try {
     const products = await Product.findOne({
       where: { id: req.params.id * 1 },
@@ -30,7 +30,7 @@ router.get("/:id", async (req, res, next) => {
   }
 });
 
-router.post("/", async (req, res, next) => {
+router.post('/', async (req, res, next) => {
   try {
     const newProd = await Product.create(req.body);
     res.json(newProd);
@@ -39,12 +39,13 @@ router.post("/", async (req, res, next) => {
   }
 });
 
-router.delete("/:id", async (req, res) => {
+router.delete('/:id', async (req, res) => {
   const product = await Product.findByPk(req.params.id);
   await product.destroy();
+  res.send(product);
 });
 
-router.put("/:id", async (req, res, next) => {
+router.put('/:id', async (req, res, next) => {
   try {
     const change = await Product.update(req.body, {
       where: {

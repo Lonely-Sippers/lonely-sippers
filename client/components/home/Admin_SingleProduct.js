@@ -1,22 +1,19 @@
-import React from "react";
-import { connect } from "react-redux";
-import { Link } from "react-router-dom";
-import { getSingleProduct, deleteProduct } from "../../store/products";
+import React from 'react';
+import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
+import { getSingleProduct, deleteProduct } from '../../store/products';
 
 const _AdminSingleProduct = (props) => {
-  console.log("PROPS.PRODUCT", props.product);
-  console.log("PROPS", props);
   const id = props.history.match.params.id * 1;
-  console.log("ID!!", id);
 
+  const history = props.history;
+
+  console.log('history in comp', history);
   const product =
     props.products.find((prod) => {
       return prod.id === id;
     }) || {};
-  console.log("singleProduct", product);
-
-  const handleDelete = deleteProduct(id);
-  console.log("HANDLE DELETE", handleDelete);
+  console.log('singleProduct', product);
 
   return (
     <div>
@@ -43,14 +40,14 @@ const _AdminSingleProduct = (props) => {
           </div>
           <h4 className="mb-16">Price: ${product.price}</h4>
           <div className="md:flex md:justify-between py-8 relative bottom-0 wider">
-            <Link to={{ pathname: "/admin/product/edit" }}>
+            <Link to={{ pathname: '/admin/product/edit' }}>
               <button className="btn transition-colors duration-300  mt-4 lg:mt-0  rounded-full text-xs font-semibold text-white uppercase py-3 px-8">
                 Edit This Product
-              </button>{" "}
+              </button>{' '}
             </Link>
             <button
               className="btn transition-colors duration-300  mt-4 lg:mt-0 lg:ml-3 rounded-full text-xs font-semibold text-white uppercase py-3 px-8"
-              onClick={handleDelete}
+              onClick={() => props.deleteProduct(id, history)}
             >
               Delete
             </button>
@@ -69,9 +66,10 @@ const mapStateToProps = ({ products }, history) => {
 };
 
 const mapDispatchToProps = (dispatch) => {
+  console.log('History in dispatch', history);
   return {
     getSingleProduct: (id) => dispatch(getSingleProduct(id)),
-    handleDelete: (id) => dispatch(deleteProduct(id)),
+    deleteProduct: (id, history) => dispatch(deleteProduct(id, history)),
   };
 };
 
