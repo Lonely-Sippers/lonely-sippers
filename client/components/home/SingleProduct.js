@@ -13,6 +13,7 @@ const SingleProduct = ({ product, writeReview, user, addToCart }) => {
   let rating = [];
 
   const [quant, setquant] = useState(1);
+  const [showReview, setshowReview] = useState(false);
 
   if (reviews) {
     rating = reviews.reduce((a, r) => a + r.rating, 0) / reviews.length;
@@ -42,11 +43,12 @@ const SingleProduct = ({ product, writeReview, user, addToCart }) => {
               writeReview={writeReview}
               userId={user.id}
               productId={product.id}
+              setshowReview={setshowReview}
             />
           </div>
         </div>
         <div className="mx-12">
-          {yourReview && (
+          {yourReview ? (
             <div>
               <h3 className="font-semibold py-4">Your Review</h3>
               <hr className="wood1 py-4"></hr>
@@ -64,6 +66,12 @@ const SingleProduct = ({ product, writeReview, user, addToCart }) => {
                 </button>
                 <hr className="wood1 py-4"></hr>
               </div>
+            </div>
+          ) : (
+            <div className="md:flex md:justify-around p-4">
+              <button className="btn transition-colors duration-300  mt-8 mb-4 lg:mt-0   rounded-full text-xs font-semibold text-white uppercase py-3 px-8 justify-around">
+                Write a Customer Review
+              </button>
             </div>
           )}
 
