@@ -45,7 +45,7 @@ const Cart = ({
         <div className="container mx-auto flexy flex-col">
           <h1 className="cart cart-header font-semibold justify-center text-center mt-4">
             {" "}
-            You're cart is empty{" "}
+            Your cart is empty{" "}
           </h1>
 
           <Link
