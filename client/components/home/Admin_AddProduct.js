@@ -6,33 +6,20 @@ import { postProduct } from "../../store/admin";
 class _AddProduct extends React.Component {
   constructor() {
     super();
-    this.state = {
-      category: "",
-      year: 0,
-      alcohol_percentage: "",
-      region: "",
-      price: 0,
-      alcohol_type: "",
-      description: "",
-    };
+    this.state = {};
     this.handleSubmit = this.handleSubmit.bind(this);
+    this.onChange = this.onChange.bind(this);
   }
-
+  onChange(ev) {
+    this.setState({ [ev.target.name]: ev.target.value });
+    //
+  }
 
   handleSubmit(ev) {
     ev.preventDefault();
-    console.log("THIS.PROPS", this.props);
+    console.log("THIS.PROPS", this.state);
     // const product = this.state;
-    this.props.postProduct((props) => this.props.history.push("/products"));
-    this.setState({
-      category: "",
-      year: "",
-      alcohol_percentage: "",
-      region: "",
-      price: "",
-      alcohol_type: "",
-      description: "",
-    });
+    this.props.addProduct(this.state), this.setState({});
   }
 
   render() {
@@ -54,7 +41,9 @@ class _AddProduct extends React.Component {
                 className="appearance-none block w-full bg-gray-200 text-gray-700 border border-red-500 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
                 id="grid-category-name"
                 type="text"
+                onChange={this.onChange}
                 defaultValue={product.category}
+                name="category"
                 placeholder="Name"
               />
               <p className="text-red-500 text-xs italic">Required</p>
@@ -69,6 +58,8 @@ class _AddProduct extends React.Component {
                   step="1"
                   defaultValue={product.year}
                   placeholder="Year"
+                  name="year"
+                  onChange={this.onChange}
                 />
               </div>
               <div className="flex flex-wrap -mx-3 mb-6">
@@ -83,6 +74,8 @@ class _AddProduct extends React.Component {
                     step="1"
                     defaultValue={product.alcohol_percentage}
                     placeholder="Percent"
+                    name="alcohol_percentage"
+                    onChange={this.onChange}
                   />
                   <p className="text-gray-600 text-xs italic">Required</p>
                 </div>
@@ -97,6 +90,8 @@ class _AddProduct extends React.Component {
                       type="text"
                       defaultValue={product.region}
                       placeholder="Region"
+                      onChange={this.onChange}
+                      name="region"
                     />
                     <p className="text-gray-600 text-xs italic">Required</p>
                     <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
@@ -109,6 +104,8 @@ class _AddProduct extends React.Component {
                       step="0.01"
                       defaultValue={product.price}
                       placeholder="Price"
+                      onChange={this.onChange}
+                      name="price"
                     />
                     <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
                       Type
@@ -117,13 +114,15 @@ class _AddProduct extends React.Component {
                       className="block appearance-none w-full bg-gray-200 border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
                       id="grid-state"
                       defaultValue={product.alcohol_type}
+                      name="alcohol_type"
+                      onChange={this.onChange}
                     >
-                      <option>Brandy</option>
-                      <option>Tequila</option>
-                      <option>Gin</option>
-                      <option>Whiskey</option>
-                      <option>Rum</option>
-                      <option>Vodka</option>
+                      <option value="Brandy">Brandy</option>
+                      <option value="Tequila">Tequila</option>
+                      <option value="Gin">Gin</option>
+                      <option value="Whiskey">Whiskey</option>
+                      <option value="Rum">Rum</option>
+                      <option value="Vodka">Vodka</option>
                     </select>
                     <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
                       <svg
@@ -144,6 +143,8 @@ class _AddProduct extends React.Component {
                         type="text"
                         defaultValue={product.description}
                         placeholder="Description"
+                        name="description"
+                        onChange={this.onChange}
                       />
                     </div>
                   </div>
@@ -163,9 +164,9 @@ class _AddProduct extends React.Component {
   }
 }
 
-const mapDispatchToProps = (dispatch, {history}) => {
+const mapDispatchToProps = (dispatch, { history }) => {
   return {
-    postProduct: (product) => dispatch(postProduct(product, history)),
+    addProduct: (product) => dispatch(postProduct(product, history)),
     // handleSubmit(ev) {
     //     ev.preventDefault();
     //     const category = ev.target.category
