@@ -19,6 +19,12 @@
   right: 20px;
 }
 
+.reviewBox {
+  border: 1px solid #deb886;
+  padding: 1rem;
+  border-radius: 5px;
+}
+
 .card {
   position: relative;
   /* border: 2px solid #42291a; */

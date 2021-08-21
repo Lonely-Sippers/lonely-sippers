@@ -6,6 +6,7 @@ import { writeReview } from '../../store/products';
 import axios from 'axios';
 import { addToCart } from '../../store/cart';
 import { Quantity } from './Quantity';
+import ReviewForm from './ReviewForm';
 
 const SingleProduct = ({ product, writeReview, user, addToCart }) => {
   let reviews = product.reviews || [];
@@ -68,10 +69,28 @@ const SingleProduct = ({ product, writeReview, user, addToCart }) => {
               </div>
             </div>
           ) : (
-            <div className="md:flex md:justify-around p-4">
-              <button className="btn transition-colors duration-300  mt-8 mb-4 lg:mt-0   rounded-full text-xs font-semibold text-white uppercase py-3 px-8 justify-around">
-                Write a Customer Review
-              </button>
+            <div>
+              {!showReview ? (
+                <div className="md:flex md:justify-around p-4">
+                  <button
+                    onClick={() => {
+                      setshowReview(!showReview);
+                    }}
+                    className="btn transition-colors duration-300  mt-8 mb-4 lg:mt-0   rounded-full text-xs font-semibold text-white uppercase py-3 px-8 justify-around"
+                  >
+                    Write a Customer Review
+                  </button>
+                </div>
+              ) : (
+                <ReviewForm
+                  rating={yourReview ? yourReview.rating : 0}
+                  writeReview={writeReview}
+                  userId={user.id}
+                  productId={product.id}
+                  setshowReview={setshowReview}
+                  product={product}
+                />
+              )}
             </div>
           )}
 
