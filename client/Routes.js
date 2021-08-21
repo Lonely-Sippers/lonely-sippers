@@ -84,8 +84,6 @@ class Routes extends Component {
           <Route exact path="/orders" component={Orders} />
           <Route exact path="/cart" component={Cart} />
           <Route exact path="/:filter?" component={ShoppingWindow} />
-
-          <Route exact path="/admin/users" component={AdminManageUsers} />
         </Switch>
       </div>
     );
