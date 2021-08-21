@@ -1,13 +1,13 @@
-const router = require('express').Router();
+const router = require("express").Router();
 const {
   models: { Order, OrderItem, Product },
-} = require('../db');
-const User = require('../db/models/User');
+} = require("../db");
+const User = require("../db/models/User");
 
 module.exports = router;
 
 // shows all processed orders
-router.get('/', async (req, res, next) => {
+router.get("/", async (req, res, next) => {
   try {
     const orders = await Order.findAll({
       where: {
@@ -15,34 +15,35 @@ router.get('/', async (req, res, next) => {
       },
     });
     res.json(orders);
-    console.log(orders);
   } catch (err) {
     next(err);
   }
 });
 
 //create a cart
-router.post('/', async (req, res) => {
+router.post("/", async (req, res) => {
   res.status(201).send(await Order.create(req.body));
+  console.log("success");
 });
 
-router.get('/:id', async (req, res, next) => {
+//all orders for a spec user
+router.get("/:id", async (req, res, next) => {
   try {
     const orders = await Order.findAll({
       where: {
-        inProgress: true,
+        inProgress: false,
         userId: req.params.id,
       },
+      include: { model: OrderItem, include: { model: Product } },
     });
     res.json(orders);
-    console.log(orders);
   } catch (err) {
     next(err);
   }
 });
 
 //all carts
-router.get('/carts', async (req, res, next) => {
+router.get("/carts", async (req, res, next) => {
   try {
     const orders = await Order.findAll({
       where: {
@@ -50,14 +51,13 @@ router.get('/carts', async (req, res, next) => {
       },
     });
     res.json(orders);
-    console.log(orders);
   } catch (err) {
     next(err);
   }
 });
 
 //cart for a spec user
-router.get('/carts/:id', async (req, res, next) => {
+router.get("/carts/:id", async (req, res, next) => {
   try {
     const orders = await Order.findOne({
       where: {
@@ -66,18 +66,22 @@ router.get('/carts/:id', async (req, res, next) => {
       },
       include: { model: OrderItem, include: { model: Product } },
     });
-    // const cart = await OrderItem.findAll({
-    //   where: {
-    //     orderId: orders.id,
-    //   },
-    // });
 
     res.send(orders);
-    // console.log(orders);
+  } catch (err) {
+    next(err);
+  }
+});
+
+router.put("/carts/:id", async (req, res, next) => {
+  try {
+    const cart = await Order.findByPk(req.params.id);
+    await cart.update(req.body);
+    res.send(cart);
   } catch (err) {
     next(err);
   }
 });
 
 //specific cart item
-router.get('/carts/cart/:item');
+router.get("/carts/cart/:item");

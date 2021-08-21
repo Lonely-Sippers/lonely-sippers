@@ -8,6 +8,7 @@ const _AdminSingleProduct = (props) => {
   console.log("PROPS", props);
   const id = props.history.match.params.id * 1;
   console.log("ID!!", id);
+
   const product =
     props.products.find((prod) => {
       return prod.id === id;
