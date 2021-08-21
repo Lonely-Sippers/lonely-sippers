@@ -1,15 +1,14 @@
 //Capabilities: see all users, delete a user, see all orders, make user an admin/remove admin?, add/delete products
 import axios from "axios";
+import history from "../history";
 
 //ACTION TYPES
 const VIEW_USERS = "VIEW_USERS";
-const DELETE_USER = "DELETE_USER";
 const GET_USER = "GET_USER";
 const VIEW_ORDERS = "VIEW_ORDERS";
-// const GOT_SINGLE_PRODUCT = "GOT_SINGLE_PRODUCT";
-// const ADD_PRODUCT = "ADD_PRODUCT";
-// const DELETE_PRODUCT = "DELETE_PRODUCT";
 const ADMIN_STATUS = "ADMIN_STATUS";
+const EDIT_PRODUCT = "EDIT_PRODUCT";
+const ADD_PRODUCT = "ADD_PRODUCT";
 
 //ACTION CREATORS
 const getUsers = (users) => {
@@ -33,17 +32,24 @@ const getSingleUser = (user) => {
   };
 };
 
-// const gotSingleProduct = (product) => {
-//   return {
-//     type: GOT_SINGLE_PRODUCT,
-//     product,
-//   };
-// };
-
 const getOrders = (orders) => {
   return {
     type: VIEW_ORDERS,
     orders,
+  };
+};
+
+const addProduct = (product) => {
+  return {
+    type: ADD_PRODUCT,
+    product,
+  };
+};
+
+const updateProduct = (product) => {
+  return {
+    type: EDIT_PRODUCT,
+    product,
   };
 };
 
@@ -71,14 +77,6 @@ export const fetchAllUsers = (users) => {
   };
 };
 
-export const deleteUser = (userId) => {
-  return async (dispatch) => {
-    const res = await axios.delete(`/api/admin/users/${userId}`);
-    const removedUser = res.data;
-    dispatch(deleteUsers(removedUser));
-  };
-};
-
 export const fetchUser = (userId) => {
   return async (dispatch) => {
     const res = await axios.get(`/api/admin/users/${userId}`);
@@ -86,15 +84,6 @@ export const fetchUser = (userId) => {
     dispatch(getSingleUser(gotUser));
   };
 };
-
-// export const getSingleProduct = (productId) => {
-//   console.log("in the STORE!", productId);
-//   return async (dispatch) => {
-//     const res = await axios.get(`/api/admin/products/${productId}`);
-//     const product = res.data;
-//     dispatch(gotSingleProduct(product));
-//   };
-// };
 
 export const fetchAllOrders = (orders) => {
   return async (dispatch) => {
@@ -112,6 +101,27 @@ export const changeAdminStat = (userId) => {
   };
 };
 
+export const editProduct = (id, productInfo) => {
+  console.log("EDIT in the STORE!", id);
+  return async (dispatch) => {
+    const res = await axios.put(`/api/products/${id}`, productInfo);
+    const product = res.data;
+    dispatch(updateProduct(product));
+    history.push(`/admin/products/${id}`);
+  };
+};
+
+export const postProduct = (product) => {
+  console.log("IN STORE", product);
+  return async (dispatch) => {
+    const res = await axios.post("/api/products", product);
+    const newProduct = res.data;
+    dispatch(addProduct(newProduct));
+    history.push("/admin/products");
+    console.log("NEW PRODUCT", newProduct);
+  };
+};
+
 //REDUCER
 
 export const adminReducer = (state = adminState, action) => {
@@ -121,24 +131,25 @@ export const adminReducer = (state = adminState, action) => {
         ...state,
         users: action.users,
       };
-    case DELETE_USER:
-      return {
-        ...state,
-        user: state.users.filter((user) => user.id !== action.userId),
-      };
     case GET_USER:
       return {
         ...state,
         user: action.user,
       };
-    // case GOT_SINGLE_PRODUCT:
-    //   return {
-    //     product: action.product
-    //   };
     case VIEW_ORDERS:
       return {
         ...state,
         orders: action.orders,
+      };
+    case ADD_PRODUCT:
+      return {
+        ...state,
+        product: [...state.products, action.product],
+      };
+    case EDIT_PRODUCT:
+      return {
+        ...state,
+        product: action.product,
       };
     case ADMIN_STATUS:
       return {

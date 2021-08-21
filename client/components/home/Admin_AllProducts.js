@@ -1,11 +1,11 @@
-import React from 'react';
-import { connect } from 'react-redux';
-import { Link } from 'react-router-dom';
-import { getProducts } from '../../store/products';
+import React from "react";
+import { connect } from "react-redux";
+import { Link } from "react-router-dom";
+import { getProducts } from "../../store/products";
 
 class _AdminManageProducts extends React.Component {
   async componentDidMount() {
-    console.log('mounting products');
+    console.log("mounting products");
     await this.props.getProducts();
   }
 
@@ -15,9 +15,11 @@ class _AdminManageProducts extends React.Component {
       <div id="listProducts" className="px-3 container mx-auto">
         <h1 className="pt-20 px-3">Products</h1>
         <div className="pt-3">
-          <button className="bg-white hover:bg-gray-100 text-gray-800 font-semibold py-2 px-4 border border-gray-400 rounded shadow">
-            Add A New Product
-          </button>
+          <Link to={{ pathname: "/admin/product/add" }}>
+            <button className="bg-white hover:bg-gray-100 text-gray-800 font-semibold py-2 px-4 border border-gray-400 rounded shadow">
+              Add A New Product
+            </button>
+          </Link>
         </div>
         <div className="lg:grid lg:grid-cols-6 mt-3 pt-3 px-3 py-3">
           {allProducts.map((product) => {

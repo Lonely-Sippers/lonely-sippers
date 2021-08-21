@@ -22,11 +22,7 @@ class _AdminManageUsers extends React.Component {
   toggleAdmin() {
     let user = this.props.state;
     console.log("fetched user", user);  
-    if (user.isAdmin === true){
-        this.props.updateAdmin(user.id, user.isAdmin)
-    } else {
-        this.props.updateAdmin(user.id, user.isAdmin)
-    }
+    this.props.updateAdmin(user.id, !user.isAdmin)
   }
 
   render() {
