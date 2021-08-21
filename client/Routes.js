@@ -1,29 +1,29 @@
-import React, { Component, Fragment } from "react";
-import axios from "axios";
-import { connect } from "react-redux";
-import { withRouter, Route, Switch, Redirect } from "react-router-dom";
-import { Login } from "./components/AuthForm";
-import Advertisement from "./components/home/Advertisement";
-import { getCart, checkCart } from "./store/cart";
-import { getOrder } from "./store/orders";
-import Navbar from "./components/Navbar";
+import React, { Component, Fragment } from 'react';
+import axios from 'axios';
+import { connect } from 'react-redux';
+import { withRouter, Route, Switch, Redirect } from 'react-router-dom';
+import { Login } from './components/AuthForm';
+import Advertisement from './components/home/Advertisement';
+import { getCart, checkCart } from './store/cart';
+import { getOrder } from './store/orders';
+import Navbar from './components/Navbar';
 
 //import Home from './components/Home';
 
-import { me } from "./store";
-import Cart from "./components/home/Cart";
-import ShoppingWindow from "./components/home/ShoppingWindow";
-import { getProducts } from "../client/store/products";
+import { me } from './store';
+import Cart from './components/home/Cart';
+import ShoppingWindow from './components/home/ShoppingWindow';
+import { getProducts } from '../client/store/products';
 // import { addToCart, delFromCart, updateCart } from '../client/store/products';
 
-import { Signup } from "./components/Signup";
-import SingleProduct from "./components/home/SingleProduct";
-import AdminManageUsers from "./components/home/AdminAllUsers";
-import AdminManageProducts from "./components/home/AdminAllProducts";
-import AdminSingleProduct from "./components/home/Admin_SingleProduct";
+import { Signup } from './components/Signup';
+import SingleProduct from './components/home/SingleProduct';
+import AdminManageUsers from './components/home/AdminAllUsers';
+import AdminManageProducts from './components/home/AdminAllProducts';
+import AdminSingleProduct from './components/home/Admin_SingleProduct';
 
-import Checkout from "./components/home/Checkout";
-import Orders from "./components/home/Orders";
+import Checkout from './components/home/Checkout';
+import Orders from './components/home/Orders';
 
 /**
  * COMPONENT
