@@ -8,6 +8,7 @@ const StarRating = ({
   userId,
   productId,
   isLoggedIn,
+  setyourRating,
 }) => {
   const [userRating, setUserRating] = useState(0);
   let stars = [];
@@ -40,6 +41,13 @@ const StarRating = ({
   if (writeReview && isLoggedIn) {
     review = (rating, userId, productId, written) => {
       writeReview(rating, userId, productId, written);
+    };
+  }
+
+  if (setyourRating && isLoggedIn) {
+    review = () => {
+      setyourRating(userRating);
+      setRated(true);
     };
   }
 
