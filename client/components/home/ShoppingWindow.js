@@ -5,7 +5,7 @@ import Advertisement from './Advertisement'
 
 import FilterButton from './icons/FilterButton'
 
-const ShoppingWindow = props => {
+const ShoppingWindow = (props, { products }) => {
     const liquorTypes = ['Brandy', 'Gin', 'Rum', 'Tequila', 'Vodka', 'Whiskey']
     let count = 0
     return (
@@ -32,7 +32,7 @@ const ShoppingWindow = props => {
                     <hr className="wood1"></hr>
                 </div>
                 <div className="lg:grid lg:grid-cols-6 mt-3">
-                     if(props.products) {{props.products.map(product => {
+                    {products.map(product => {
                         count++
                         return (
                             <DetailWindow
@@ -41,7 +41,7 @@ const ShoppingWindow = props => {
                                 count={count}
                             />
                         )
-                    })}}
+                    })}
                 </div>
             </div>
         </div>
