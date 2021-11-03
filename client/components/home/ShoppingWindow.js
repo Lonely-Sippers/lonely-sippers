@@ -5,7 +5,7 @@ import Advertisement from './Advertisement'
 
 import FilterButton from './icons/FilterButton'
 
-const ShoppingWindow = (props, { products }) => {
+const ShoppingWindow = props => {
     const liquorTypes = ['Brandy', 'Gin', 'Rum', 'Tequila', 'Vodka', 'Whiskey']
     let count = 0
     return (
@@ -32,7 +32,7 @@ const ShoppingWindow = (props, { products }) => {
                     <hr className="wood1"></hr>
                 </div>
                 <div className="lg:grid lg:grid-cols-6 mt-3">
-                    {products.map(product => {
+                    {props.products.map(product => {
                         count++
                         return (
                             <DetailWindow
@@ -50,7 +50,7 @@ const ShoppingWindow = (props, { products }) => {
 
 const mapState = ({ products }, history) => {
     const filter = history.match.params.filter
-    let showProducts = products || []
+    let showProducts = products
 
     if (filter) {
         showProducts = showProducts.filter(
